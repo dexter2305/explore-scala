@@ -4,6 +4,7 @@ import mill.scalalib.scalafmt._
 
 trait GenericModule extends ScalaModule with ScalafmtModule {
   def scalaVersion: T[String] = "3.3.0"
+  override def scalacOptions = Seq("-Xfatal-warnings")
 }
 
 object challenges extends GenericModule {
@@ -14,6 +15,7 @@ object challenges extends GenericModule {
       ivy"org.scalatestplus::scalacheck-1-17:3.2.16.0"
     )
     def testFramework = "org.scalatest.tools.Framework"
+    override def testCachedArgs = Seq("-oD")
   }
 }
 

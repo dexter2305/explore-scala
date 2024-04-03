@@ -177,4 +177,32 @@ object StringProblems:
     val required = if s.length % k != 0 then k - s.length % k else 0
     s.concat(Array.fill(required)(fill).mkString).grouped(k).toArray
 
+  def firstPalindrome(words: Array[String]): String =
+    def isPalindrome(s: String): Boolean =
+      @scala.annotation.tailrec
+      def helper(head: Int = 0, tail: Int): Boolean = (head, tail) match
+        case (h, t) if h <= t => s(h) == s(t) && helper(h + 1, t - 1)
+        case _                => true
+      helper(tail = s.length - 1)
+
+    words.find(isPalindrome) match
+      case Some(s) => s
+      case None    => ""
+
+  def isPalindrome(s: String): Boolean =
+    @scala.annotation.tailrec
+    def aux(head: Int = 0, tail: Int): Boolean =
+      // println(s"$s => ${s(head)} vs ${s(tail)}")
+      if head <= tail then
+        (s(head), s(tail)) match
+          case (x, y) if x.isLetter && y.isLetter =>
+            x.toLower == y.toLower && aux(head + 1, tail - 1)
+          case (x, y) if x.isLetter && !y.isLetter  => aux(head, tail - 1)
+          case (x, y) if !x.isLetter && y.isLetter  => aux(head + 1, tail)
+          case (x, y) if !x.isLetter && !y.isLetter => aux(head + 1, tail - 1)
+      else true
+    s.trim.isEmpty || aux(head = 0, tail = s.length - 1)
+
+  def countSegments(s: String): Int =
+    s.split(' ').filter(!_.isEmpty()).size
 end StringProblems
