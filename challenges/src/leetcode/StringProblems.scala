@@ -205,4 +205,23 @@ object StringProblems:
 
   def countSegments(s: String): Int =
     s.split(' ').filter(!_.isEmpty()).size
+
+  def mergeAlternately(word1: String, word2: String): String =
+    word1
+      .zipAll(word2, "", "")
+      .map: (a, b) =>
+        s"$a$b"
+      .mkString
+
+  def maxDepth(s: String): Int = ???
+
+  def removeTrailingZeros(num: String): String =
+    // num.dropRight(num.reverse.takeWhile(_ == '0').length)
+    num.reverse.dropWhile(_ == '0').reverse
+
+  def countSeniors(details: Array[String]): Int =
+    details
+      .map(_.substring(11, 13))
+      .map(_.toInt)
+      .count(_ > 60)
 end StringProblems

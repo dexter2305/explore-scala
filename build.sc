@@ -20,10 +20,9 @@ object challenges extends GenericModule {
 }
 
 object scalatest extends GenericModule {
-
-  lazy val scalatestVersion = "3.2.18"
   def moduleDeps = Seq(challenges)
   object test extends ScalaTests {
+    lazy val scalatestVersion = "3.2.18"
     def ivyDeps = Agg(
       ivy"org.scalatest::scalatest-funsuite:$scalatestVersion",
       ivy"org.scalatest::scalatest-flatspec:$scalatestVersion",
@@ -34,13 +33,11 @@ object scalatest extends GenericModule {
 }
 
 object munit extends GenericModule {
-
   def moduleDeps = Seq(challenges)
   object test extends ScalaTests {
     def ivyDeps = Agg(
       ivy"org.scalameta::munit:0.7.29"
     )
-
     def testFramework: T[String] = "munit.Framework"
   }
 }
