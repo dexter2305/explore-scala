@@ -10,7 +10,8 @@ lazy val challenges = (project in file("challenges"))
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest-funsuite" % "3.2.18" % Test,
       "org.scalatestplus" %% "scalacheck-1-17" % "3.2.16.0" % Test
-    )
+    ),
+    coverageEnabled := true
   )
 
 lazy val scalatest = (project in file("scalatest"))

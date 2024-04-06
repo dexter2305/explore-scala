@@ -103,25 +103,22 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     for (string, k, expected) <- testcases do assert(StringProblems.truncateSentence(string, k) === expected)
 
   test("1773. Count items matching a rule"):
-    val testcases = List(
+    val testcases = Table(
+      ("product list", "rule key", "rule value", "expected"),
       (
-        (
-          List(List("phone", "blue", "pixel"), List("computer", "silver", "lenovo"), List("phone", "gold", "iphone")),
-          "color",
-          "silver"
-        ),
+        List(List("phone", "blue", "pixel"), List("computer", "silver", "lenovo"), List("phone", "gold", "iphone")),
+        "color",
+        "silver",
         1
       ),
       (
-        (
-          List(List("phone", "blue", "pixel"), List("computer", "silver", "phone"), List("phone", "gold", "iphone")),
-          "type",
-          "phone"
-        ),
+        List(List("phone", "blue", "pixel"), List("computer", "silver", "phone"), List("phone", "gold", "iphone")),
+        "type",
+        "phone",
         2
       )
     )
-    for ((items, ruleKey, ruleValue), expected) <- testcases do
+    forAll(testcases): (items, ruleKey, ruleValue, expected) =>
       assert(StringProblems.countMatches(items, ruleKey, ruleValue) === expected)
 
   test("1832. Check if sentence is pangram"):
@@ -355,4 +352,39 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (sentence, expected) =>
       assert(StringProblems.lengthOfLastWord(sentence) === expected)
+  test("28. Find index of the first occurence in a string"):
+    val testcases = Table(
+      ("haystack", "needle", "expected"),
+      ("sadbutsad", "sad", 0),
+      ("leetcode", "leeto", -1)
+    )
+    forAll(testcases): (haystack, needle, expected) =>
+      assert(StringProblems.strStr(haystack, needle) === expected)
+
+  test("20. Valid parentheses"):
+    val testcases = Table(
+      ("parentheses string", "expected"),
+      ("()", true),
+      ("()[]{}", true),
+      ("(]", false),
+      ("]", false),
+      ("}", false),
+      (")", false)
+    )
+    forAll(testcases): (input, expected) =>
+      assert(StringProblems.isValid(input) === expected)
+
+  test("1249. Minimum remove to make valid parantheses"):
+    val testcases = Table(
+      ("input", "expected"),
+      ("lee(t(c)o)de)", "lee(t(c)o)de"),
+      ("a)b(c)d", "ab(c)d"),
+      ("))((", ""),
+      ("((", ""),
+      ("(()", "()"),
+      ("allgood", "allgood")
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.minRemoveToMakeValid(string) === expected)
+
 end StringProblemsFunsuite

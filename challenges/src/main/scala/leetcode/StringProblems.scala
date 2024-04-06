@@ -260,4 +260,40 @@ object StringProblems:
       case Some(value) =>
         value.trim.length()
 
-end StringProblems
+  def strStr(haystack: String, needle: String): Int =
+    haystack.indexOf(needle)
+
+  def isValid(s: String): Boolean =
+    @scala.annotation.tailrec
+    def aux(string: String, acc: List[Char]): Boolean =
+      string.headOption match
+        case None => acc.size == 0
+        case Some(char) =>
+          char match
+            case ')' | '}' | ']' if acc.isEmpty => false
+            case c @ ('(' | '{' | '[')          => aux(string.tail, c :: acc)
+            case ')' if acc.head == '('         => aux(string.tail, acc.tail)
+            case '}' if acc.head == '{'         => aux(string.tail, acc.tail)
+            case ']' if acc.head == '['         => aux(string.tail, acc.tail)
+            case _                              => false
+    aux(s, List.empty[Char])
+
+  def minRemoveToMakeValid(s: String): String =
+    // scan left to right and ignore excess right parantheses
+    // scan right to left and ignore excess left parantheses
+    val (leftFixedReversedList, _) =
+      s.foldLeft(List.empty[Char], 0): (t, char) =>
+        (t, char) match
+          case ((acc, l), '(') => ('(' :: acc, l + 1)
+          case ((acc, l), ')') => if l > 0 then (')' :: acc, l - 1) else (acc, l)
+          case ((acc, l), c)   => (c :: acc, l)
+
+    val (rFixedList, _) =
+      leftFixedReversedList.foldLeft(List.empty[Char], 0): (t, char) =>
+        (t, char) match
+          case ((acc, r), '(') => if r > 0 then ('(' :: acc, r - 1) else (acc, r)
+          case ((acc, r), ')') => (')' :: acc, r + 1)
+          case ((acc, r), c)   => (c :: acc, r)
+
+    // println(s"first: $s => ${leftFixedReversedList.mkString.reverse} => ${rFixedList.mkString}")
+    rFixedList.mkString
