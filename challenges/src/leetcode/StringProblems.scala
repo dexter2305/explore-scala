@@ -213,7 +213,16 @@ object StringProblems:
         s"$a$b"
       .mkString
 
-  def maxDepth(s: String): Int = ???
+  def maxDepth(s: String): Int =
+    @scala.annotation.tailrec
+    def aux(index: Int, currentDepth: Int, currentMax: Int): Int =
+      if index <= s.length - 1 then
+        s(index) match
+          case c if c == '(' => aux(index + 1, currentDepth + 1, currentMax)
+          case c if c == ')' => aux(index + 1, currentDepth - 1, currentDepth max currentMax)
+          case _             => aux(index + 1, currentDepth, currentMax)
+      else currentDepth max currentMax
+    aux(index = 0, currentDepth = 0, currentMax = 0)
 
   def removeTrailingZeros(num: String): String =
     // num.dropRight(num.reverse.takeWhile(_ == '0').length)
@@ -224,4 +233,31 @@ object StringProblems:
       .map(_.substring(11, 13))
       .map(_.toInt)
       .count(_ > 60)
+
+  def makeGood(s: String): String =
+    // using stack is a much optimized and readable solution yet this is done for the heck of it.
+    // implemented as I was struggling to implement for 2 hours after solving quickly on paper.
+    @scala.annotation.tailrec
+    def loop(string: String, i: Int): String =
+      // println(s"processing $string from index= $i")
+      if i + 1 < string.length then
+        (string(i), string(i + 1)) match
+          case (x, y) if math.abs(x - y) == 32 =>
+            // println(s"found dirty pair '$x$y' @ '$i'.")
+            val newstring = string.substring(0, i).concat(string.substring(i + 2))
+            // println(s"$string => $newstring")
+            loop(newstring, 0)
+          case (x, y) =>
+            // println(s"\t'$x vs $y is ok'")
+            loop(string, i + 1)
+      else string
+    loop(s, 0)
+
+  def lengthOfLastWord(s: String): Int =
+    "\\s*[\\w]*\\s*$".r
+      .findFirstIn(s) match
+      case None => 0
+      case Some(value) =>
+        value.trim.length()
+
 end StringProblems

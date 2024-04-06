@@ -302,17 +302,16 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       assert(StringProblems.mergeAlternately(word1, word2) === expected)
 
   test("1614. Maximum nesting depth of parantheses"):
-    pendingUntilFixed:
-      val testcases = Table(
-        ("string", "expected"),
-        ("(1+(2*3)+((8)/4))+1", 3),
-        ("(1)+((2))+(((3)))", 3),
-        ("", 0),
-        ("()(()())", 2),
-        ("()()", 1)
-      )
-      forAll(testcases): (string, expectation) =>
-        assert(StringProblems.maxDepth(string) === expectation, clue = s"Depth of '$string' is '$expectation'")
+    val testcases = Table(
+      ("string", "expected"),
+      ("(1+(2*3)+((8)/4))+1", 3),
+      ("(1)+((2))+(((3)))", 3),
+      ("", 0),
+      ("()(()())", 2),
+      ("()()", 1)
+    )
+    forAll(testcases): (string, expectation) =>
+      assert(StringProblems.maxDepth(string) === expectation, clue = s"Depth of '$string' is '$expectation'")
 
   test("2710. Remove trailing zeroes from a string"):
     val testcases = Table(
@@ -333,4 +332,27 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (details, expected) =>
       assert(StringProblems.countSeniors(details) === expected)
+
+  test("1544. Make the string great"):
+    val testcases = Table(
+      ("given string", "expected"),
+      ("leetcode", "leetcode"),
+      ("s", "s"),
+      ("", ""),
+      ("abBAcC", ""),
+      ("leEeetcode", "leetcode")
+    )
+    forAll(testcases): (s, expected) =>
+      assert(StringProblems.makeGood(s) === expected)
+
+  test("58. Length of last word"):
+    val testcases = Table(
+      ("sentence", "expected"),
+      ("Hello World", 5),
+      ("   fly me   to   the moon  ", 4),
+      ("luffy is still joyboy", 6),
+      ("a", 1)
+    )
+    forAll(testcases): (sentence, expected) =>
+      assert(StringProblems.lengthOfLastWord(sentence) === expected)
 end StringProblemsFunsuite
