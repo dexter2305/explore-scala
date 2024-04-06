@@ -351,8 +351,31 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("Hello World", 5),
       ("   fly me   to   the moon  ", 4),
       ("luffy is still joyboy", 6),
-      ("a", 1)
+      ("a", 1),
+      ("", 0)
     )
     forAll(testcases): (sentence, expected) =>
       assert(StringProblems.lengthOfLastWord(sentence) === expected)
+
+  test("28. Find index of the first occurence in a string"):
+    val testcases = Table(
+      ("haystack", "needle", "expected"),
+      ("sadbutsad", "sad", 0),
+      ("leetcode", "leeto", -1)
+    )
+    forAll(testcases): (haystack, needle, expected) =>
+      assert(StringProblems.strStr(haystack, needle) === expected)
+
+  test("20. Valid parentheses"):
+    val testcases = Table(
+      ("parentheses string", "expected"),
+      ("()", true),
+      ("()[]{}", true),
+      ("(]", false),
+      ("]", false),
+      ("}", false),
+      (")", false)
+    )
+    forAll(testcases): (input, expected) =>
+      assert(StringProblems.isValid(input) === expected)
 end StringProblemsFunsuite

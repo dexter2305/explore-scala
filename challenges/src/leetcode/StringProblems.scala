@@ -260,4 +260,22 @@ object StringProblems:
       case Some(value) =>
         value.trim.length()
 
+  def strStr(haystack: String, needle: String): Int =
+    haystack.indexOf(needle)
+
+  def isValid(s: String): Boolean =
+    @scala.annotation.tailrec
+    def aux(string: String, acc: List[Char]): Boolean =
+      string.headOption match
+        case None => acc.size == 0
+        case Some(char) =>
+          char match
+            case ')' | '}' | ']' if acc.isEmpty => false
+            case '(' | '{' | '['                => aux(string.tail, char :: acc)
+            case ')' if acc.head == '('         => aux(string.tail, acc.tail)
+            case '}' if acc.head == '{'         => aux(string.tail, acc.tail)
+            case ']' if acc.head == '['         => aux(string.tail, acc.tail)
+            case _                              => false
+    aux(s, List.empty[Char])
+
 end StringProblems
