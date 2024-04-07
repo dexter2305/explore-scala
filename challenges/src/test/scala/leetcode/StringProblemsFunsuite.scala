@@ -219,22 +219,23 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         clue = s"Can construct $ransomeNote from $magazine should be $expected"
       )
 
-  ignore("12047. Number of valid words in a sentence"):
-    val testcases = List(
-      ("cat and  dog", 3),
-      ("!this  1-s b8d!", 0),
-      ("alice and  bob are playing stone-game10", 5),
-      ("0", 0),
-      ("he bought 2 pencils, 3 erasers, and 1  pencil-sharpener.", 6),
-      ("-", 0),
-      (" o6 r", 1),
-      (". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5", 6)
-    )
-    for (testcase, expected) <- testcases do
-      assert(
-        StringProblems.countValidWords(testcase) === expected,
-        clue = s"Expected '${testcase}' to return '$expected'"
+  test("12047. Number of valid words in a sentence"):
+    pendingUntilFixed:
+      val testcases = List(
+        ("cat and  dog", 3),
+        ("!this  1-s b8d!", 0),
+        ("alice and  bob are playing stone-game10", 5),
+        ("0", 0),
+        ("he bought 2 pencils, 3 erasers, and 1  pencil-sharpener.", 6),
+        ("-", 0),
+        (" o6 r", 1),
+        (". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5", 6)
       )
+      for (testcase, expected) <- testcases do
+        assert(
+          StringProblems.countValidWords(testcase) === expected,
+          clue = s"Expected '${testcase}' to return '$expected'"
+        )
 
   test("2138. Divide a string into groups of size k"):
     val testcases = Table(
@@ -258,18 +259,19 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         clue = s"Expected '${givenArray.mkString(",")}' to return '$expected'."
       )
 
-  ignore("125. Valid Palindrome"):
-    val testcases = Table(
-      ("string", "expectation"),
-      ("A man, a plan, a canal: Panama", true),
-      ("race a car", false),
-      (" ", true),
-      ("palap", true),
-      ("paap", true),
-      ("0P", false)
-    )
-    forAll(testcases): (string, expected) =>
-      assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
+  test("125. Valid Palindrome"):
+    pendingUntilFixed:
+      val testcases = Table(
+        ("string", "expectation"),
+        ("A man, a plan, a canal: Panama", true),
+        ("race a car", false),
+        (" ", true),
+        ("palap", true),
+        ("paap", true),
+        ("0P", false)
+      )
+      forAll(testcases): (string, expected) =>
+        assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
 
   test("434. Number of segments in a string"):
     val testcases = Table(
@@ -387,4 +389,39 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (string, expected) =>
       assert(StringProblems.minRemoveToMakeValid(string) === expected)
 
-end StringProblemsFunsuite
+  test("1678. Goal parser interpretation"):
+    val testcases = Table(
+      ("command", "expected"),
+      ("G()(al)", "Goal"),
+      ("G()()()()(al)", "Gooooal"),
+      ("(al)G(al)()()G", "alGalooG")
+    )
+    forAll(testcases): (command, expected) =>
+      assert(StringProblems.interpret(command) === expected)
+
+  test("678. Valid paranthesis string"):
+    pendingUntilFixed:
+      val testcases = Table(
+        ("string", "isValid"),
+        ("()", true),
+        (")(", false),
+        ("(*))", true),
+        ("(*)", true),
+        ("*", true),
+        (")()", false),
+        (")", false),
+        ("(", false),
+        ("()(", false),
+        ("(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())", false)
+      )
+      forAll(testcases): (string, expected) =>
+        assert(StringProblems.checkValidString(string) === expected)
+
+  test("389. Find the difference"):
+    val testcases = Table(
+      ("s", "t", "appended char"),
+      ("abcd", "abcde", 'e'),
+      ("", "y", 'y')
+    )
+    forAll(testcases): (s, t, expected) =>
+      assert(StringProblems.findTheDifference(s, t) == expected)

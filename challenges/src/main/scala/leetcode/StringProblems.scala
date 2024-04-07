@@ -297,3 +297,31 @@ object StringProblems:
 
     // println(s"first: $s => ${leftFixedReversedList.mkString.reverse} => ${rFixedList.mkString}")
     rFixedList.mkString
+
+  def interpret(command: String): String =
+    // scan left to right, collect chars into token until delimiters 'G' or ')' are met.
+    // when delimiters are met, evaluate token and append to 'acc'
+    val (acc, _) =
+      command.foldLeft("", ""): (state, char) =>
+        (state, char) match
+          case ((acc, _), e @ 'G')                       => (acc.concat("G"), "")
+          case ((acc, token), e @ ')') if token == "("   => (acc.concat("o"), "")
+          case ((acc, token), e @ ')') if token == "(al" => (acc.concat("al"), "")
+          case ((acc, token), e)                         => (acc, s"$token$e")
+    acc
+
+  def checkValidString(s: String): Boolean =
+    def validator(string: String, pc: Int, jc: Int): Boolean =
+      string.headOption match
+        case None =>
+          println(s"pc: $pc, joker: $jc")
+          jc >= math.abs(pc)
+        case Some('(')                       => validator(string.tail, pc + 1, jc)
+        case Some('*')                       => validator(string.tail, pc, jc + 1)
+        case Some(')') if pc == 0 && jc == 0 => false
+        case Some(')')                       => validator(string.tail, pc - 1, jc)
+        case _                               => validator(string.tail, pc, jc)
+    validator(s, 0, 0)
+
+  def findTheDifference(s: String, t: String): Char =
+    (t.sum - s.sum).toChar
