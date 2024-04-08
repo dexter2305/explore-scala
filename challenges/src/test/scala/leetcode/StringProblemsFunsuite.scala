@@ -425,3 +425,14 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (s, t, expected) =>
       assert(StringProblems.findTheDifference(s, t) == expected)
+
+  test("2000. Reverse prefix of word"):
+    val testcases = Table(
+      ("word", "ch", "expected"),
+      ("abcdefd", 'd', "dcbaefd"),
+      ("xyxzxe", 'z', "zxyxxe"),
+      ("abcd", 'z', "abcd"),
+      ("abcd", 'd', "dcba")
+    )
+    forAll(testcases): (word, ch, expected) =>
+      assert(StringProblems.reversePrefix(word, ch) === expected)

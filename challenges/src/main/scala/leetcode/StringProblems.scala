@@ -325,3 +325,9 @@ object StringProblems:
 
   def findTheDifference(s: String, t: String): Char =
     (t.sum - s.sum).toChar
+
+  def reversePrefix(word: String, ch: Char): String =
+    if word.contains(ch) then
+      val index = word.indexOf(ch)
+      word.substring(0, index + 1).reverse.concat(word.substring(index + 1))
+    else word
