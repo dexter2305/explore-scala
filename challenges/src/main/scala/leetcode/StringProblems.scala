@@ -331,3 +331,35 @@ object StringProblems:
       val index = word.indexOf(ch)
       word.substring(0, index + 1).reverse.concat(word.substring(index + 1))
     else word
+
+  def countKeyChanges(s: String): Int =
+    (1 until s.length).count(i => s(i - 1).toLower != s(i).toLower)
+    // if s.length == 1 then 0
+    // else
+    //   s.toLowerCase()
+    //     .sliding(2)
+    //     .toList
+    //     .foldLeft(0): (acc, charPair) =>
+    //       if charPair(0).equals(charPair(1)) then acc
+    //       else acc + 1
+
+  def balancedStringSplit(s: String): Int =
+    val (_, counter) = s.foldLeft(0, 0): (state, e) =>
+      (state, e) match
+        case ((cur, acc), 'R') =>
+          if cur + 1 == 0 then (0, acc + 1)
+          else (cur + 1, acc)
+        case ((cur, acc), 'L') =>
+          if cur - 1 == 0 then (0, acc + 1)
+          else (cur - 1, acc)
+        case (t, e) => t
+    counter
+
+  def convertToTitle(columnNumber: Int): String =
+    val c = columnNumber - 1
+    val mod = c % 26
+    val quo = c / 26
+
+    val value = 'A' + mod
+    println(s"columnNumber (-1): $c, quo: $quo, mod: $mod, value: $value, valueChar: ${value.toChar}")
+    value.toChar.toString

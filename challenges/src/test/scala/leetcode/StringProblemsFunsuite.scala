@@ -436,3 +436,39 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (word, ch, expected) =>
       assert(StringProblems.reversePrefix(word, ch) === expected)
+
+  test("3019. Number of changing keys"):
+    val testcases = Table(
+      ("string", "expected"),
+      ("aAbBcC", 2),
+      ("AaAaAaaA", 0),
+      ("a", 0)
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.countKeyChanges(string) === expected)
+
+  test("1221. Split a string in balanced string"):
+    val testcases = Table(
+      ("s", "expected"),
+      ("RLRRLLRLRL", 4),
+      ("RLRRRLLRLL", 2),
+      ("LLLLRRRR", 1),
+      ("RR", 0),
+      ("LL", 0),
+      ("RL", 1),
+      ("LR", 1)
+    )
+    forAll(testcases): (s, expected) =>
+      assert(StringProblems.balancedStringSplit(s) === expected)
+
+  test("168. Excel sheet column title"):
+    val testcases = Table(
+      ("number", "expected sheet title"),
+      (1, "A"),
+      (25, "Y"),
+      (26, "Z"),
+      (27, "AA"),
+      (701, "ZA")
+    )
+    forAll(testcases): (columnNumber, expected) =>
+      assert(StringProblems.convertToTitle(columnNumber) === expected)
