@@ -271,11 +271,95 @@ object StringProblems:
         case Some(char) =>
           char match
             case ')' | '}' | ']' if acc.isEmpty => false
-            case '(' | '{' | '['                => aux(string.tail, char :: acc)
+            case c @ ('(' | '{' | '[')          => aux(string.tail, c :: acc)
             case ')' if acc.head == '('         => aux(string.tail, acc.tail)
             case '}' if acc.head == '{'         => aux(string.tail, acc.tail)
             case ']' if acc.head == '['         => aux(string.tail, acc.tail)
             case _                              => false
     aux(s, List.empty[Char])
 
-end StringProblems
+  def minRemoveToMakeValid(s: String): String =
+    // scan left to right and ignore excess right parantheses
+    // scan right to left and ignore excess left parantheses
+    val (leftFixedReversedList, _) =
+      s.foldLeft(List.empty[Char], 0): (t, char) =>
+        (t, char) match
+          case ((acc, l), '(') => ('(' :: acc, l + 1)
+          case ((acc, l), ')') => if l > 0 then (')' :: acc, l - 1) else (acc, l)
+          case ((acc, l), c)   => (c :: acc, l)
+
+    val (rFixedList, _) =
+      leftFixedReversedList.foldLeft(List.empty[Char], 0): (t, char) =>
+        (t, char) match
+          case ((acc, r), '(') => if r > 0 then ('(' :: acc, r - 1) else (acc, r)
+          case ((acc, r), ')') => (')' :: acc, r + 1)
+          case ((acc, r), c)   => (c :: acc, r)
+
+    // println(s"first: $s => ${leftFixedReversedList.mkString.reverse} => ${rFixedList.mkString}")
+    rFixedList.mkString
+
+  def interpret(command: String): String =
+    // scan left to right, collect chars into token until delimiters 'G' or ')' are met.
+    // when delimiters are met, evaluate token and append to 'acc'
+    val (acc, _) =
+      command.foldLeft("", ""): (state, char) =>
+        (state, char) match
+          case ((acc, _), e @ 'G')                       => (acc.concat("G"), "")
+          case ((acc, token), e @ ')') if token == "("   => (acc.concat("o"), "")
+          case ((acc, token), e @ ')') if token == "(al" => (acc.concat("al"), "")
+          case ((acc, token), e)                         => (acc, s"$token$e")
+    acc
+
+  def checkValidString(s: String): Boolean =
+    def validator(string: String, pc: Int, jc: Int): Boolean =
+      string.headOption match
+        case None =>
+          println(s"pc: $pc, joker: $jc")
+          jc >= math.abs(pc)
+        case Some('(')                       => validator(string.tail, pc + 1, jc)
+        case Some('*')                       => validator(string.tail, pc, jc + 1)
+        case Some(')') if pc == 0 && jc == 0 => false
+        case Some(')')                       => validator(string.tail, pc - 1, jc)
+        case _                               => validator(string.tail, pc, jc)
+    validator(s, 0, 0)
+
+  def findTheDifference(s: String, t: String): Char =
+    (t.sum - s.sum).toChar
+
+  def reversePrefix(word: String, ch: Char): String =
+    if word.contains(ch) then
+      val index = word.indexOf(ch)
+      word.substring(0, index + 1).reverse.concat(word.substring(index + 1))
+    else word
+
+  def countKeyChanges(s: String): Int =
+    (1 until s.length).count(i => s(i - 1).toLower != s(i).toLower)
+    // if s.length == 1 then 0
+    // else
+    //   s.toLowerCase()
+    //     .sliding(2)
+    //     .toList
+    //     .foldLeft(0): (acc, charPair) =>
+    //       if charPair(0).equals(charPair(1)) then acc
+    //       else acc + 1
+
+  def balancedStringSplit(s: String): Int =
+    val (_, counter) = s.foldLeft(0, 0): (state, e) =>
+      (state, e) match
+        case ((cur, acc), 'R') =>
+          if cur + 1 == 0 then (0, acc + 1)
+          else (cur + 1, acc)
+        case ((cur, acc), 'L') =>
+          if cur - 1 == 0 then (0, acc + 1)
+          else (cur - 1, acc)
+        case (t, e) => t
+    counter
+
+  def convertToTitle(columnNumber: Int): String =
+    val c = columnNumber - 1
+    val mod = c % 26
+    val quo = c / 26
+
+    val value = 'A' + mod
+    println(s"columnNumber (-1): $c, quo: $quo, mod: $mod, value: $value, valueChar: ${value.toChar}")
+    value.toChar.toString
