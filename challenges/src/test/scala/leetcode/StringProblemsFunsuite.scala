@@ -463,15 +463,20 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (s, expected) =>
       assert(StringProblems.balancedStringSplit(s) === expected)
 
-  test("168. Excel sheet column title"):
-    pendingUntilFixed:
-      val testcases = Table(
-        ("number", "expected sheet title"),
-        (1, "A"),
-        (25, "Y"),
-        (26, "Z"),
-        (27, "AA"),
-        (701, "ZA")
-      )
-      forAll(testcases): (columnNumber, expected) =>
-        assert(StringProblems.convertToTitle(columnNumber) === expected)
+  test("1528. Shufftle string"):
+    val testcases = Table(
+      ("s", "indices", "expected"),
+      ("codeleet", Array(4, 5, 6, 7, 0, 2, 1, 3), "leetcode"),
+      ("abc", Array(0, 1, 2), "abc")
+    )
+    forAll(testcases): (string, array, expected) =>
+      assert(StringProblems.restoreString(string, array) === expected)
+
+  test("2325. Decode the message"):
+    val testcases = Table(
+      ("key", "message", "expected"),
+      ("the quick brown fox jumps over the lazy dog", "vkbs bs t suepuv", "this is a secret"),
+      ("eljuxhpwnyrdgtqkviszcfmabo", "zwx hnfx lqantp mnoeius ycgk vcnjrdb", "the five boxing wizards jump quickly")
+    )
+    forAll(testcases): (key, message, expectedDecodedMessage) =>
+      assert(StringProblems.decodeMessage(key, message) === expectedDecodedMessage)

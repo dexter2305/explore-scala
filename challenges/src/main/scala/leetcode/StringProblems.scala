@@ -355,11 +355,18 @@ object StringProblems:
         case (t, e) => t
     counter
 
-  def convertToTitle(columnNumber: Int): String =
-    val c = columnNumber - 1
-    val mod = c % 26
-    val quo = c / 26
+  def restoreString(s: String, indices: Array[Int]): String =
+    s.toCharArray()
+      .zip(indices)
+      .sortBy(_._2)
+      .map(_._1)
+      .mkString
 
-    val value = 'A' + mod
-    println(s"columnNumber (-1): $c, quo: $quo, mod: $mod, value: $value, valueChar: ${value.toChar}")
-    value.toChar.toString
+  def decodeMessage(key: String, message: String): String =
+    val substitutionTable = key.distinct.filter(_ != ' ')
+    // println(s"substitution table: $substitutionTable")
+    message
+      .toCharArray()
+      .map: c =>
+        if c == ' ' then c else (substitutionTable.indexOf(c) + 'a').toChar
+      .mkString
