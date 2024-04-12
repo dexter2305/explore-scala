@@ -314,7 +314,7 @@ object StringProblems:
     def validator(string: String, pc: Int, jc: Int): Boolean =
       string.headOption match
         case None =>
-          println(s"pc: $pc, joker: $jc")
+          // println(s"pc: $pc, joker: $jc")
           jc >= math.abs(pc)
         case Some('(')                       => validator(string.tail, pc + 1, jc)
         case Some('*')                       => validator(string.tail, pc, jc + 1)
@@ -370,3 +370,100 @@ object StringProblems:
       .map: c =>
         if c == ' ' then c else (substitutionTable.indexOf(c) + 'a').toChar
       .mkString
+
+  /** 67. Add binary.
+    *
+    * Given two binary strings a and b, return their sum as a binary string.
+    *
+    * Example 1:
+    *
+    * Input: a = "11", b = "1" Output: "100"
+    *
+    * Example 2:
+    *
+    * Input: a = "1010", b = "1011" Output: "10101"
+    *
+    * Constraints:
+    *
+    * 1 <= a.length, b.length <= 104 a and b consist only of '0' or '1' characters. Each string does not contain leading
+    * zeros except for the zero itself.
+    */
+  def addBinary(a: String, b: String): String =
+    @scala.annotation.tailrec
+    def loop(ar: String, br: String, carryOver: Int = 0, acc: String = ""): String =
+      (ar, br) match
+        case ("", "") =>
+          if acc.isEmpty() then s"$carryOver"
+          else
+            carryOver match
+              case 1 => s"$carryOver$acc"
+              case _ => acc
+        case (x, y) =>
+          val ac = if x == "" then 0 else x.head - '0'
+          val bc = if y == "" then 0 else y.head - '0'
+          val sum = ac + bc + carryOver
+          loop(ar.tail, br.tail, sum / 2, s"${sum % 2}$acc")
+    loop(a.reverse, b.reverse)
+
+  /** 415. Add strings. Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and
+    * num2 as a string.
+    *
+    * You must solve the problem without using any built-in library for handling large integers (such as BigInteger).
+    * You must also not convert the inputs to integers directly.
+    *
+    * Example 1:
+    *
+    * Input: num1 = "11", num2 = "123" Output: "134"
+    *
+    * Example 2:
+    *
+    * Input: num1 = "456", num2 = "77" Output: "533"
+    *
+    * Example 3:
+    *
+    * Input: num1 = "0", num2 = "0" Output: "0"
+    *
+    * Constraints:
+    *
+    * 1 <= num1.length, num2.length <= 104 num1 and num2 consist of only digits. num1 and num2 don't have any leading
+    * zeros except for the zero itself.
+    */
+  def addStrings(num1: String, num2: String): String =
+    @scala.annotation.tailrec
+    def loop(a: String, b: String, carryOver: Int = 0, acc: String = ""): String =
+      (a, b) match
+        case ("", "") =>
+          (carryOver, acc) match
+            case (c, acc) if acc.isEmpty() => c.toString
+            case (0, acc)                  => acc
+            case (c, acc)                  => s"$c$acc"
+        case (x, y) =>
+          val xi = if (x == "") then 0 else x.head.asDigit
+          val yi = if (y == "") then 0 else y.head.asDigit
+          val sum = xi + yi + carryOver
+          loop(a.tail, b.tail, sum / 10, s"${sum % 10}$acc")
+    loop(num1.reverse, num2.reverse)
+
+  /** 2864. Maximum odd binary number. You are given a binary string s that contains at least one '1'.
+    *
+    * You have to rearrange the bits in such a way that the resulting binary number is the maximum odd binary number
+    * that can be created from this combination.
+    *
+    * Return a string representing the maximum odd binary number that can be created from the given combination.
+    *
+    * Note that the resulting string can have leading zeros.
+    *
+    * Example 1:
+    *
+    * Input: s = "010" Output: "001" Explanation: Because there is just one '1', it must be in the last position. So the
+    * answer is "001".
+    *
+    * Example 2:
+    *
+    * Input: s = "0101" Output: "1001" Explanation: One of the '1's must be in the last position. The maximum number
+    * that can be made with the remaining digits is "100". So the answer is "1001".
+    */
+  def maximumOddBinaryNumber(s: String): String =
+    val zeros = s.count(_ == '0')
+    val ones = s.count(_ == '1')
+    ("1" * (ones - 1)) + ("0" * zeros) + "1"

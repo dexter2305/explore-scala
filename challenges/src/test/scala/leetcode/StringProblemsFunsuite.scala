@@ -1,5 +1,6 @@
 package leetcode
 
+import org.scalacheck.Gen
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
@@ -480,3 +481,51 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (key, message, expectedDecodedMessage) =>
       assert(StringProblems.decodeMessage(key, message) === expectedDecodedMessage)
+
+  test("67. Add binary"):
+    // example based test
+    val testcases = Table(
+      ("x", "y", "expected sum"),
+      ("0", "0", "0"),
+      ("1", "1", "10"),
+      ("11", "1", "100"),
+      ("1010", "1011", "10101")
+    )
+    forAll(testcases): (x, y, expected) =>
+      assert(StringProblems.addBinary(x, y) === expected)
+
+    // property based test to cover wider range
+    given PropertyCheckConfiguration(minSuccessful = 50000, maxDiscardedFactor = 100)
+    val intGenerator = for n <- Gen.choose(0, Int.MaxValue) yield n
+    forAll((intGenerator, "a"), (intGenerator, "b")): (a: Int, b: Int) =>
+      whenever(a >= 0 && a < Int.MaxValue && b >= 0 && b != Int.MinValue):
+        val expectedString = (a + b).toBinaryString
+        assert(StringProblems.addBinary(a.toBinaryString, b.toBinaryString) === (a + b).toBinaryString)
+
+  test("415. Add strings"):
+    // example based tests
+    val testcases = Table(
+      ("a", "b", "expected sum"),
+      ("11", "123", "134"),
+      ("456", "77", "533"),
+      ("0", "0", "0")
+    )
+    forAll(testcases): (a, b, expected) =>
+      assert(StringProblems.addStrings(a, b) === expected)
+
+    given PropertyCheckConfiguration(minSuccessful = 1000, maxDiscardedFactor = 1)
+    // property based tests
+    val intGenerator = for n <- Gen.choose(0, 9999) yield n
+
+    forAll((intGenerator, "a"), (intGenerator, "b")): (a: Int, b: Int) =>
+      whenever(a > 0 && a < Int.MaxValue && b > 0 && b < Int.MaxValue):
+        assert(StringProblems.addStrings(a.toString(), b.toString) === (a + b).toString)
+
+  test("2864. Maximum odd binary number"):
+    val testcases = Table(
+      ("010", "001"),
+      ("0101", "1001"),
+      ("1", "1")
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.maximumOddBinaryNumber(string) === expected)

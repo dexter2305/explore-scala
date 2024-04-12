@@ -19,7 +19,7 @@
 out
 
 # sbt
-project/*
+**/project/*
 !project/plugins.sbt
 !project/build.properties
 .bsp
