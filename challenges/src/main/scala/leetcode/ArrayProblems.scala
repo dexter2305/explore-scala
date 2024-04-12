@@ -21,7 +21,5 @@ object ArrayProblems:
       val x =
         if index <= k then tickets(index).min(tickets(k)) + acc
         else tickets(index).min(tickets(k) - 1) + acc
-      println(
-        s"for ${tickets.mkString("-")} at index = $index, tickets(index) = ${tickets(index)} vs ${tickets(k)}, x = $x"
-      )
+      // println(s"for ${tickets.mkString("-")} at index = $index, tickets(index) = ${tickets(index)} vs ${tickets(k)}, x = $x")
       x

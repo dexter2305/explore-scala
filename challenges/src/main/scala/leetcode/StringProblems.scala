@@ -1,9 +1,5 @@
 package leetcode
 
-import scala.annotation.tailrec
-import scala.collection.StringOps
-import scala.compiletime.ops.string
-
 object StringProblems:
 
   def maxNumberOfWords(sentences: Array[String]): Int =
@@ -438,8 +434,8 @@ object StringProblems:
             case (0, acc)                  => acc
             case (c, acc)                  => s"$c$acc"
         case (x, y) =>
-          val xi = if (x == "") then 0 else x.head.asDigit
-          val yi = if (y == "") then 0 else y.head.asDigit
+          val xi = if x == "" then 0 else x.head.asDigit
+          val yi = if y == "" then 0 else y.head.asDigit
           val sum = xi + yi + carryOver
           loop(a.tail, b.tail, sum / 10, s"${sum % 10}$acc")
     loop(num1.reverse, num2.reverse)
