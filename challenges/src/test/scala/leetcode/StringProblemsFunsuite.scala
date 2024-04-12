@@ -220,7 +220,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         clue = s"Can construct $ransomeNote from $magazine should be $expected"
       )
 
-  test("12047. Number of valid words in a sentence"):
+  test("2047. Number of valid words in a sentence"):
     pendingUntilFixed:
       val testcases = List(
         ("cat and  dog", 3),
