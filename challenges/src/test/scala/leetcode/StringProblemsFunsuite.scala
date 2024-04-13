@@ -529,3 +529,12 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expected) =>
       assert(StringProblems.maximumOddBinaryNumber(string) === expected)
+
+  test("804. Unique morse code of words."):
+    val testcases = Table(
+      ("words", "expeced unique transformations"),
+      (List("gin", "zen", "gig", "msg"), 2),
+      (List("a"), 1)
+    )
+    forAll(testcases): (words, expected) =>
+      assert(StringProblems.uniqueMorseRepresentations(words.toArray) === expected)
