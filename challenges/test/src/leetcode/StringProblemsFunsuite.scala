@@ -538,3 +538,24 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (words, expected) =>
       assert(StringProblems.uniqueMorseRepresentations(words.toArray) === expected)
+
+  test("242. Valid anagram."):
+    val testcases = Table(
+      ("s", "t", "anagram"),
+      ("anagram", "nagaram", true),
+      ("rat", "car", false)
+    )
+    forAll(testcases): (s, t, expected) =>
+      assert(StringProblems.isAnagram(s, t) === expected)
+
+  test("205. Isomorphic strings"):
+    val testcases = Table(
+      ("s", "t", "isomorphic?"),
+      // ("egg", "add", true),
+      // ("foo", "bar", false),
+      // ("paper", "title", true),
+      // ("badc", "baba", false),
+      ("aaeaa", "uuxyy", false)
+    )
+    forAll(testcases): (s, t, expected) =>
+      assert(StringProblems.isIsomorphic(s, t) === expected)
