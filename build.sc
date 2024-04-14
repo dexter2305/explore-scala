@@ -44,3 +44,15 @@ object munit extends GenericModule {
     def testFramework: T[String] = "munit.Framework"
   }
 }
+
+object coverage extends GenericModule {
+
+  object test extends ScoverageTests with ScalaTests {
+    def ivyDeps = Agg(
+      ivy"org.scalatest::scalatest-funsuite:3.2.18",
+      ivy"org.scalatestplus::scalacheck-1-17:3.2.16.0"
+    )
+    def testFramework = "org.scalatest.tools.Framework"
+    override def testCachedArgs = Seq("-oD")
+  }
+}
