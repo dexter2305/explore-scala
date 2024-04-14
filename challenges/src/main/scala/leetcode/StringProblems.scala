@@ -1692,3 +1692,74 @@ object StringProblems:
           dict(char - 'a')
       .distinct
       .size
+
+  /** 242. Valid anagram.
+    *
+    * Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+    *
+    * An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using
+    * all the original letters exactly once.
+    *
+    * Example 1:
+    *
+    * Input: s = "anagram", t = "nagaram" Output: true
+    *
+    * Example 2:
+    *
+    * Input: s = "rat", t = "car" Output: false
+    *
+    * Constraints:
+    *
+    * 1 <= s.length, t.length <= 5 * 104 s and t consist of lowercase English letters.
+    */
+  def isAnagram(s: String, t: String): Boolean =
+    if s.length == t.length then
+      val sFrequency: Map[Char, Int] = s
+        .groupBy(identity)
+        .map: (char, string) =>
+          (char, string.length)
+      val tFrequency: Map[Char, Int] = t
+        .groupBy(identity)
+        .map: (char, string) =>
+          (char, string.length)
+      sFrequency == tFrequency
+    else false
+
+  /** 205. Isomorphic strings
+    *
+    * Given two strings s and t, determine if they are isomorphic.
+    *
+    * Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+    *
+    * All occurrences of a character must be replaced with another character while preserving the order of characters.
+    * No two characters may map to the same character, but a character may map to itself.
+    *
+    * Example 1:
+    *
+    * Input: s = "egg", t = "add" Output: true
+    *
+    * Example 2:
+    *
+    * Input: s = "foo", t = "bar" Output: false
+    *
+    * Example 3:
+    *
+    * Input: s = "paper", t = "title" Output: true
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 5 * 104 t.length == s.length s and t consist of any valid ascii character.
+    */
+  def isIsomorphic(s: String, t: String): Boolean =
+    @scala.annotation.tailrec
+    def compare(s: String, t: String, state: Map[Char, Char] = Map.empty[Char, Char]): Boolean =
+      (s.headOption, t.headOption) match
+        case (None, None) => true
+        case (Some(x), Some(y)) =>
+          println(s"x: $x, y:$y, state: ${state.mkString(",")}")
+          if !state.contains(x) then
+            if !state.values.toSeq.contains(y) then compare(s.tail, t.tail, state + (x -> y)) else false
+          else state(x) == y && compare(s.tail, t.tail, state)
+        case _ => compare(s.tail, t.tail, state)
+    println(s"$s vs $t")
+    s.length == t.length && compare(s, t, Map.empty[Char, Char])
