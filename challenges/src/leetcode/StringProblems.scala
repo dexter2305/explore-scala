@@ -1,5 +1,6 @@
 package leetcode
 
+/** Companion class */
 object StringProblems:
   /** 2114. Maximum number of words found in sentences.
     *
