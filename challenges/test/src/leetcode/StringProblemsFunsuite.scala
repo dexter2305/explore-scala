@@ -221,22 +221,27 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
 
   test("2047. Number of valid words in a sentence"):
-    pendingUntilFixed:
-      val testcases = List(
-        ("cat and  dog", 3),
-        ("!this  1-s b8d!", 0),
-        ("alice and  bob are playing stone-game10", 5),
-        ("0", 0),
-        ("he bought 2 pencils, 3 erasers, and 1  pencil-sharpener.", 6),
-        ("-", 0),
-        (" o6 r", 1),
-        (". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5", 6)
+    // pendingUntilFixed:
+    val testcases = Table(
+      ("sentence", "valid token count"),
+      ("123", 0),
+      (" ", 0),
+      ("a", 1),
+      ("cat and  dog", 3),
+      ("!this  1-s b8d!", 0),
+      ("alice and  bob are playing stone-game10", 5),
+      ("0", 0),
+      ("he bought 2 pencils, 3 erasers, and 1  pencil-sharpener.", 6),
+      ("-", 0),
+      (" o6 r", 1),
+      (". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5", 4),
+      ("b-a-c f-d", 1)
+    )
+    forAll(testcases): (testcase, expected) =>
+      assert(
+        StringProblems.countValidWords(testcase) === expected,
+        clue = s"Expected '${testcase}' to return '$expected'"
       )
-      for (testcase, expected) <- testcases do
-        assert(
-          StringProblems.countValidWords(testcase) === expected,
-          clue = s"Expected '${testcase}' to return '$expected'"
-        )
 
   test("2138. Divide a string into groups of size k"):
     val testcases = Table(

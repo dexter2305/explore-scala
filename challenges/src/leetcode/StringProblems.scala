@@ -768,24 +768,36 @@ object StringProblems:
     * ','. There will be at least 1 token.
     */
   def countValidWords(sentence: String): Int =
-    val passesNoDigitRule: String => Boolean = s => s.forall(!_.isDigit)
-    val passesHypenationRule: String => Boolean = s =>
-      s.charAt(0) != '-' &&
-        s.indexOf('-') <= (s.length - 1) &&
-        s.indexOf('-') == s.lastIndexOf('-')
-    val passPunctuationRule: String => Boolean = s =>
-      ",.!"
-        .toCharArray()
-        .map: p =>
-          !s.contains(p) || (s.indexOf(p) == s.length - 1)
-        .reduce(_ && _)
-    sentence
-      .split("\\s+")
-      .filter(!_.isEmpty())
-      .filter(passesNoDigitRule(_))
-      .filter(passesHypenationRule(_))
-      .filter(passPunctuationRule(_))
-      .size
+
+    lazy val punctationSet = Set('!', ',', '.')
+    lazy val hyphen = '-'
+
+    val ruleForCharset: String => Boolean = s =>
+      s.forall: c =>
+        c.isLower || c == hyphen || punctationSet.contains(c)
+
+    val ruleForHyphen: String => Boolean = s =>
+      s.count(_ == hyphen) == 0 ||
+        (s.count(_ == hyphen) == 1 && s.indexOf(hyphen) > 0 && s.indexOf(hyphen) <= s.length - 2 &&
+          (
+            (s(s.indexOf(hyphen) - 1), s(s.indexOf(hyphen) + 1)) match
+              case (x, y) => ('a' to 'z').contains(x) && ('a' to 'z').contains(y)
+          ))
+
+    val ruleForPunctuation: String => Boolean = s =>
+      s.count(punctationSet.contains(_)) == 0 ||
+        (s.count(punctationSet.contains(_)) == 1 &&
+          s.indexWhere(punctationSet.contains(_)) == s.length - 1)
+
+    val res =
+      sentence
+        .split(" ")
+        .map(_.trim)
+        .filter(!_.isEmpty())
+        .filter(ruleForCharset)
+        .filter(ruleForHyphen)
+        .filter(ruleForPunctuation)
+    res.length
 
   /** 2138. Divide a string into group of size k.
     *
