@@ -1,4 +1,5 @@
 
+
 ##
 ## ignore parent folder but need one or two files from it. use the following pattern
 ##
@@ -8,15 +9,8 @@
 ##
 ## any other files will be ignored with git
 
-
-
 # doom-emacs : projectile
 .projectile
-
-# mill
-.bloop
-.metals
-out
 
 # sbt
 **/project/*
@@ -25,3 +19,10 @@ out
 .bsp
 target
 **/target
+
+# mill
+**/.bsp
+.bloop
+.metals
+out
+.projectile

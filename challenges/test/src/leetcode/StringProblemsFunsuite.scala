@@ -221,22 +221,26 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
 
   test("2047. Number of valid words in a sentence"):
-    pendingUntilFixed:
-      val testcases = List(
-        ("cat and  dog", 3),
-        ("!this  1-s b8d!", 0),
-        ("alice and  bob are playing stone-game10", 5),
-        ("0", 0),
-        ("he bought 2 pencils, 3 erasers, and 1  pencil-sharpener.", 6),
-        ("-", 0),
-        (" o6 r", 1),
-        (". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5", 6)
+    // pendingUntilFixed:
+    val testcases = Table(
+      ("sentence", "valid token count"),
+      ("123", 0),
+      ("a", 1),
+      ("cat and  dog", 3),
+      ("!this  1-s b8d!", 0),
+      ("alice and  bob are playing stone-game10", 5),
+      ("0", 0),
+      ("he bought 2 pencils, 3 erasers, and 1  pencil-sharpener.", 6),
+      ("-", 0),
+      (" o6 r", 1),
+      (". ! 7hk  al6 l! aon49esj35la k3 7u2tkh  7i9y5  !jyylhppd et v- h!ogsouv 5", 4),
+      ("b-a-c f-d", 1)
+    )
+    forAll(testcases): (testcase, expected) =>
+      assert(
+        StringProblems.countValidWords(testcase) === expected,
+        clue = s"Expected '${testcase}' to return '$expected'"
       )
-      for (testcase, expected) <- testcases do
-        assert(
-          StringProblems.countValidWords(testcase) === expected,
-          clue = s"Expected '${testcase}' to return '$expected'"
-        )
 
   test("2138. Divide a string into groups of size k"):
     val testcases = Table(
@@ -261,18 +265,17 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
 
   test("125. Valid Palindrome"):
-    pendingUntilFixed:
-      val testcases = Table(
-        ("string", "expectation"),
-        ("A man, a plan, a canal: Panama", true),
-        ("race a car", false),
-        (" ", true),
-        ("palap", true),
-        ("paap", true),
-        ("0P", false)
-      )
-      forAll(testcases): (string, expected) =>
-        assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
+    val testcases = Table(
+      ("string", "expectation"),
+      ("A man, a plan, a canal: Panama", true),
+      ("race a car", false),
+      (" ", true),
+      ("palap", true),
+      ("paap", true),
+      ("0P", false)
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
 
   test("434. Number of segments in a string"):
     val testcases = Table(
@@ -559,3 +562,63 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (s, t, expected) =>
       assert(StringProblems.isIsomorphic(s, t) === expected)
+
+  test("412. Fizz Buzz"):
+    val testcases = Table(
+      ("n", "expected"),
+      (1, List("1")),
+      (2, List("1", "2")),
+      (3, List("1", "2", "Fizz")),
+      (5, List("1", "2", "Fizz", "4", "Buzz"))
+    )
+    forAll(testcases): (input, expected) =>
+      assert(StringProblems.fizzBuzz(input) === expected)
+
+  test("387. First unique character in a string."):
+    val testcases = Table(
+      ("string", "expected index"),
+      ("leetcode", 0),
+      ("loveleetcode", 2),
+      ("aabb", -1)
+    )
+    forAll(testcases): (string, expectedIndex) =>
+      assert(StringProblems.firstUniqChar(string) === expectedIndex)
+
+  test("1556. Thousand separator."):
+    val testcases = Table(
+      ("n", "expected"),
+      (987, "987"),
+      (1000, "1.000")
+    )
+    forAll(testcases): (n, expected) =>
+      assert(StringProblems.thousandSeparator(n) === expected)
+
+  test("1805. Number of different integers in a string."):
+    val testcases = Table(
+      ("string", "expected number of ints"),
+      ("a123bc34d8ef34", 3),
+      ("leet1234code234", 2),
+      ("a1b01c001", 1),
+      ("u", 0),
+      ("gi851a851q8510v", 2),
+      ("ab101ab10cd10", 2),
+      ("ab1000cd1000", 1),
+      ("ab101cd11", 2),
+      ("167278959591294", 1),
+      ("000", 1),
+      ("0b0", 1),
+      ("010a", 1)
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.numDifferentIntegers(string) === expected)
+
+  test("1455. Check if a word occurs as a prefix of a word in a sentence."):
+    val testcases = Table(
+      ("sentence", "searchWord", "expectedIndex"),
+      ("i love eating burger", "burg", 4),
+      ("this problem is an easy problem", "pro", 2),
+      ("i am tired", "you", -1),
+      ("trick", "t", 1)
+    )
+    forAll(testcases): (sentence, searchWord, expectedIndex) =>
+      assert(StringProblems.isPrefixOfWord(sentence = sentence, searchWord) === expectedIndex)

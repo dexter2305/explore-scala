@@ -1,5 +1,6 @@
 package leetcode
 
+/** Companion class */
 object StringProblems:
   /** 2114. Maximum number of words found in sentences.
     *
@@ -768,24 +769,36 @@ object StringProblems:
     * ','. There will be at least 1 token.
     */
   def countValidWords(sentence: String): Int =
-    val passesNoDigitRule: String => Boolean = s => s.forall(!_.isDigit)
-    val passesHypenationRule: String => Boolean = s =>
-      s.charAt(0) != '-' &&
-        s.indexOf('-') <= (s.length - 1) &&
-        s.indexOf('-') == s.lastIndexOf('-')
-    val passPunctuationRule: String => Boolean = s =>
-      ",.!"
-        .toCharArray()
-        .map: p =>
-          !s.contains(p) || (s.indexOf(p) == s.length - 1)
-        .reduce(_ && _)
-    sentence
-      .split("\\s+")
-      .filter(!_.isEmpty())
-      .filter(passesNoDigitRule(_))
-      .filter(passesHypenationRule(_))
-      .filter(passPunctuationRule(_))
-      .size
+
+    lazy val punctationSet = Set('!', ',', '.')
+    lazy val hyphen = '-'
+
+    val ruleForCharset: String => Boolean = s =>
+      s.forall: c =>
+        c.isLower || c == hyphen || punctationSet.contains(c)
+
+    val ruleForHyphen: String => Boolean = s =>
+      s.count(_ == hyphen) == 0 ||
+        (s.count(_ == hyphen) == 1 && s.indexOf(hyphen) > 0 && s.indexOf(hyphen) <= s.length - 2 &&
+          (
+            (s(s.indexOf(hyphen) - 1), s(s.indexOf(hyphen) + 1)) match
+              case (x, y) => ('a' to 'z').contains(x) && ('a' to 'z').contains(y)
+          ))
+
+    val ruleForPunctuation: String => Boolean = s =>
+      s.count(punctationSet.contains(_)) == 0 ||
+        (s.count(punctationSet.contains(_)) == 1 &&
+          s.indexWhere(punctationSet.contains(_)) == s.length - 1)
+
+    val res =
+      sentence
+        .split(" ")
+        .map(_.trim)
+        .filter(!_.isEmpty())
+        .filter(ruleForCharset)
+        .filter(ruleForHyphen)
+        .filter(ruleForPunctuation)
+    res.length
 
   /** 2138. Divide a string into group of size k.
     *
@@ -893,11 +906,10 @@ object StringProblems:
       // println(s"$s => ${s(head)} vs ${s(tail)}")
       if head <= tail then
         (s(head), s(tail)) match
-          case (x, y) if x.isLetter && y.isLetter =>
-            x.toLower == y.toLower && aux(head + 1, tail - 1)
-          case (x, y) if x.isLetter && !y.isLetter  => aux(head, tail - 1)
-          case (x, y) if !x.isLetter && y.isLetter  => aux(head + 1, tail)
-          case (x, y) if !x.isLetter && !y.isLetter => aux(head + 1, tail - 1)
+          case (x, y) if x.isLetterOrDigit && y.isLetterOrDigit   => x.toLower == y.toLower && aux(head + 1, tail - 1)
+          case (x, y) if x.isLetterOrDigit && !y.isLetterOrDigit  => aux(head, tail - 1)
+          case (x, y) if !x.isLetterOrDigit && y.isLetterOrDigit  => aux(head + 1, tail)
+          case (x, y) if !x.isLetterOrDigit && !y.isLetterOrDigit => aux(head + 1, tail - 1)
       else true
     s.trim.isEmpty || aux(head = 0, tail = s.length - 1)
 
@@ -1282,7 +1294,7 @@ object StringProblems:
           case ((acc, token), e)                         => (acc, s"$token$e")
     acc
 
-  /** 1678. Valid paranthesis string.
+  /** 678. Valid paranthesis string.
     *
     * Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.
     *
@@ -1754,12 +1766,169 @@ object StringProblems:
     @scala.annotation.tailrec
     def compare(s: String, t: String, state: Map[Char, Char] = Map.empty[Char, Char]): Boolean =
       (s.headOption, t.headOption) match
-        case (None, None) => true
+        case (None, None)       => true
         case (Some(x), Some(y)) =>
-          println(s"x: $x, y:$y, state: ${state.mkString(",")}")
+          // println(s"x: $x, y:$y, state: ${state.mkString(",")}")
           if !state.contains(x) then
             if !state.values.toSeq.contains(y) then compare(s.tail, t.tail, state + (x -> y)) else false
           else state(x) == y && compare(s.tail, t.tail, state)
         case _ => compare(s.tail, t.tail, state)
-    println(s"$s vs $t")
+    // println(s"$s vs $t")
     s.length == t.length && compare(s, t, Map.empty[Char, Char])
+
+  /** 412. Fizz Buzz
+    *
+    * Given an integer n, return a string array answer (1-indexed) where:
+    *
+    * answer[i] == "FizzBuzz" if i is divisible by 3 and 5. answer[i] == "Fizz" if i is divisible by 3. answer[i] ==
+    * "Buzz" if i is divisible by 5. answer[i] == i (as a string) if none of the above conditions are true.
+    *
+    * Example 1:
+    *
+    * Input: n = 3 Output: ["1","2","Fizz"]
+    *
+    * Example 2:
+    *
+    * Input: n = 5 Output: ["1","2","Fizz","4","Buzz"]
+    *
+    * Example 3:
+    *
+    * Input: n = 15 Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+    *
+    * Constraints:
+    *
+    * 1 <= n <= 104
+    */
+  def fizzBuzz(n: Int): List[String] =
+    (1 to n)
+      .map: n =>
+        n match
+          case (e) if e % 15 == 0 => "FizzBuzz"
+          case (e) if e % 5 == 0  => "Buzz"
+          case (e) if e % 3 == 0  => "Fizz"
+          case e                  => e.toString
+      .toList
+
+  /** 387. First unique character in a string.
+    *
+    * Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return
+    * -1.
+    *
+    * Example 1:
+    *
+    * Input: s = "leetcode" Output: 0
+    *
+    * Example 2:
+    *
+    * Input: s = "loveleetcode" Output: 2
+    *
+    * Example 3:
+    *
+    * Input: s = "aabb" Output: -1
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 105 s consists of only lowercase English letters.
+    */
+  def firstUniqChar(s: String): Int =
+    s.indexWhere(c => s.indexOf(c) == s.lastIndexOf(c))
+
+  /** 1556. Thousand separator.
+    *
+    * Given an integer n, add a dot (".") as the thousands separator and return it in string format.
+    *
+    * Example 1:
+    *
+    * Input: n = 987 Output: "987"
+    *
+    * Example 2:
+    *
+    * Input: n = 1234 Output: "1.234"
+    *
+    * Constraints:
+    *
+    * 0 <= n <= 231 - 1
+    */
+  def thousandSeparator(n: Int): String =
+    n.toString.reverse.grouped(3).mkString(".").reverse
+
+  /** 1805. Number of different integers in a string
+    *
+    * You are given a string word that consists of digits and lowercase English letters.
+    *
+    * You will replace every non-digit character with a space. For example, "a123bc34d8ef34" will become " 123 34 8 34".
+    * Notice that you are left with some integers that are separated by at least one space: "123", "34", "8", and "34".
+    *
+    * Return the number of different integers after performing the replacement operations on word.
+    *
+    * Two integers are considered different if their decimal representations without any leading zeros are different.
+    *
+    * Example 1:
+    *
+    * Input: word = "a123bc34d8ef34" Output: 3 Explanation: The three different integers are "123", "34", and "8".
+    * Notice that "34" is only counted once.
+    *
+    * Example 2:
+    *
+    * Input: word = "leet1234code234" Output: 2
+    *
+    * Example 3:
+    *
+    * Input: word = "a1b01c001" Output: 1 Explanation: The three integers "1", "01", and "001" all represent the same
+    * integer because the leading zeros are ignored when comparing their decimal values.
+    *
+    * Constraints:
+    *
+    * 1 <= word.length <= 1000 word consists of digits and lowercase English letters.
+    */
+  def numDifferentIntegers(word: String): Int =
+    val (uniqueInts, lastToken) = word.foldLeft(Set.empty[String], ""): (tuple, e) =>
+      (tuple, e) match
+        case ((acc, current @ "0"), '0')                  => (acc, current)
+        case ((acc, "0"), element) if element.isDigit     => (acc, s"$element")
+        case ((acc, current), element) if element.isDigit => (acc, s"$current$element")
+        case ((acc, current), element) =>
+          if current.isEmpty() then (acc, "") else ((acc + current), "")
+    if lastToken.isEmpty() then uniqueInts.size else (uniqueInts + lastToken).size
+
+  /** 1455. Check if a word occurs as a prefix of any word in a sentence.
+    *
+    * Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is
+    * a prefix of any word in sentence.
+    *
+    * Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a
+    * prefix of more than one word, return the index of the first word (minimum index). If there is no such word return
+    * -1.
+    *
+    * A prefix of a string s is any leading contiguous substring of s.
+    *
+    * Example 1:
+    *
+    * Input: sentence = "i love eating burger", searchWord = "burg" Output: 4 Explanation: "burg" is prefix of "burger"
+    * which is the 4th word in the sentence.
+    *
+    * Example 2:
+    *
+    * Input: sentence = "this problem is an easy problem", searchWord = "pro" Output: 2 Explanation: "pro" is prefix of
+    * "problem" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.
+    *
+    * Example 3:
+    *
+    * Input: sentence = "i am tired", searchWord = "you" Output: -1 Explanation: "you" is not a prefix of any word in
+    * the sentence.
+    *
+    * Constraints:
+    *
+    * 1 <= sentence.length <= 100 1 <= searchWord.length <= 10 sentence consists of lowercase English letters and
+    * spaces. searchWord consists of lowercase English letters.
+    */
+  def isPrefixOfWord(sentence: String, searchWord: String): Int =
+    val mayBeFind = sentence
+      .split("\\s+")
+      .filter(!_.isEmpty())
+      .zipWithIndex
+      .find: (string, index) =>
+        string.startsWith(searchWord)
+    mayBeFind match
+      case None             => -1
+      case Some((_, index)) => index + 1
