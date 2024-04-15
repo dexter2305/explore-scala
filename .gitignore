@@ -1,7 +1,28 @@
+
+
+##
+## ignore parent folder but need one or two files from it. use the following pattern
+##
+## folder-to-ignore/*
+## !folder-to-ignore/needed-file-1.txt
+## !folder-to-ignore/needed-file-2.txt
+##
+## any other files will be ignored with git
+
+# doom-emacs : projectile
+.projectile
+
+# sbt
+**/project/*
+!project/plugins.sbt
+!project/build.properties
+.bsp
+target
+**/target
+
+# mill
 **/.bsp
 .bloop
 .metals
 out
 .projectile
-
-project/
