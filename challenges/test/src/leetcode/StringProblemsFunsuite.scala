@@ -559,3 +559,33 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (s, t, expected) =>
       assert(StringProblems.isIsomorphic(s, t) === expected)
+
+  test("412. Fizz Buzz"):
+    val testcases = Table(
+      ("n", "expected"),
+      (1, List("1")),
+      (2, List("1", "2")),
+      (3, List("1", "2", "Fizz")),
+      (5, List("1", "2", "Fizz", "4", "Buzz"))
+    )
+    forAll(testcases): (input, expected) =>
+      assert(StringProblems.fizzBuzz(input) === expected)
+
+  test("387. First unique character in a string."):
+    val testcases = Table(
+      ("string", "expected index"),
+      ("leetcode", 0),
+      ("loveleetcode", 2),
+      ("aabb", -1)
+    )
+    forAll(testcases): (string, expectedIndex) =>
+      assert(StringProblems.firstUniqChar(string) === expectedIndex)
+
+  test("1556. Thousand separator."):
+    val testcases = Table(
+      ("n", "expected"),
+      (987, "987"),
+      (1000, "1.000")
+    )
+    forAll(testcases): (n, expected) =>
+      assert(StringProblems.thousandSeparator(n) === expected)

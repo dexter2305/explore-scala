@@ -8,6 +8,7 @@ trait GenericModule extends ScoverageModule with ScalafmtModule {
   override def scalaVersion: T[String] = "3.3.0"
   override def scoverageVersion = "2.1.0"
   override def scalacOptions = Seq("-Xfatal-warnings")
+  override def scalaDocOptions = Seq("-no-link-warnings")
 }
 
 object challenges extends GenericModule {

@@ -1754,12 +1754,88 @@ object StringProblems:
     @scala.annotation.tailrec
     def compare(s: String, t: String, state: Map[Char, Char] = Map.empty[Char, Char]): Boolean =
       (s.headOption, t.headOption) match
-        case (None, None) => true
+        case (None, None)       => true
         case (Some(x), Some(y)) =>
-          println(s"x: $x, y:$y, state: ${state.mkString(",")}")
+          // println(s"x: $x, y:$y, state: ${state.mkString(",")}")
           if !state.contains(x) then
             if !state.values.toSeq.contains(y) then compare(s.tail, t.tail, state + (x -> y)) else false
           else state(x) == y && compare(s.tail, t.tail, state)
         case _ => compare(s.tail, t.tail, state)
-    println(s"$s vs $t")
+    // println(s"$s vs $t")
     s.length == t.length && compare(s, t, Map.empty[Char, Char])
+
+  /** 412. Fizz Buzz
+    *
+    * Given an integer n, return a string array answer (1-indexed) where:
+    *
+    * answer[i] == "FizzBuzz" if i is divisible by 3 and 5. answer[i] == "Fizz" if i is divisible by 3. answer[i] ==
+    * "Buzz" if i is divisible by 5. answer[i] == i (as a string) if none of the above conditions are true.
+    *
+    * Example 1:
+    *
+    * Input: n = 3 Output: ["1","2","Fizz"]
+    *
+    * Example 2:
+    *
+    * Input: n = 5 Output: ["1","2","Fizz","4","Buzz"]
+    *
+    * Example 3:
+    *
+    * Input: n = 15 Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+    *
+    * Constraints:
+    *
+    * 1 <= n <= 104
+    */
+  def fizzBuzz(n: Int): List[String] =
+    (1 to n)
+      .map: n =>
+        n match
+          case (e) if e % 15 == 0 => "FizzBuzz"
+          case (e) if e % 5 == 0  => "Buzz"
+          case (e) if e % 3 == 0  => "Fizz"
+          case e                  => e.toString
+      .toList
+
+  /** 387. First unique character in a string.
+    *
+    * Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return
+    * -1.
+    *
+    * Example 1:
+    *
+    * Input: s = "leetcode" Output: 0
+    *
+    * Example 2:
+    *
+    * Input: s = "loveleetcode" Output: 2
+    *
+    * Example 3:
+    *
+    * Input: s = "aabb" Output: -1
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 105 s consists of only lowercase English letters.
+    */
+  def firstUniqChar(s: String): Int =
+    s.indexWhere(c => s.indexOf(c) == s.lastIndexOf(c))
+
+  /** 1556. Thousand separator.
+    *
+    * Given an integer n, add a dot (".") as the thousands separator and return it in string format.
+    *
+    * Example 1:
+    *
+    * Input: n = 987 Output: "987"
+    *
+    * Example 2:
+    *
+    * Input: n = 1234 Output: "1.234"
+    *
+    * Constraints:
+    *
+    * 0 <= n <= 231 - 1
+    */
+  def thousandSeparator(n: Int): String =
+    n.toString.reverse.grouped(3).mkString(".").reverse
