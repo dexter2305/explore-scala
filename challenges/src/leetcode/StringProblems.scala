@@ -905,11 +905,10 @@ object StringProblems:
       // println(s"$s => ${s(head)} vs ${s(tail)}")
       if head <= tail then
         (s(head), s(tail)) match
-          case (x, y) if x.isLetter && y.isLetter =>
-            x.toLower == y.toLower && aux(head + 1, tail - 1)
-          case (x, y) if x.isLetter && !y.isLetter  => aux(head, tail - 1)
-          case (x, y) if !x.isLetter && y.isLetter  => aux(head + 1, tail)
-          case (x, y) if !x.isLetter && !y.isLetter => aux(head + 1, tail - 1)
+          case (x, y) if x.isLetterOrDigit && y.isLetterOrDigit   => x.toLower == y.toLower && aux(head + 1, tail - 1)
+          case (x, y) if x.isLetterOrDigit && !y.isLetterOrDigit  => aux(head, tail - 1)
+          case (x, y) if !x.isLetterOrDigit && y.isLetterOrDigit  => aux(head + 1, tail)
+          case (x, y) if !x.isLetterOrDigit && !y.isLetterOrDigit => aux(head + 1, tail - 1)
       else true
     s.trim.isEmpty || aux(head = 0, tail = s.length - 1)
 
@@ -1294,7 +1293,7 @@ object StringProblems:
           case ((acc, token), e)                         => (acc, s"$token$e")
     acc
 
-  /** 1678. Valid paranthesis string.
+  /** 678. Valid paranthesis string.
     *
     * Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.
     *

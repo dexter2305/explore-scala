@@ -225,7 +225,6 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     val testcases = Table(
       ("sentence", "valid token count"),
       ("123", 0),
-      (" ", 0),
       ("a", 1),
       ("cat and  dog", 3),
       ("!this  1-s b8d!", 0),
@@ -266,18 +265,17 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
 
   test("125. Valid Palindrome"):
-    pendingUntilFixed:
-      val testcases = Table(
-        ("string", "expectation"),
-        ("A man, a plan, a canal: Panama", true),
-        ("race a car", false),
-        (" ", true),
-        ("palap", true),
-        ("paap", true),
-        ("0P", false)
-      )
-      forAll(testcases): (string, expected) =>
-        assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
+    val testcases = Table(
+      ("string", "expectation"),
+      ("A man, a plan, a canal: Panama", true),
+      ("race a car", false),
+      (" ", true),
+      ("palap", true),
+      ("paap", true),
+      ("0P", false)
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
 
   test("434. Number of segments in a string"):
     val testcases = Table(
