@@ -592,3 +592,33 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (n, expected) =>
       assert(StringProblems.thousandSeparator(n) === expected)
+
+  test("1805. Number of different integers in a string."):
+    val testcases = Table(
+      ("string", "expected number of ints"),
+      ("a123bc34d8ef34", 3),
+      ("leet1234code234", 2),
+      ("a1b01c001", 1),
+      ("u", 0),
+      ("gi851a851q8510v", 2),
+      ("ab101ab10cd10", 2),
+      ("ab1000cd1000", 1),
+      ("ab101cd11", 2),
+      ("167278959591294", 1),
+      ("000", 1),
+      ("0b0", 1),
+      ("010a", 1)
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.numDifferentIntegers(string) === expected)
+
+  test("1455. Check if a word occurs as a prefix of a word in a sentence."):
+    val testcases = Table(
+      ("sentence", "searchWord", "expectedIndex"),
+      ("i love eating burger", "burg", 4),
+      ("this problem is an easy problem", "pro", 2),
+      ("i am tired", "you", -1),
+      ("trick", "t", 1)
+    )
+    forAll(testcases): (sentence, searchWord, expectedIndex) =>
+      assert(StringProblems.isPrefixOfWord(sentence = sentence, searchWord) === expectedIndex)

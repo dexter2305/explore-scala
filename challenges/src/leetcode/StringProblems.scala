@@ -1850,3 +1850,84 @@ object StringProblems:
     */
   def thousandSeparator(n: Int): String =
     n.toString.reverse.grouped(3).mkString(".").reverse
+
+  /** 1805. Number of different integers in a string
+    *
+    * You are given a string word that consists of digits and lowercase English letters.
+    *
+    * You will replace every non-digit character with a space. For example, "a123bc34d8ef34" will become " 123 34 8 34".
+    * Notice that you are left with some integers that are separated by at least one space: "123", "34", "8", and "34".
+    *
+    * Return the number of different integers after performing the replacement operations on word.
+    *
+    * Two integers are considered different if their decimal representations without any leading zeros are different.
+    *
+    * Example 1:
+    *
+    * Input: word = "a123bc34d8ef34" Output: 3 Explanation: The three different integers are "123", "34", and "8".
+    * Notice that "34" is only counted once.
+    *
+    * Example 2:
+    *
+    * Input: word = "leet1234code234" Output: 2
+    *
+    * Example 3:
+    *
+    * Input: word = "a1b01c001" Output: 1 Explanation: The three integers "1", "01", and "001" all represent the same
+    * integer because the leading zeros are ignored when comparing their decimal values.
+    *
+    * Constraints:
+    *
+    * 1 <= word.length <= 1000 word consists of digits and lowercase English letters.
+    */
+  def numDifferentIntegers(word: String): Int =
+    val (uniqueInts, lastToken) = word.foldLeft(Set.empty[String], ""): (tuple, e) =>
+      (tuple, e) match
+        case ((acc, current @ "0"), '0')                  => (acc, current)
+        case ((acc, "0"), element) if element.isDigit     => (acc, s"$element")
+        case ((acc, current), element) if element.isDigit => (acc, s"$current$element")
+        case ((acc, current), element) =>
+          if current.isEmpty() then (acc, "") else ((acc + current), "")
+    if lastToken.isEmpty() then uniqueInts.size else (uniqueInts + lastToken).size
+
+  /** 1455. Check if a word occurs as a prefix of any word in a sentence.
+    *
+    * Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is
+    * a prefix of any word in sentence.
+    *
+    * Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a
+    * prefix of more than one word, return the index of the first word (minimum index). If there is no such word return
+    * -1.
+    *
+    * A prefix of a string s is any leading contiguous substring of s.
+    *
+    * Example 1:
+    *
+    * Input: sentence = "i love eating burger", searchWord = "burg" Output: 4 Explanation: "burg" is prefix of "burger"
+    * which is the 4th word in the sentence.
+    *
+    * Example 2:
+    *
+    * Input: sentence = "this problem is an easy problem", searchWord = "pro" Output: 2 Explanation: "pro" is prefix of
+    * "problem" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.
+    *
+    * Example 3:
+    *
+    * Input: sentence = "i am tired", searchWord = "you" Output: -1 Explanation: "you" is not a prefix of any word in
+    * the sentence.
+    *
+    * Constraints:
+    *
+    * 1 <= sentence.length <= 100 1 <= searchWord.length <= 10 sentence consists of lowercase English letters and
+    * spaces. searchWord consists of lowercase English letters.
+    */
+  def isPrefixOfWord(sentence: String, searchWord: String): Int =
+    val mayBeFind = sentence
+      .split("\\s+")
+      .filter(!_.isEmpty())
+      .zipWithIndex
+      .find: (string, index) =>
+        string.startsWith(searchWord)
+    mayBeFind match
+      case None             => -1
+      case Some((_, index)) => index + 1
