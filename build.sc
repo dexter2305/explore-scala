@@ -8,7 +8,7 @@ trait Scala3Module extends ScoverageModule with ScalafmtModule {
   override def scalaVersion: T[String] = "3.3.0"
   override def scoverageVersion = "2.1.0"
   override def scalacOptions = Seq("-deprecation", "-Xfatal-warnings")
-  override def scalaDocOptions = Seq("-no-link-warnings")
+  override def scalaDocOptions = Seq("-no-link-warnings", "-groups")
   trait UnitTests extends ScalaTests with ScoverageTests {
     lazy val scalatestVersion = "3.2.18"
     def ivyDeps = Agg(

@@ -1932,3 +1932,93 @@ object StringProblems:
     mayBeFind match
       case None             => -1
       case Some((_, index)) => index + 1
+
+  /** 2185. Counting words with a given prefix.
+    *
+    * You are given an array of strings words and a string pref.
+    *
+    * Return the number of strings in words that contain pref as a prefix.
+    *
+    * A prefix of a string s is any leading contiguous substring of s.
+    *
+    * Example 1:
+    *
+    * Input: words = ["pay","attention","practice","attend"], pref = "at" Output: 2 Explanation: The 2 strings that
+    * contain "at" as a prefix are: "attention" and "attend".
+    *
+    * Example 2:
+    *
+    * Input: words = ["leetcode","win","loops","success"], pref = "code" Output: 0 Explanation: There are no strings
+    * that contain "code" as a prefix.
+    *
+    * Constraints: 1 <= words.length <= 100 1 <= words[i].length, pref.length <= 100 words[i] and pref consist of
+    * lowercase English letters.
+    */
+  def prefixCount(words: Array[String], pref: String): Int = words.count(_.startsWith(pref))
+
+  /** 2124. Check if all A's appear before All B's
+    *
+    * Given a string s consisting of only the characters 'a' and 'b', return true if every 'a' appears before every 'b'
+    * in the string. Otherwise, return false.
+    *
+    * Example 1:
+    *
+    * Input: s = "aaabbb" Output: true Explanation: The 'a's are at indices 0, 1, and 2, while the 'b's are at indices
+    * 3, 4, and 5. Hence, every 'a' appears before every 'b' and we return true.
+    *
+    * Example 2:
+    *
+    * Input: s = "abab" Output: false Explanation: There is an 'a' at index 2 and a 'b' at index 1. Hence, not every 'a'
+    * appears before every 'b' and we return false.
+    *
+    * Example 3:
+    *
+    * Input: s = "bbb" Output: true Explanation: There are no 'a's, hence, every 'a' appears before every 'b' and we
+    * return true.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 100
+    *
+    * s[i] is either 'a' or 'b'.
+    */
+  def checkString(s: String): Boolean =
+    // println(s"$s, a:${s.lastIndexOf('a')}, b:${s.indexOf('b')}")
+    !s.contains('a') || !s.contains('b') || s.lastIndexOf('a') < s.indexOf('b')
+
+  /** 500. Keyboard row
+    *
+    * Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row
+    * of American keyboard like the image below.
+    *
+    * In the American keyboard:
+    *
+    * the first row consists of the characters "qwertyuiop", the second row consists of the characters "asdfghjkl", and
+    * the third row consists of the characters "zxcvbnm".
+    *
+    * Example 1:
+    *
+    * Input: words = ["Hello","Alaska","Dad","Peace"] Output: ["Alaska","Dad"]
+    *
+    * Example 2:
+    *
+    * Input: words = ["omk"] Output: []
+    *
+    * Example 3:
+    *
+    * Input: words = ["adsdf","sfd"] Output: ["adsdf","sfd"]
+    *
+    * Constraints:
+    *
+    * 1 <= words.length <= 20 1 <= words[i].length <= 100 words[i] consists of English letters (both lowercase and
+    * uppercase).
+    */
+  def findWords(words: Array[String]): Array[String] =
+    val firstRow = "qwertyuiop".toSet
+    val secondRow = "asdfghjkl".toSet
+    val thirdRow = "zxcvbnm".toSet
+    words.filter: thisword =>
+      val word = thisword.toLowerCase
+      word.forall(firstRow.contains(_)) ||
+      word.forall(secondRow.contains(_)) ||
+      word.forall(thirdRow.contains(_))

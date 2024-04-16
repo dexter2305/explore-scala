@@ -622,3 +622,35 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (sentence, searchWord, expectedIndex) =>
       assert(StringProblems.isPrefixOfWord(sentence = sentence, searchWord) === expectedIndex)
+
+  test("2185. Counting words with a given prefix"):
+    val testcases = Table(
+      ("words", "prefix", "expected"),
+      (List("pay", "attention", "practice", "attend"), "at", 2),
+      (List("leetcode", "win", "loops", "success"), "code", 0)
+    )
+    forAll(testcases): (words, prefix, expected) =>
+      assert(StringProblems.prefixCount(words.toArray, prefix) === expected)
+
+  test("2124. Check if all A's appear before all B's"):
+    val testcases = Table(
+      ("string", "expected"),
+      ("aaabbb", true),
+      ("abab", false),
+      ("bbb", true),
+      ("aa", true),
+      ("a", true),
+      ("b", true)
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.checkString(string) == expected)
+
+  test("500. Keyboard row"):
+    val testcases = Table(
+      ("words", "expected"),
+      (List("Hello", "Alaska", "Dad", "Peace"), List("Alaska", "Dad")),
+      (List("omk"), List.empty[String]),
+      (List("adsdf", "sfd"), List("adsdf", "sfd"))
+    )
+    forAll(testcases): (words, expected) =>
+      assert(StringProblems.findWords(words.toArray).toList === expected)
