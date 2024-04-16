@@ -1,3 +1,4 @@
+//NOTE: `build.sc` is fixed at scala 2.13. Cannot use scala3 syntax. ScalaFmt might switch it to scala3.
 import $ivy.`com.lihaoyi::mill-contrib-scoverage:`
 import mill._
 import mill.contrib.scoverage.ScoverageModule

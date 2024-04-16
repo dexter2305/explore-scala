@@ -4,30 +4,33 @@ package leetcode
 object StringProblems:
   /** 2114. Maximum number of words found in sentences.
     *
-    * A sentence is a list of words that are separated by a single space with no leading or trailing spaces.
+    * A sentence is a list of words that are separated by a single space with no leading or trailing
+    * spaces.
     *
-    * You are given an array of strings sentences, where each sentences[i] represents a single sentence.
+    * You are given an array of strings sentences, where each sentences[i] represents a single
+    * sentence.
     *
     * Return the maximum number of words that appear in a single sentence.
     *
     * Example 1:
     *
-    * Input: sentences = ["alice and bob love leetcode", "i think so too", "this is great thanks very much"] Output: 6
-    * Explanation: \- The first sentence, "alice and bob love leetcode", has 5 words in total. \- The second sentence,
-    * "i think so too", has 4 words in total. \- The third sentence, "this is great thanks very much", has 6 words in
-    * total. Thus, the maximum number of words in a single sentence comes from the third sentence, which has 6 words.
+    * Input: sentences = ["alice and bob love leetcode", "i think so too", "this is great thanks
+    * very much"] Output: 6 Explanation: \- The first sentence, "alice and bob love leetcode", has 5
+    * words in total. \- The second sentence, "i think so too", has 4 words in total. \- The third
+    * sentence, "this is great thanks very much", has 6 words in total. Thus, the maximum number of
+    * words in a single sentence comes from the third sentence, which has 6 words.
     *
     * Example 2:
     *
-    * Input: sentences = ["please wait", "continue to fight", "continue to win"] Output: 3 Explanation: It is possible
-    * that multiple sentences contain the same number of words. In this example, the second and third sentences
-    * (underlined) have the same number of words.
+    * Input: sentences = ["please wait", "continue to fight", "continue to win"] Output: 3
+    * Explanation: It is possible that multiple sentences contain the same number of words. In this
+    * example, the second and third sentences (underlined) have the same number of words.
     *
     * Constraints:
     *
-    * 1 <= sentences.length <= 100 1 <= sentences[i].length <= 100 sentences[i] consists only of lowercase English
-    * letters and ' ' only. sentences[i] does not have leading or trailing spaces. All the words in sentences[i] are
-    * separated by a single space.
+    * 1 <= sentences.length <= 100 1 <= sentences[i].length <= 100 sentences[i] consists only of
+    * lowercase English letters and ' ' only. sentences[i] does not have leading or trailing spaces.
+    * All the words in sentences[i] are separated by a single space.
     */
   def maxNumberOfWords(sentences: Array[String]): Int =
     sentences.map(_.count(_ == ' ') + 1).max
@@ -55,7 +58,8 @@ object StringProblems:
 
   /** 709. To Lower case.
     *
-    * Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.
+    * Given a string s, return the string after replacing every uppercase letter with the same
+    * lowercase letter.
     *
     * Example 1:
     *
@@ -79,35 +83,39 @@ object StringProblems:
 
   /** 2129. Capitalize the title.
     *
-    * You are given a string title consisting of one or more words separated by a single space, where each word consists
-    * of English letters. Capitalize the string by changing the capitalization of each word such that:
+    * You are given a string title consisting of one or more words separated by a single space,
+    * where each word consists of English letters. Capitalize the string by changing the
+    * capitalization of each word such that:
     *
-    * If the length of the word is 1 or 2 letters, change all letters to lowercase. Otherwise, change the first letter
-    * to uppercase and the remaining letters to lowercase.
+    * If the length of the word is 1 or 2 letters, change all letters to lowercase. Otherwise,
+    * change the first letter to uppercase and the remaining letters to lowercase.
     *
     * Return the capitalized title.
     *
     * Example 1:
     *
-    * Input: title = "capiTalIze tHe titLe" Output: "Capitalize The Title" Explanation: Since all the words have a
-    * length of at least 3, the first letter of each word is uppercase, and the remaining letters are lowercase.
+    * Input: title = "capiTalIze tHe titLe" Output: "Capitalize The Title" Explanation: Since all
+    * the words have a length of at least 3, the first letter of each word is uppercase, and the
+    * remaining letters are lowercase.
     *
     * Example 2:
     *
-    * Input: title = "First leTTeR of EACH Word" Output: "First Letter of Each Word" Explanation: The word "of" has
-    * length 2, so it is all lowercase. The remaining words have a length of at least 3, so the first letter of each
-    * remaining word is uppercase, and the remaining letters are lowercase.
+    * Input: title = "First leTTeR of EACH Word" Output: "First Letter of Each Word" Explanation:
+    * The word "of" has length 2, so it is all lowercase. The remaining words have a length of at
+    * least 3, so the first letter of each remaining word is uppercase, and the remaining letters
+    * are lowercase.
     *
     * Example 3:
     *
-    * Input: title = "i lOve leetcode" Output: "i Love Leetcode" Explanation: The word "i" has length 1, so it is
-    * lowercase. The remaining words have a length of at least 3, so the first letter of each remaining word is
-    * uppercase, and the remaining letters are lowercase.
+    * Input: title = "i lOve leetcode" Output: "i Love Leetcode" Explanation: The word "i" has
+    * length 1, so it is lowercase. The remaining words have a length of at least 3, so the first
+    * letter of each remaining word is uppercase, and the remaining letters are lowercase.
     *
     * Constraints:
     *
-    * 1 <= title.length <= 100 title consists of words separated by a single space without any leading or trailing
-    * spaces. Each word consists of uppercase and lowercase English letters and is non-empty.
+    * 1 <= title.length <= 100 title consists of words separated by a single space without any
+    * leading or trailing spaces. Each word consists of uppercase and lowercase English letters and
+    * is non-empty.
     */
   def capitalizeTheTitle(title: String): String =
     title
@@ -121,8 +129,8 @@ object StringProblems:
     *
     * We define the usage of capitals in a word to be right when one of the following cases holds:
     *
-    * All letters in this word are capitals, like "USA". All letters in this word are not capitals, like "leetcode".
-    * Only the first letter in this word is capital, like "Google".
+    * All letters in this word are capitals, like "USA". All letters in this word are not capitals,
+    * like "leetcode". Only the first letter in this word is capital, like "Google".
     *
     * Given a string word, return true if the usage of capitals in it is right.
     *
@@ -145,9 +153,9 @@ object StringProblems:
 
   /** 771. Jewels and stones.
     *
-    * You're given strings jewels representing the types of stones that are jewels, and stones representing the stones
-    * you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have
-    * are also jewels.
+    * You're given strings jewels representing the types of stones that are jewels, and stones
+    * representing the stones you have. Each character in stones is a type of stone you have. You
+    * want to know how many of the stones you have are also jewels.
     *
     * Letters are case sensitive, so "a" is considered a different type of stone from "A".
     *
@@ -161,8 +169,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= jewels.length, stones.length <= 50 jewels and stones consist of only English letters. All the characters of
-    * jewels are unique.
+    * 1 <= jewels.length, stones.length <= 50 jewels and stones consist of only English letters. All
+    * the characters of jewels are unique.
     */
   def jewelsAndStones(jewels: String, stones: String): Int =
     val j = jewels.toSet
@@ -172,32 +180,33 @@ object StringProblems:
     *
     * There is a programming language with only four operations and one variable X:
     *
-    * ++X and X++ increments the value of the variable X by 1. --X and X-- decrements the value of the variable X by 1.
+    * ++X and X++ increments the value of the variable X by 1. --X and X-- decrements the value of
+    * the variable X by 1.
     *
     * Initially, the value of X is 0.
     *
-    * Given an array of strings operations containing a list of operations, return the final value of X after performing
-    * all the operations.
+    * Given an array of strings operations containing a list of operations, return the final value
+    * of X after performing all the operations.
     *
     * Example 1:
     *
-    * Input: operations = ["--X","X++","X++"] Output: 1 Explanation: The operations are performed as follows: Initially,
-    * X = 0. --X: X is decremented by 1, X = 0 - 1 = -1. X++: X is incremented by 1, X = -1 + 1 = 0. X++: X is
-    * incremented by 1, X = 0 + 1 = 1.
+    * Input: operations = ["--X","X++","X++"] Output: 1 Explanation: The operations are performed as
+    * follows: Initially, X = 0. --X: X is decremented by 1, X = 0 - 1 = -1. X++: X is incremented
+    * by 1, X = -1 + 1 = 0. X++: X is incremented by 1, X = 0 + 1 = 1.
     *
     * Example 2:
     *
-    * Input: operations = ["++X","++X","X++"] Output: 3 Explanation: The operations are performed as follows: Initially,
-    * X = 0.
+    * Input: operations = ["++X","++X","X++"] Output: 3 Explanation: The operations are performed as
+    * follows: Initially, X = 0.
     * ++X: X is incremented by 1, X = 0 + 1 = 1.
     * ++X: X is incremented by 1, X = 1 + 1 = 2. X++: X is incremented by 1, X = 2 + 1 = 3.
     *
     * Example 3:
     *
-    * Input: operations = ["X++","++X","--X","X--"] Output: 0 Explanation: The operations are performed as follows:
-    * Initially, X = 0. X++: X is incremented by 1, X = 0 + 1 = 1.
-    * ++X: X is incremented by 1, X = 1 + 1 = 2. --X: X is decremented by 1, X = 2 - 1 = 1. X--: X is decremented by 1,
-    * X = 1 - 1 = 0.
+    * Input: operations = ["X++","++X","--X","X--"] Output: 0 Explanation: The operations are
+    * performed as follows: Initially, X = 0. X++: X is incremented by 1, X = 0 + 1 = 1.
+    * ++X: X is incremented by 1, X = 1 + 1 = 2. --X: X is decremented by 1, X = 2 - 1 = 1. X--: X
+    * is decremented by 1, X = 1 - 1 = 0.
     *
     * Constraints:
     *
@@ -219,23 +228,23 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: words = ["leet","code"], x = "e" Output: [0,1] Explanation: "e" occurs in both words: "leet", and "code".
-    * Hence, we return indices 0 and 1.
+    * Input: words = ["leet","code"], x = "e" Output: [0,1] Explanation: "e" occurs in both words:
+    * "leet", and "code". Hence, we return indices 0 and 1.
     *
     * Example 2:
     *
-    * Input: words = ["abc","bcd","aaaa","cbc"], x = "a" Output: [0,2] Explanation: "a" occurs in "abc", and "aaaa".
-    * Hence, we return indices 0 and 2.
+    * Input: words = ["abc","bcd","aaaa","cbc"], x = "a" Output: [0,2] Explanation: "a" occurs in
+    * "abc", and "aaaa". Hence, we return indices 0 and 2.
     *
     * Example 3:
     *
-    * Input: words = ["abc","bcd","aaaa","cbc"], x = "z" Output: [] Explanation: "z" does not occur in any of the words.
-    * Hence, we return an empty array.
+    * Input: words = ["abc","bcd","aaaa","cbc"], x = "z" Output: [] Explanation: "z" does not occur
+    * in any of the words. Hence, we return an empty array.
     *
     * Constraints:
     *
-    * 1 <= words.length <= 50 1 <= words[i].length <= 50 x is a lowercase English letter. words[i] consists only of
-    * lowercase English letters.
+    * 1 <= words.length <= 50 1 <= words[i].length <= 50 x is a lowercase English letter. words[i]
+    * consists only of lowercase English letters.
     */
   def findWordsContaining(words: Array[String], x: Char): List[Int] =
     words.zipWithIndex
@@ -245,15 +254,17 @@ object StringProblems:
 
   /** 1662. Check if two strings are equivalent.
     *
-    * Given two string arrays word1 and word2, return true if the two arrays represent the same string, and false
-    * otherwise.
+    * Given two string arrays word1 and word2, return true if the two arrays represent the same
+    * string, and false otherwise.
     *
-    * A string is represented by an array if the array elements concatenated in order forms the string.
+    * A string is represented by an array if the array elements concatenated in order forms the
+    * string.
     *
     * Example 1:
     *
-    * Input: word1 = ["ab", "c"], word2 = ["a", "bc"] Output: true Explanation: word1 represents string "ab" + "c" ->
-    * "abc" word2 represents string "a" + "bc" -> "abc" The strings are the same, so return true.
+    * Input: word1 = ["ab", "c"], word2 = ["a", "bc"] Output: true Explanation: word1 represents
+    * string "ab" + "c" -> "abc" word2 represents string "a" + "bc" -> "abc" The strings are the
+    * same, so return true.
     *
     * Example 2:
     *
@@ -265,33 +276,36 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= word1.length, word2.length <= 103 1 <= word1[i].length, word2[i].length <= 103 1 <= sum(word1[i].length),
-    * sum(word2[i].length) <= 103 word1[i] and word2[i] consist of lowercase letters.
+    * 1 <= word1.length, word2.length <= 103 1 <= word1[i].length, word2[i].length <= 103 1 <=
+    * sum(word1[i].length), sum(word2[i].length) <= 103 word1[i] and word2[i] consist of lowercase
+    * letters.
     */
   def arrayStringsAreEqual(word1: Array[String], word2: Array[String]): Boolean =
     word1.mkString == word2.mkString
 
   /** 1816. Truncate sentence.
     *
-    * A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each of the
-    * words consists of only uppercase and lowercase English letters (no punctuation).
+    * A sentence is a list of words that are separated by a single space with no leading or trailing
+    * spaces. Each of the words consists of only uppercase and lowercase English letters (no
+    * punctuation).
     *
     * For example, "Hello World", "HELLO", and "hello world hello world" are all sentences.
     *
-    * You are given a sentence s​​​​​​ and an integer k​​​​​​. You want to truncate s​​​​​​ such that it contains only
-    * the first k​​​​​​ words. Return s​​​​​​ after truncating it.
+    * You are given a sentence s​​​​​​ and an integer k​​​​​​. You want to truncate s​​​​​​ such
+    * that it contains only the first k​​​​​​ words. Return s​​​​​​ after truncating it.
     *
     * Example 1:
     *
-    * Input: s = "Hello how are you Contestant", k = 4 Output: "Hello how are you" Explanation: The words in s are
-    * ["Hello", "how" "are", "you", "Contestant"]. The first 4 words are ["Hello", "how", "are", "you"]. Hence, you
-    * should return "Hello how are you".
+    * Input: s = "Hello how are you Contestant", k = 4 Output: "Hello how are you" Explanation: The
+    * words in s are ["Hello", "how" "are", "you", "Contestant"]. The first 4 words are ["Hello",
+    * "how", "are", "you"]. Hence, you should return "Hello how are you".
     *
     * Example 2:
     *
-    * Input: s = "What is the solution to this problem", k = 4 Output: "What is the solution" Explanation: The words in
-    * s are ["What", "is" "the", "solution", "to", "this", "problem"]. The first 4 words are ["What", "is", "the",
-    * "solution"]. Hence, you should return "What is the solution".
+    * Input: s = "What is the solution to this problem", k = 4 Output: "What is the solution"
+    * Explanation: The words in s are ["What", "is" "the", "solution", "to", "this", "problem"]. The
+    * first 4 words are ["What", "is", "the", "solution"]. Hence, you should return "What is the
+    * solution".
     *
     * Example 3:
     *
@@ -299,41 +313,45 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= s.length <= 500 k is in the range [1, the number of words in s]. s consist of only lowercase and uppercase
-    * English letters and spaces. The words in s are separated by a single space. There are no leading or trailing
-    * spaces.
+    * 1 <= s.length <= 500 k is in the range [1, the number of words in s]. s consist of only
+    * lowercase and uppercase English letters and spaces. The words in s are separated by a single
+    * space. There are no leading or trailing spaces.
     */
   def truncateSentence(s: String, k: Int): String = s.split(" ").take(k).mkString(" ")
 
   /** 1773. Count items matching a rule.
     *
-    * You are given an array items, where each items[i] = [typei, colori, namei] describes the type, color, and name of
-    * the ith item. You are also given a rule represented by two strings, ruleKey and ruleValue.
+    * You are given an array items, where each items[i] = [typei, colori, namei] describes the type,
+    * color, and name of the ith item. You are also given a rule represented by two strings, ruleKey
+    * and ruleValue.
     *
     * The ith item is said to match the rule if one of the following is true:
     *
-    * ruleKey == "type" and ruleValue == typei. ruleKey == "color" and ruleValue == colori. ruleKey == "name" and
-    * ruleValue == namei.
+    * ruleKey == "type" and ruleValue == typei. ruleKey == "color" and ruleValue == colori. ruleKey
+    * \== "name" and ruleValue == namei.
     *
     * Return the number of items that match the given rule.
     *
     * Example 1:
     *
-    * Input: items = [["phone","blue","pixel"],["computer","silver","lenovo"],["phone","gold","iphone"]], ruleKey =
-    * "color", ruleValue = "silver" Output: 1 Explanation: There is only one item matching the given rule, which is
-    * ["computer","silver","lenovo"].
+    * Input: items =
+    * [["phone","blue","pixel"],["computer","silver","lenovo"],["phone","gold","iphone"]], ruleKey =
+    * "color", ruleValue = "silver" Output: 1 Explanation: There is only one item matching the given
+    * rule, which is ["computer","silver","lenovo"].
     *
     * Example 2:
     *
-    * Input: items = [["phone","blue","pixel"],["computer","silver","phone"],["phone","gold","iphone"]], ruleKey =
-    * "type", ruleValue = "phone" Output: 2 Explanation: There are only two items matching the given rule, which are
-    * ["phone","blue","pixel"] and ["phone","gold","iphone"]. Note that the item ["computer","silver","phone"] does not
-    * match.
+    * Input: items =
+    * [["phone","blue","pixel"],["computer","silver","phone"],["phone","gold","iphone"]], ruleKey =
+    * "type", ruleValue = "phone" Output: 2 Explanation: There are only two items matching the given
+    * rule, which are ["phone","blue","pixel"] and ["phone","gold","iphone"]. Note that the item
+    * ["computer","silver","phone"] does not match.
     *
     * Constraints:
     *
-    * 1 <= items.length <= 104 1 <= typei.length, colori.length, namei.length, ruleValue.length <= 10 ruleKey is equal
-    * to either "type", "color", or "name". All strings consist only of lowercase letters.
+    * 1 <= items.length <= 104 1 <= typei.length, colori.length, namei.length, ruleValue.length <=
+    * 10 ruleKey is equal to either "type", "color", or "name". All strings consist only of
+    * lowercase letters.
     */
   def countMatches(items: List[List[String]], ruleKey: String, ruleValue: String): Int =
     val index = ruleKey match
@@ -347,13 +365,13 @@ object StringProblems:
     *
     * A pangram is a sentence where every letter of the English alphabet appears at least once.
     *
-    * Given a string sentence containing only lowercase English letters, return true if sentence is a pangram, or false
-    * otherwise.
+    * Given a string sentence containing only lowercase English letters, return true if sentence is
+    * a pangram, or false otherwise.
     *
     * Example 1:
     *
-    * Input: sentence = "thequickbrownfoxjumpsoverthelazydog" Output: true Explanation: sentence contains at least one
-    * of every letter of the English alphabet.
+    * Input: sentence = "thequickbrownfoxjumpsoverthelazydog" Output: true Explanation: sentence
+    * contains at least one of every letter of the English alphabet.
     *
     * Example 2:
     *
@@ -368,8 +386,8 @@ object StringProblems:
 
   /** 557. Reverse words in a string III.
     *
-    * Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace
-    * and initial word order.
+    * Given a string s, reverse the order of characters in each word within a sentence while still
+    * preserving whitespace and initial word order.
     *
     * Example 1:
     *
@@ -381,40 +399,42 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= s.length <= 5 * 104 s contains printable ASCII characters. s does not contain any leading or trailing spaces.
-    * There is at least one word in s. All the words in s are separated by a single space.
+    * 1 <= s.length <= 5 * 104 s contains printable ASCII characters. s does not contain any leading
+    * or trailing spaces. There is at least one word in s. All the words in s are separated by a
+    * single space.
     */
   def reverseWords(s: String): String =
     s.split(" ").map(_.reverse).mkString(" ")
 
   /** 1859. Sorting the sentence.
     *
-    * A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word
-    * consists of lowercase and uppercase English letters.
+    * A sentence is a list of words that are separated by a single space with no leading or trailing
+    * spaces. Each word consists of lowercase and uppercase English letters.
     *
-    * A sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the
-    * sentence.
+    * A sentence can be shuffled by appending the 1-indexed word position to each word then
+    * rearranging the words in the sentence.
     *
-    * For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or "is2 sentence4 This1
-    * a3".
+    * For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or
+    * "is2 sentence4 This1 a3".
     *
-    * Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
+    * Given a shuffled sentence s containing no more than 9 words, reconstruct and return the
+    * original sentence.
     *
     * Example 1:
     *
-    * Input: s = "is2 sentence4 This1 a3" Output: "This is a sentence" Explanation: Sort the words in s to their
-    * original positions "This1 is2 a3 sentence4", then remove the numbers.
+    * Input: s = "is2 sentence4 This1 a3" Output: "This is a sentence" Explanation: Sort the words
+    * in s to their original positions "This1 is2 a3 sentence4", then remove the numbers.
     *
     * Example 2:
     *
-    * Input: s = "Myself2 Me1 I4 and3" Output: "Me Myself and I" Explanation: Sort the words in s to their original
-    * positions "Me1 Myself2 and3 I4", then remove the numbers.
+    * Input: s = "Myself2 Me1 I4 and3" Output: "Me Myself and I" Explanation: Sort the words in s to
+    * their original positions "Me1 Myself2 and3 I4", then remove the numbers.
     *
     * Constraints:
     *
-    * 2 <= s.length <= 200 s consists of lowercase and uppercase English letters, spaces, and digits from 1 to 9. The
-    * number of words in s is between 1 and 9. The words in s are separated by a single space. s contains no leading or
-    * trailing spaces.
+    * 2 <= s.length <= 200 s consists of lowercase and uppercase English letters, spaces, and digits
+    * from 1 to 9. The number of words in s is between 1 and 9. The words in s are separated by a
+    * single space. s contains no leading or trailing spaces.
     */
   def sortSentence(s: String): String =
     s.split(" ")
@@ -426,32 +446,33 @@ object StringProblems:
 
   /** 2810. Faulty keyboard.
     *
-    * A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word
-    * consists of lowercase and uppercase English letters.
+    * A sentence is a list of words that are separated by a single space with no leading or trailing
+    * spaces. Each word consists of lowercase and uppercase English letters.
     *
-    * A sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the
-    * sentence.
+    * A sentence can be shuffled by appending the 1-indexed word position to each word then
+    * rearranging the words in the sentence.
     *
-    * For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or "is2 sentence4 This1
-    * a3".
+    * For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or
+    * "is2 sentence4 This1 a3".
     *
-    * Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
+    * Given a shuffled sentence s containing no more than 9 words, reconstruct and return the
+    * original sentence.
     *
     * Example 1:
     *
-    * Input: s = "is2 sentence4 This1 a3" Output: "This is a sentence" Explanation: Sort the words in s to their
-    * original positions "This1 is2 a3 sentence4", then remove the numbers.
+    * Input: s = "is2 sentence4 This1 a3" Output: "This is a sentence" Explanation: Sort the words
+    * in s to their original positions "This1 is2 a3 sentence4", then remove the numbers.
     *
     * Example 2:
     *
-    * Input: s = "Myself2 Me1 I4 and3" Output: "Me Myself and I" Explanation: Sort the words in s to their original
-    * positions "Me1 Myself2 and3 I4", then remove the numbers.
+    * Input: s = "Myself2 Me1 I4 and3" Output: "Me Myself and I" Explanation: Sort the words in s to
+    * their original positions "Me1 Myself2 and3 I4", then remove the numbers.
     *
     * Constraints:
     *
-    * 2 <= s.length <= 200 s consists of lowercase and uppercase English letters, spaces, and digits from 1 to 9. The
-    * number of words in s is between 1 and 9. The words in s are separated by a single space. s contains no leading or
-    * trailing spaces.
+    * 2 <= s.length <= 200 s consists of lowercase and uppercase English letters, spaces, and digits
+    * from 1 to 9. The number of words in s is between 1 and 9. The words in s are separated by a
+    * single space. s contains no leading or trailing spaces.
     */
   def finalString(s: String): String =
     s.foldLeft(""): (acc, e) =>
@@ -461,11 +482,12 @@ object StringProblems:
 
   /** Reverse string II.
     *
-    * Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start
-    * of the string.
+    * Given a string s and an integer k, reverse the first k characters for every 2k characters
+    * counting from the start of the string.
     *
-    * If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or
-    * equal to k characters, then reverse the first k characters and leave the other as original.
+    * If there are fewer than k characters left, reverse all of them. If there are less than 2k but
+    * greater than or equal to k characters, then reverse the first k characters and leave the other
+    * as original.
     *
     * Example 1:
     *
@@ -492,62 +514,64 @@ object StringProblems:
     *
     * Given an array of strings words and a string s, determine if s is an acronym of words.
     *
-    * The string s is considered an acronym of words if it can be formed by concatenating the first character of each
-    * string in words in order. For example, "ab" can be formed from ["apple", "banana"], but it can't be formed from
-    * ["bear", "aardvark"].
+    * The string s is considered an acronym of words if it can be formed by concatenating the first
+    * character of each string in words in order. For example, "ab" can be formed from ["apple",
+    * "banana"], but it can't be formed from ["bear", "aardvark"].
     *
     * Return true if s is an acronym of words, and false otherwise.
     *
     * Example 1:
     *
-    * Input: words = ["alice","bob","charlie"], s = "abc" Output: true Explanation: The first character in the words
-    * "alice", "bob", and "charlie" are 'a', 'b', and 'c', respectively. Hence, s = "abc" is the acronym.
+    * Input: words = ["alice","bob","charlie"], s = "abc" Output: true Explanation: The first
+    * character in the words "alice", "bob", and "charlie" are 'a', 'b', and 'c', respectively.
+    * Hence, s = "abc" is the acronym.
     *
     * Example 2:
     *
-    * Input: words = ["an","apple"], s = "a" Output: false Explanation: The first character in the words "an" and
-    * "apple" are 'a' and 'a', respectively. The acronym formed by concatenating these characters is "aa". Hence, s =
-    * "a" is not the acronym.
+    * Input: words = ["an","apple"], s = "a" Output: false Explanation: The first character in the
+    * words "an" and "apple" are 'a' and 'a', respectively. The acronym formed by concatenating
+    * these characters is "aa". Hence, s = "a" is not the acronym.
     *
     * Example 3:
     *
-    * Input: words = ["never","gonna","give","up","on","you"], s = "ngguoy" Output: true Explanation: By concatenating
-    * the first character of the words in the array, we get the string "ngguoy". Hence, s = "ngguoy" is the acronym.
+    * Input: words = ["never","gonna","give","up","on","you"], s = "ngguoy" Output: true
+    * Explanation: By concatenating the first character of the words in the array, we get the string
+    * "ngguoy". Hence, s = "ngguoy" is the acronym.
     *
     * Constraints:
     *
-    * 1 <= words.length <= 100 1 <= words[i].length <= 10 1 <= s.length <= 100 words[i] and s consist of lowercase
-    * English letters.
+    * 1 <= words.length <= 100 1 <= words[i].length <= 10 1 <= s.length <= 100 words[i] and s
+    * consist of lowercase English letters.
     */
   def isAcronym(words: List[String], s: String): Boolean =
     words.map(_.charAt(0)).mkString("") == s
 
   /** 1684. Count the number of consistent strings.
     *
-    * You are given a string allowed consisting of distinct characters and an array of strings words. A string is
-    * consistent if all characters in the string appear in the string allowed.
+    * You are given a string allowed consisting of distinct characters and an array of strings
+    * words. A string is consistent if all characters in the string appear in the string allowed.
     *
     * Return the number of consistent strings in the array words.
     *
     * Example 1:
     *
-    * Input: allowed = "ab", words = ["ad","bd","aaab","baa","badab"] Output: 2 Explanation: Strings "aaab" and "baa"
-    * are consistent since they only contain characters 'a' and 'b'.
+    * Input: allowed = "ab", words = ["ad","bd","aaab","baa","badab"] Output: 2 Explanation: Strings
+    * "aaab" and "baa" are consistent since they only contain characters 'a' and 'b'.
     *
     * Example 2:
     *
-    * Input: allowed = "abc", words = ["a","b","c","ab","ac","bc","abc"] Output: 7 Explanation: All strings are
-    * consistent.
+    * Input: allowed = "abc", words = ["a","b","c","ab","ac","bc","abc"] Output: 7 Explanation: All
+    * strings are consistent.
     *
     * Example 3:
     *
-    * Input: allowed = "cad", words = ["cc","acd","b","ba","bac","bad","ac","d"] Output: 4 Explanation: Strings "cc",
-    * "acd", "ac", and "d" are consistent.
+    * Input: allowed = "cad", words = ["cc","acd","b","ba","bac","bad","ac","d"] Output: 4
+    * Explanation: Strings "cc", "acd", "ac", and "d" are consistent.
     *
     * Constraints:
     *
-    * 1 <= words.length <= 104 1 <= allowed.length <= 26 1 <= words[i].length <= 10 The characters in allowed are
-    * distinct. words[i] and allowed contain only lowercase English letters.
+    * 1 <= words.length <= 104 1 <= allowed.length <= 26 1 <= words[i].length <= 10 The characters
+    * in allowed are distinct. words[i] and allowed contain only lowercase English letters.
     */
   def countConsistentStrings(allowed: String, words: Array[String]): Int =
     val d = allowed.toSet
@@ -556,8 +580,8 @@ object StringProblems:
 
   /** 2418. Sort the people.
     *
-    * You are given an array of strings names, and an array heights that consists of distinct positive integers. Both
-    * arrays are of length n.
+    * You are given an array of strings names, and an array heights that consists of distinct
+    * positive integers. Both arrays are of length n.
     *
     * For each index i, names[i] and heights[i] denote the name and height of the ith person.
     *
@@ -565,18 +589,19 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: names = ["Mary","John","Emma"], heights = [180,165,170] Output: ["Mary","Emma","John"] Explanation: Mary is
-    * the tallest, followed by Emma and John.
+    * Input: names = ["Mary","John","Emma"], heights = [180,165,170] Output: ["Mary","Emma","John"]
+    * Explanation: Mary is the tallest, followed by Emma and John.
     *
     * Example 2:
     *
-    * Input: names = ["Alice","Bob","Bob"], heights = [155,185,150] Output: ["Bob","Alice","Bob"] Explanation: The first
-    * Bob is the tallest, followed by Alice and the second Bob.
+    * Input: names = ["Alice","Bob","Bob"], heights = [155,185,150] Output: ["Bob","Alice","Bob"]
+    * Explanation: The first Bob is the tallest, followed by Alice and the second Bob.
     *
     * Constraints:
     *
-    * n == names.length == heights.length 1 <= n <= 103 1 <= names[i].length <= 20 1 <= heights[i] <= 105 names[i]
-    * consists of lower and upper case English letters. All the values of heights are distinct.
+    * n == names.length == heights.length 1 <= n <= 103 1 <= names[i].length <= 20 1 <= heights[i]
+    * <= 105 names[i] consists of lower and upper case English letters. All the values of heights
+    * are distinct.
     */
   def sortPeople(names: Array[String], heights: Array[Int]): Array[String] =
     names
@@ -589,8 +614,8 @@ object StringProblems:
     *
     * Given a string s, reverse the string according to the following rules:
     *
-    * All the characters that are not English letters remain in the same position. All the English letters (lowercase or
-    * uppercase) should be reversed.
+    * All the characters that are not English letters remain in the same position. All the English
+    * letters (lowercase or uppercase) should be reversed.
     *
     * Return s after reversing it.
     *
@@ -608,8 +633,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= s.length <= 100 s consists of characters with ASCII values in the range [33, 122]. s does not contain '\"' or
-    * '\\'.
+    * 1 <= s.length <= 100 s consists of characters with ASCII values in the range [33, 122]. s does
+    * not contain '\"' or '\\'.
     */
   def reverseOnlyLetters(s: String): String =
     @scala.annotation.tailrec
@@ -630,7 +655,8 @@ object StringProblems:
 
   /** 344. Reverse String.
     *
-    * Write a function that reverses a string. The input string is given as an array of characters s.
+    * Write a function that reverses a string. The input string is given as an array of characters
+    * s.
     *
     * You must do this by modifying the input array in-place with O(1) extra memory.
     *
@@ -658,22 +684,24 @@ object StringProblems:
 
   /** 1436. Destination city.
     *
-    * You are given the array paths, where paths[i] = [cityAi, cityBi] means there exists a direct path going from
-    * cityAi to cityBi. Return the destination city, that is, the city without any path outgoing to another city.
+    * You are given the array paths, where paths[i] = [cityAi, cityBi] means there exists a direct
+    * path going from cityAi to cityBi. Return the destination city, that is, the city without any
+    * path outgoing to another city.
     *
-    * It is guaranteed that the graph of paths forms a line without any loop, therefore, there will be exactly one
-    * destination city.
+    * It is guaranteed that the graph of paths forms a line without any loop, therefore, there will
+    * be exactly one destination city.
     *
     * Example 1:
     *
-    * Input: paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]] Output: "Sao Paulo" Explanation:
-    * Starting at "London" city you will reach "Sao Paulo" city which is the destination city. Your trip consist of:
-    * "London" -> "New York" -> "Lima" -> "Sao Paulo".
+    * Input: paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]] Output: "Sao
+    * Paulo" Explanation: Starting at "London" city you will reach "Sao Paulo" city which is the
+    * destination city. Your trip consist of: "London" -> "New York" -> "Lima" -> "Sao Paulo".
     *
     * Example 2:
     *
-    * Input: paths = [["B","C"],["D","B"],["C","A"]] Output: "A" Explanation: All possible trips are: "D" -> "B" -> "C"
-    * -> "A". "B" -> "C" -> "A". "C" -> "A". "A". Clearly the destination city is "A".
+    * Input: paths = [["B","C"],["D","B"],["C","A"]] Output: "A" Explanation: All possible trips
+    * are: "D" -> "B" -> "C" -> "A". "B" -> "C" -> "A". "C" -> "A". "A". Clearly the destination
+    * city is "A".
     *
     * Example 3:
     *
@@ -681,8 +709,9 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= paths.length <= 100 paths[i].length == 2 1 <= cityAi.length, cityBi.length <= 10 cityAi != cityBi All strings
-    * consist of lowercase and uppercase English letters and the space character.
+    * 1 <= paths.length <= 100 paths[i].length == 2 1 <= cityAi.length, cityBi.length <= 10 cityAi
+    * != cityBi All strings consist of lowercase and uppercase English letters and the space
+    * character.
     */
   def destCity(paths: List[List[String]]): String =
     @scala.annotation.tailrec
@@ -696,8 +725,8 @@ object StringProblems:
 
   /** 383. Can construct.
     *
-    * Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from
-    * magazine and false otherwise.
+    * Given two strings ransomNote and magazine, return true if ransomNote can be constructed by
+    * using the letters from magazine and false otherwise.
     *
     * Each letter in magazine can only be used once in ransomNote.
     *
@@ -715,7 +744,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= ransomNote.length, magazine.length <= 105 ransomNote and magazine consist of lowercase English letters.
+    * 1 <= ransomNote.length, magazine.length <= 105 ransomNote and magazine consist of lowercase
+    * English letters.
     */
   def canConstruct(ransomNote: String, magazine: String): Boolean =
     val mg = magazine
@@ -733,16 +763,16 @@ object StringProblems:
 
   /** 2047. Number of valid words in a sentence.
     *
-    * A sentence consists of lowercase letters ('a' to 'z'), digits ('0' to '9'), hyphens ('-'), punctuation marks ('!',
-    * '.', and ','), and spaces (' ') only. Each sentence can be broken down into one or more tokens separated by one or
-    * more spaces ' '.
+    * A sentence consists of lowercase letters ('a' to 'z'), digits ('0' to '9'), hyphens ('-'),
+    * punctuation marks ('!', '.', and ','), and spaces (' ') only. Each sentence can be broken down
+    * into one or more tokens separated by one or more spaces ' '.
     *
     * A token is a valid word if all three of the following are true:
     *
-    * It only contains lowercase letters, hyphens, and/or punctuation (no digits). There is at most one hyphen '-'. If
-    * present, it must be surrounded by lowercase characters ("a-b" is valid, but "-ab" and "ab-" are not valid). There
-    * is at most one punctuation mark. If present, it must be at the end of the token ("ab,", "cd!", and "." are valid,
-    * but "a!b" and "c.," are not valid).
+    * It only contains lowercase letters, hyphens, and/or punctuation (no digits). There is at most
+    * one hyphen '-'. If present, it must be surrounded by lowercase characters ("a-b" is valid, but
+    * "-ab" and "ab-" are not valid). There is at most one punctuation mark. If present, it must be
+    * at the end of the token ("ab,", "cd!", and "." are valid, but "a!b" and "c.," are not valid).
     *
     * Examples of valid words include "a-b.", "afad", "ba-c", "a!", and "!".
     *
@@ -750,23 +780,25 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: sentence = "cat and dog" Output: 3 Explanation: The valid words in the sentence are "cat", "and", and
-    * "dog".
+    * Input: sentence = "cat and dog" Output: 3 Explanation: The valid words in the sentence are
+    * "cat", "and", and "dog".
     *
     * Example 2:
     *
-    * Input: sentence = "!this 1-s b8d!" Output: 0 Explanation: There are no valid words in the sentence. "!this" is
-    * invalid because it starts with a punctuation mark. "1-s" and "b8d" are invalid because they contain digits.
+    * Input: sentence = "!this 1-s b8d!" Output: 0 Explanation: There are no valid words in the
+    * sentence. "!this" is invalid because it starts with a punctuation mark. "1-s" and "b8d" are
+    * invalid because they contain digits.
     *
     * Example 3:
     *
-    * Input: sentence = "alice and bob are playing stone-game10" Output: 5 Explanation: The valid words in the sentence
-    * are "alice", "and", "bob", "are", and "playing". "stone-game10" is invalid because it contains digits.
+    * Input: sentence = "alice and bob are playing stone-game10" Output: 5 Explanation: The valid
+    * words in the sentence are "alice", "and", "bob", "are", and "playing". "stone-game10" is
+    * invalid because it contains digits.
     *
     * Constraints:
     *
-    * 1 <= sentence.length <= 1000 sentence only contains lowercase English letters, digits, ' ', '-', '!', '.', and
-    * ','. There will be at least 1 token.
+    * 1 <= sentence.length <= 1000 sentence only contains lowercase English letters, digits, ' ',
+    * '-', '!', '.', and ','. There will be at least 1 token.
     */
   def countValidWords(sentence: String): Int =
 
@@ -804,34 +836,36 @@ object StringProblems:
     *
     * A string s can be partitioned into groups of size k using the following procedure:
     *
-    * The first group consists of the first k characters of the string, the second group consists of the next k
-    * characters of the string, and so on. Each character can be a part of exactly one group. For the last group, if the
-    * string does not have k characters remaining, a character fill is used to complete the group.
+    * The first group consists of the first k characters of the string, the second group consists of
+    * the next k characters of the string, and so on. Each character can be a part of exactly one
+    * group. For the last group, if the string does not have k characters remaining, a character
+    * fill is used to complete the group.
     *
-    * Note that the partition is done so that after removing the fill character from the last group (if it exists) and
-    * concatenating all the groups in order, the resultant string should be s.
+    * Note that the partition is done so that after removing the fill character from the last group
+    * (if it exists) and concatenating all the groups in order, the resultant string should be s.
     *
-    * Given the string s, the size of each group k and the character fill, return a string array denoting the
-    * composition of every group s has been divided into, using the above procedure.
+    * Given the string s, the size of each group k and the character fill, return a string array
+    * denoting the composition of every group s has been divided into, using the above procedure.
     *
     * Example 1:
     *
-    * Input: s = "abcdefghi", k = 3, fill = "x" Output: ["abc","def","ghi"] Explanation: The first 3 characters "abc"
-    * form the first group. The next 3 characters "def" form the second group. The last 3 characters "ghi" form the
-    * third group. Since all groups can be completely filled by characters from the string, we do not need to use fill.
-    * Thus, the groups formed are "abc", "def", and "ghi".
+    * Input: s = "abcdefghi", k = 3, fill = "x" Output: ["abc","def","ghi"] Explanation: The first 3
+    * characters "abc" form the first group. The next 3 characters "def" form the second group. The
+    * last 3 characters "ghi" form the third group. Since all groups can be completely filled by
+    * characters from the string, we do not need to use fill. Thus, the groups formed are "abc",
+    * "def", and "ghi".
     *
     * Example 2:
     *
-    * Input: s = "abcdefghij", k = 3, fill = "x" Output: ["abc","def","ghi","jxx"] Explanation: Similar to the previous
-    * example, we are forming the first three groups "abc", "def", and "ghi". For the last group, we can only use the
-    * character 'j' from the string. To complete this group, we add 'x' twice. Thus, the 4 groups formed are "abc",
-    * "def", "ghi", and "jxx".
+    * Input: s = "abcdefghij", k = 3, fill = "x" Output: ["abc","def","ghi","jxx"] Explanation:
+    * Similar to the previous example, we are forming the first three groups "abc", "def", and
+    * "ghi". For the last group, we can only use the character 'j' from the string. To complete this
+    * group, we add 'x' twice. Thus, the 4 groups formed are "abc", "def", "ghi", and "jxx".
     *
     * Constraints:
     *
-    * 1 <= s.length <= 100 s consists of lowercase English letters only. 1 <= k <= 100 fill is a lowercase English
-    * letter.
+    * 1 <= s.length <= 100 s consists of lowercase English letters only. 1 <= k <= 100 fill is a
+    * lowercase English letter.
     */
   def divideString(s: String, k: Int, fill: Char): Array[String] =
     val required = if s.length % k != 0 then k - s.length % k else 0
@@ -839,29 +873,31 @@ object StringProblems:
 
   /** 2108. Find first palindromic string in the array.
     *
-    * Given an array of strings words, return the first palindromic string in the array. If there is no such string,
-    * return an empty string "".
+    * Given an array of strings words, return the first palindromic string in the array. If there is
+    * no such string, return an empty string "".
     *
     * A string is palindromic if it reads the same forward and backward.
     *
     * Example 1:
     *
-    * Input: words = ["abc","car","ada","racecar","cool"] Output: "ada" Explanation: The first string that is
-    * palindromic is "ada". Note that "racecar" is also palindromic, but it is not the first.
+    * Input: words = ["abc","car","ada","racecar","cool"] Output: "ada" Explanation: The first
+    * string that is palindromic is "ada". Note that "racecar" is also palindromic, but it is not
+    * the first.
     *
     * Example 2:
     *
-    * Input: words = ["notapalindrome","racecar"] Output: "racecar" Explanation: The first and only string that is
-    * palindromic is "racecar".
+    * Input: words = ["notapalindrome","racecar"] Output: "racecar" Explanation: The first and only
+    * string that is palindromic is "racecar".
     *
     * Example 3:
     *
-    * Input: words = ["def","ghi"] Output: "" Explanation: There are no palindromic strings, so the empty string is
-    * returned.
+    * Input: words = ["def","ghi"] Output: "" Explanation: There are no palindromic strings, so the
+    * empty string is returned.
     *
     * Constraints:
     *
-    * 1 <= words.length <= 100 1 <= words[i].length <= 100 words[i] consists only of lowercase English letters.
+    * 1 <= words.length <= 100 1 <= words[i].length <= 100 words[i] consists only of lowercase
+    * English letters.
     */
   def firstPalindrome(words: Array[String]): String =
     def isPalindrome(s: String): Boolean =
@@ -877,15 +913,16 @@ object StringProblems:
 
   /** 125. Valid palindrome.
     *
-    * A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all
-    * non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and
-    * numbers.
+    * A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and
+    * removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric
+    * characters include letters and numbers.
     *
     * Given a string s, return true if it is a palindrome, or false otherwise.
     *
     * Example 1:
     *
-    * Input: s = "A man, a plan, a canal: Panama" Output: true Explanation: "amanaplanacanalpanama" is a palindrome.
+    * Input: s = "A man, a plan, a canal: Panama" Output: true Explanation: "amanaplanacanalpanama"
+    * is a palindrome.
     *
     * Example 2:
     *
@@ -893,8 +930,9 @@ object StringProblems:
     *
     * Example 3:
     *
-    * Input: s = " " Output: true Explanation: s is an empty string "" after removing non-alphanumeric characters. Since
-    * an empty string reads the same forward and backward, it is a palindrome.
+    * Input: s = " " Output: true Explanation: s is an empty string "" after removing
+    * non-alphanumeric characters. Since an empty string reads the same forward and backward, it is
+    * a palindrome.
     *
     * Constraints:
     *
@@ -906,7 +944,8 @@ object StringProblems:
       // println(s"$s => ${s(head)} vs ${s(tail)}")
       if head <= tail then
         (s(head), s(tail)) match
-          case (x, y) if x.isLetterOrDigit && y.isLetterOrDigit   => x.toLower == y.toLower && aux(head + 1, tail - 1)
+          case (x, y) if x.isLetterOrDigit && y.isLetterOrDigit =>
+            x.toLower == y.toLower && aux(head + 1, tail - 1)
           case (x, y) if x.isLetterOrDigit && !y.isLetterOrDigit  => aux(head, tail - 1)
           case (x, y) if !x.isLetterOrDigit && y.isLetterOrDigit  => aux(head + 1, tail)
           case (x, y) if !x.isLetterOrDigit && !y.isLetterOrDigit => aux(head + 1, tail - 1)
@@ -921,8 +960,8 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: s = "Hello, my name is John" Output: 5 Explanation: The five segments are ["Hello,", "my", "name", "is",
-    * "John"]
+    * Input: s = "Hello, my name is John" Output: 5 Explanation: The five segments are ["Hello,",
+    * "my", "name", "is", "John"]
     *
     * Example 2:
     *
@@ -930,33 +969,34 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 0 <= s.length <= 300 s consists of lowercase and uppercase English letters, digits, or one of the following
-    * characters "!@#$%^&*()_+-=',.:". The only space character in s is ' '.
+    * 0 <= s.length <= 300 s consists of lowercase and uppercase English letters, digits, or one of
+    * the following characters "!@#$%^&*()_+-=',.:". The only space character in s is ' '.
     */
   def countSegments(s: String): Int =
     s.split(' ').filter(!_.isEmpty()).size
 
   /** 1768. Merge strings alternatively.
     *
-    * You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with
-    * word1. If a string is longer than the other, append the additional letters onto the end of the merged string.
+    * You are given two strings word1 and word2. Merge the strings by adding letters in alternating
+    * order, starting with word1. If a string is longer than the other, append the additional
+    * letters onto the end of the merged string.
     *
     * Return the merged string.
     *
     * Example 1:
     *
-    * Input: word1 = "abc", word2 = "pqr" Output: "apbqcr" Explanation: The merged string will be merged as so: word1: a
-    * b c word2: p q r merged: a p b q c r
+    * Input: word1 = "abc", word2 = "pqr" Output: "apbqcr" Explanation: The merged string will be
+    * merged as so: word1: a b c word2: p q r merged: a p b q c r
     *
     * Example 2:
     *
-    * Input: word1 = "ab", word2 = "pqrs" Output: "apbqrs" Explanation: Notice that as word2 is longer, "rs" is appended
-    * to the end. word1: a b word2: p q r s merged: a p b q r s
+    * Input: word1 = "ab", word2 = "pqrs" Output: "apbqrs" Explanation: Notice that as word2 is
+    * longer, "rs" is appended to the end. word1: a b word2: p q r s merged: a p b q r s
     *
     * Example 3:
     *
-    * Input: word1 = "abcd", word2 = "pq" Output: "apbqcd" Explanation: Notice that as word1 is longer, "cd" is appended
-    * to the end. word1: a b c d word2: p q merged: a p b q c d
+    * Input: word1 = "abcd", word2 = "pq" Output: "apbqcd" Explanation: Notice that as word1 is
+    * longer, "cd" is appended to the end. word1: a b c d word2: p q merged: a p b q c d
     *
     * Constraints:
     *
@@ -973,22 +1013,25 @@ object StringProblems:
     *
     * A string is a valid parentheses string (denoted VPS) if it meets one of the following:
     *
-    * It is an empty string "", or a single character not equal to "(" or ")", It can be written as AB (A concatenated
-    * with B), where A and B are VPS's, or It can be written as (A), where A is a VPS.
+    * It is an empty string "", or a single character not equal to "(" or ")", It can be written as
+    * AB (A concatenated with B), where A and B are VPS's, or It can be written as (A), where A is a
+    * VPS.
     *
     * We can similarly define the nesting depth depth(S) of any VPS S as follows:
     *
-    * depth("") = 0 depth(C) = 0, where C is a string with a single character not equal to "(" or ")". depth(A + B) =
-    * max(depth(A), depth(B)), where A and B are VPS's. depth("(" + A + ")") = 1 + depth(A), where A is a VPS.
+    * depth("") = 0 depth(C) = 0, where C is a string with a single character not equal to "(" or
+    * ")". depth(A + B) = max(depth(A), depth(B)), where A and B are VPS's. depth("(" + A + ")") = 1
+    * + depth(A), where A is a VPS.
     *
-    * For example, "", "()()", and "()(()())" are VPS's (with nesting depths 0, 1, and 2), and ")(" and "(()" are not
-    * VPS's.
+    * For example, "", "()()", and "()(()())" are VPS's (with nesting depths 0, 1, and 2), and ")("
+    * and "(()" are not VPS's.
     *
     * Given a VPS represented as string s, return the nesting depth of s.
     *
     * Example 1:
     *
-    * Input: s = "(1+(2*3)+((8)/4))+1" Output: 3 Explanation: Digit 8 is inside of 3 nested parentheses in the string.
+    * Input: s = "(1+(2*3)+((8)/4))+1" Output: 3 Explanation: Digit 8 is inside of 3 nested
+    * parentheses in the string.
     *
     * Example 2:
     *
@@ -996,8 +1039,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= s.length <= 100 s consists of digits 0-9 and characters '+', '-', '*', '/', '(', and ')'. It is guaranteed
-    * that parentheses expression s is a VPS.
+    * 1 <= s.length <= 100 s consists of digits 0-9 and characters '+', '-', '*', '/', '(', and ')'.
+    * It is guaranteed that parentheses expression s is a VPS.
     */
   def maxDepth(s: String): Int =
     @scala.annotation.tailrec
@@ -1012,16 +1055,18 @@ object StringProblems:
 
   /** 2710. Removing trailing zeroes from a string.
     *
-    * Given a positive integer num represented as a string, return the integer num without trailing zeros as a string.
+    * Given a positive integer num represented as a string, return the integer num without trailing
+    * zeros as a string.
     *
     * Example 1:
     *
-    * Input: num = "51230100" Output: "512301" Explanation: Integer "51230100" has 2 trailing zeros, we remove them and
-    * return integer "512301".
+    * Input: num = "51230100" Output: "512301" Explanation: Integer "51230100" has 2 trailing zeros,
+    * we remove them and return integer "512301".
     *
     * Example 2:
     *
-    * Input: num = "123" Output: "123" Explanation: Integer "123" has no trailing zeros, we return integer "123".
+    * Input: num = "123" Output: "123" Explanation: Integer "123" has no trailing zeros, we return
+    * integer "123".
     *
     * Constraints:
     *
@@ -1033,29 +1078,32 @@ object StringProblems:
 
   /** 2678. Number of senior citizens.
     *
-    * You are given a 0-indexed array of strings details. Each element of details provides information about a given
-    * passenger compressed into a string of length 15. The system is such that:
+    * You are given a 0-indexed array of strings details. Each element of details provides
+    * information about a given passenger compressed into a string of length 15. The system is such
+    * that:
     *
-    * The first ten characters consist of the phone number of passengers. The next character denotes the gender of the
-    * person. The following two characters are used to indicate the age of the person. The last two characters determine
-    * the seat allotted to that person.
+    * The first ten characters consist of the phone number of passengers. The next character denotes
+    * the gender of the person. The following two characters are used to indicate the age of the
+    * person. The last two characters determine the seat allotted to that person.
     *
     * Return the number of passengers who are strictly more than 60 years old.
     *
     * Example 1:
     *
-    * Input: details = ["7868190130M7522","5303914400F9211","9273338290F4010"] Output: 2 Explanation: The passengers at
-    * indices 0, 1, and 2 have ages 75, 92, and 40. Thus, there are 2 people who are over 60 years old.
+    * Input: details = ["7868190130M7522","5303914400F9211","9273338290F4010"] Output: 2
+    * Explanation: The passengers at indices 0, 1, and 2 have ages 75, 92, and 40. Thus, there are 2
+    * people who are over 60 years old.
     *
     * Example 2:
     *
-    * Input: details = ["1313579440F2036","2921522980M5644"] Output: 0 Explanation: None of the passengers are older
-    * than 60.
+    * Input: details = ["1313579440F2036","2921522980M5644"] Output: 0 Explanation: None of the
+    * passengers are older than 60.
     *
     * Constraints:
     *
-    * 1 <= details.length <= 100 details[i].length == 15 details[i] consists of digits from '0' to '9'. details[i][10]
-    * is either 'M' or 'F' or 'O'. The phone numbers and seat numbers of the passengers are distinct.
+    * 1 <= details.length <= 100 details[i].length == 15 details[i] consists of digits from '0' to
+    * '9'. details[i][10] is either 'M' or 'F' or 'O'. The phone numbers and seat numbers of the
+    * passengers are distinct.
     */
   def countSeniors(details: Array[String]): Int =
     details
@@ -1069,25 +1117,27 @@ object StringProblems:
     *
     * A good string is a string which doesn't have two adjacent characters s[i] and s[i + 1] where:
     *
-    * 0 <= i <= s.length - 2 s[i] is a lower-case letter and s[i + 1] is the same letter but in upper-case or
-    * vice-versa.
+    * 0 <= i <= s.length - 2 s[i] is a lower-case letter and s[i + 1] is the same letter but in
+    * upper-case or vice-versa.
     *
-    * To make the string good, you can choose two adjacent characters that make the string bad and remove them. You can
-    * keep doing this until the string becomes good.
+    * To make the string good, you can choose two adjacent characters that make the string bad and
+    * remove them. You can keep doing this until the string becomes good.
     *
-    * Return the string after making it good. The answer is guaranteed to be unique under the given constraints.
+    * Return the string after making it good. The answer is guaranteed to be unique under the given
+    * constraints.
     *
     * Notice that an empty string is also good.
     *
     * Example 1:
     *
-    * Input: s = "leEeetcode" Output: "leetcode" Explanation: In the first step, either you choose i = 1 or i = 2, both
-    * will result "leEeetcode" to be reduced to "leetcode".
+    * Input: s = "leEeetcode" Output: "leetcode" Explanation: In the first step, either you choose i
+    * \= 1 or i = 2, both will result "leEeetcode" to be reduced to "leetcode".
     *
     * Example 2:
     *
-    * Input: s = "abBAcC" Output: "" Explanation: We have many possible scenarios, and all lead to the same answer. For
-    * example: "abBAcC" --> "aAcC" --> "cC" --> "" "abBAcC" --> "abBA" --> "aA" --> ""
+    * Input: s = "abBAcC" Output: "" Explanation: We have many possible scenarios, and all lead to
+    * the same answer. For example: "abBAcC" --> "aAcC" --> "cC" --> "" "abBAcC" --> "abBA" --> "aA"
+    * --> ""
     *
     * Example 3:
     *
@@ -1118,7 +1168,8 @@ object StringProblems:
 
   /** 58. Length of the last word.
     *
-    * Given a string s consisting of words and spaces, return the length of the last word in the string.
+    * Given a string s consisting of words and spaces, return the length of the last word in the
+    * string.
     *
     * A word is a maximal substring consisting of non-space characters only.
     *
@@ -1128,15 +1179,18 @@ object StringProblems:
     *
     * Example 2:
     *
-    * Input: s = " fly me to the moon " Output: 4 Explanation: The last word is "moon" with length 4.
+    * Input: s = " fly me to the moon " Output: 4 Explanation: The last word is "moon" with length
+    * 4.
     *
     * Example 3:
     *
-    * Input: s = "luffy is still joyboy" Output: 6 Explanation: The last word is "joyboy" with length 6.
+    * Input: s = "luffy is still joyboy" Output: 6 Explanation: The last word is "joyboy" with
+    * length 6.
     *
     * Constraints:
     *
-    * 1 <= s.length <= 104 s consists of only English letters and spaces ' '. There will be at least one word in s.
+    * 1 <= s.length <= 104 s consists of only English letters and spaces ' '. There will be at least
+    * one word in s.
     */
   def lengthOfLastWord(s: String): Int =
     "\\s*[\\w]*\\s*$".r
@@ -1147,35 +1201,36 @@ object StringProblems:
 
   /** 28. Find the index of first occurence in a string.
     *
-    * Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if
-    * needle is not part of haystack.
+    * Given two strings needle and haystack, return the index of the first occurrence of needle in
+    * haystack, or -1 if needle is not part of haystack.
     *
     * Example 1:
     *
-    * Input: haystack = "sadbutsad", needle = "sad" Output: 0 Explanation: "sad" occurs at index 0 and 6. The first
-    * occurrence is at index 0, so we return 0.
+    * Input: haystack = "sadbutsad", needle = "sad" Output: 0 Explanation: "sad" occurs at index 0
+    * and 6. The first occurrence is at index 0, so we return 0.
     *
     * Example 2:
     *
-    * Input: haystack = "leetcode", needle = "leeto" Output: -1 Explanation: "leeto" did not occur in "leetcode", so we
-    * return -1.
+    * Input: haystack = "leetcode", needle = "leeto" Output: -1 Explanation: "leeto" did not occur
+    * in "leetcode", so we return -1.
     *
     * Constraints:
     *
-    * 1 <= haystack.length, needle.length <= 104 haystack and needle consist of only lowercase English characters.
+    * 1 <= haystack.length, needle.length <= 104 haystack and needle consist of only lowercase
+    * English characters.
     */
   def strStr(haystack: String, needle: String): Int =
     haystack.indexOf(needle)
 
   /** 20. Valid parantheses.
     *
-    * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is
-    * valid.
+    * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if
+    * the input string is valid.
     *
     * An input string is valid if:
     *
-    * Open brackets must be closed by the same type of brackets. Open brackets must be closed in the correct order.
-    * Every close bracket has a corresponding open bracket of the same type.
+    * Open brackets must be closed by the same type of brackets. Open brackets must be closed in the
+    * correct order. Every close bracket has a corresponding open bracket of the same type.
     *
     * Example 1:
     *
@@ -1212,18 +1267,19 @@ object StringProblems:
     *
     * Given a string s of '(' , ')' and lowercase English characters.
     *
-    * Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting
-    * parentheses string is valid and return any valid string.
+    * Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so
+    * that the resulting parentheses string is valid and return any valid string.
     *
     * Formally, a parentheses string is valid if and only if:
     *
-    * It is the empty string, contains only lowercase characters, or It can be written as AB (A concatenated with B),
-    * where A and B are valid strings, or It can be written as (A), where A is a valid string.
+    * It is the empty string, contains only lowercase characters, or It can be written as AB (A
+    * concatenated with B), where A and B are valid strings, or It can be written as (A), where A is
+    * a valid string.
     *
     * Example 1:
     *
-    * Input: s = "lee(t(c)o)de)" Output: "lee(t(c)o)de" Explanation: "lee(t(co)de)" , "lee(t(c)ode)" would also be
-    * accepted.
+    * Input: s = "lee(t(c)o)de)" Output: "lee(t(c)o)de" Explanation: "lee(t(co)de)" , "lee(t(c)ode)"
+    * would also be accepted.
     *
     * Example 2:
     *
@@ -1259,16 +1315,17 @@ object StringProblems:
 
   /** 1678. Goal parser interpretation.
     *
-    * You own a Goal Parser that can interpret a string command. The command consists of an alphabet of "G", "()" and/or
-    * "(al)" in some order. The Goal Parser will interpret "G" as the string "G", "()" as the string "o", and "(al)" as
-    * the string "al". The interpreted strings are then concatenated in the original order.
+    * You own a Goal Parser that can interpret a string command. The command consists of an alphabet
+    * of "G", "()" and/or "(al)" in some order. The Goal Parser will interpret "G" as the string
+    * "G", "()" as the string "o", and "(al)" as the string "al". The interpreted strings are then
+    * concatenated in the original order.
     *
     * Given the string command, return the Goal Parser's interpretation of command.
     *
     * Example 1:
     *
-    * Input: command = "G()(al)" Output: "Goal" Explanation: The Goal Parser interprets the command as follows: G -> G
-    * () -> o (al) -> al The final concatenated result is "Goal".
+    * Input: command = "G()(al)" Output: "Goal" Explanation: The Goal Parser interprets the command
+    * as follows: G -> G () -> o (al) -> al The final concatenated result is "Goal".
     *
     * Example 2:
     *
@@ -1296,13 +1353,15 @@ object StringProblems:
 
   /** 678. Valid paranthesis string.
     *
-    * Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.
+    * Given a string s containing only three types of characters: '(', ')' and '*', return true if s
+    * is valid.
     *
     * The following rules define a valid string:
     *
-    * Any left parenthesis '(' must have a corresponding right parenthesis ')'. Any right parenthesis ')' must have a
-    * corresponding left parenthesis '('. Left parenthesis '(' must go before the corresponding right parenthesis ')'.
-    * '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
+    * Any left parenthesis '(' must have a corresponding right parenthesis ')'. Any right
+    * parenthesis ')' must have a corresponding left parenthesis '('. Left parenthesis '(' must go
+    * before the corresponding right parenthesis ')'. '*' could be treated as a single right
+    * parenthesis ')' or a single left parenthesis '(' or an empty string "".
     *
     * Example 1:
     *
@@ -1337,7 +1396,8 @@ object StringProblems:
     *
     * You are given two strings s and t.
     *
-    * String t is generated by random shuffling string s and then add one more letter at a random position.
+    * String t is generated by random shuffling string s and then add one more letter at a random
+    * position.
     *
     * Return the letter that was added to t.
     *
@@ -1358,32 +1418,36 @@ object StringProblems:
 
   /** 2000. Reverse prefix of a word.
     *
-    * Given a 0-indexed string word and a character ch, reverse the segment of word that starts at index 0 and ends at
-    * the index of the first occurrence of ch (inclusive). If the character ch does not exist in word, do nothing.
+    * Given a 0-indexed string word and a character ch, reverse the segment of word that starts at
+    * index 0 and ends at the index of the first occurrence of ch (inclusive). If the character ch
+    * does not exist in word, do nothing.
     *
-    * For example, if word = "abcdefd" and ch = "d", then you should reverse the segment that starts at 0 and ends at 3
-    * (inclusive). The resulting string will be "dcbaefd".
+    * For example, if word = "abcdefd" and ch = "d", then you should reverse the segment that starts
+    * at 0 and ends at 3 (inclusive). The resulting string will be "dcbaefd".
     *
     * Return the resulting string.
     *
     * Example 1:
     *
-    * Input: word = "abcdefd", ch = "d" Output: "dcbaefd" Explanation: The first occurrence of "d" is at index 3.
-    * Reverse the part of word from 0 to 3 (inclusive), the resulting string is "dcbaefd".
+    * Input: word = "abcdefd", ch = "d" Output: "dcbaefd" Explanation: The first occurrence of "d"
+    * is at index 3. Reverse the part of word from 0 to 3 (inclusive), the resulting string is
+    * "dcbaefd".
     *
     * Example 2:
     *
-    * Input: word = "xyxzxe", ch = "z" Output: "zxyxxe" Explanation: The first and only occurrence of "z" is at index 3.
-    * Reverse the part of word from 0 to 3 (inclusive), the resulting string is "zxyxxe".
+    * Input: word = "xyxzxe", ch = "z" Output: "zxyxxe" Explanation: The first and only occurrence
+    * of "z" is at index 3. Reverse the part of word from 0 to 3 (inclusive), the resulting string
+    * is "zxyxxe".
     *
     * Example 3:
     *
-    * Input: word = "abcd", ch = "z" Output: "abcd" Explanation: "z" does not exist in word. You should not do any
-    * reverse operation, the resulting string is "abcd".
+    * Input: word = "abcd", ch = "z" Output: "abcd" Explanation: "z" does not exist in word. You
+    * should not do any reverse operation, the resulting string is "abcd".
     *
     * Constraints:
     *
-    * 1 <= word.length <= 250 word consists of lowercase English letters. ch is a lowercase English letter.
+    * 1 <= word.length <= 250 word consists of lowercase English letters. ch is a lowercase English
+    * letter.
     */
   def reversePrefix(word: String, ch: Char): String =
     if word.contains(ch) then
@@ -1393,25 +1457,28 @@ object StringProblems:
 
   /** 3019. Number of changing keys.
     *
-    * You are given a 0-indexed string s typed by a user. Changing a key is defined as using a key different from the
-    * last used key. For example, s = "ab" has a change of a key while s = "bBBb" does not have any.
+    * You are given a 0-indexed string s typed by a user. Changing a key is defined as using a key
+    * different from the last used key. For example, s = "ab" has a change of a key while s = "bBBb"
+    * does not have any.
     *
     * Return the number of times the user had to change the key.
     *
-    * Note: Modifiers like shift or caps lock won't be counted in changing the key that is if a user typed the letter
-    * 'a' and then the letter 'A' then it will not be considered as a changing of key.
+    * Note: Modifiers like shift or caps lock won't be counted in changing the key that is if a user
+    * typed the letter 'a' and then the letter 'A' then it will not be considered as a changing of
+    * key.
     *
     * Example 1:
     *
-    * Input: s = "aAbBcC" Output: 2 Explanation: From s[0] = 'a' to s[1] = 'A', there is no change of key as caps lock
-    * or shift is not counted. From s[1] = 'A' to s[2] = 'b', there is a change of key. From s[2] = 'b' to s[3] = 'B',
-    * there is no change of key as caps lock or shift is not counted. From s[3] = 'B' to s[4] = 'c', there is a change
-    * of key. From s[4] = 'c' to s[5] = 'C', there is no change of key as caps lock or shift is not counted.
+    * Input: s = "aAbBcC" Output: 2 Explanation: From s[0] = 'a' to s[1] = 'A', there is no change
+    * of key as caps lock or shift is not counted. From s[1] = 'A' to s[2] = 'b', there is a change
+    * of key. From s[2] = 'b' to s[3] = 'B', there is no change of key as caps lock or shift is not
+    * counted. From s[3] = 'B' to s[4] = 'c', there is a change of key. From s[4] = 'c' to s[5] =
+    * 'C', there is no change of key as caps lock or shift is not counted.
     *
     * Example 2:
     *
-    * Input: s = "AaAaAaaA" Output: 0 Explanation: There is no change of key since only the letters 'a' and 'A' are
-    * pressed which does not require change of key.
+    * Input: s = "AaAaAaaA" Output: 0 Explanation: There is no change of key since only the letters
+    * 'a' and 'A' are pressed which does not require change of key.
     *
     * Constraints:
     *
@@ -1440,14 +1507,14 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: s = "RLRRLLRLRL" Output: 4 Explanation: s can be split into "RL", "RRLL", "RL", "RL", each substring
-    * contains same number of 'L' and 'R'.
+    * Input: s = "RLRRLLRLRL" Output: 4 Explanation: s can be split into "RL", "RRLL", "RL", "RL",
+    * each substring contains same number of 'L' and 'R'.
     *
     * Example 2:
     *
-    * Input: s = "RLRRRLLRLL" Output: 2 Explanation: s can be split into "RL", "RRRLLRLL", each substring contains same
-    * number of 'L' and 'R'. Note that s cannot be split into "RL", "RR", "RL", "LR", "LL", because the 2nd and 5th
-    * substrings are not balanced.
+    * Input: s = "RLRRRLLRLL" Output: 2 Explanation: s can be split into "RL", "RRRLLRLL", each
+    * substring contains same number of 'L' and 'R'. Note that s cannot be split into "RL", "RR",
+    * "RL", "LR", "LL", because the 2nd and 5th substrings are not balanced.
     *
     * Example 3:
     *
@@ -1471,25 +1538,26 @@ object StringProblems:
 
   /** 1528. Shuffle the string.
     *
-    * You are given a string s and an integer array indices of the same length. The string s will be shuffled such that
-    * the character at the ith position moves to indices[i] in the shuffled string.
+    * You are given a string s and an integer array indices of the same length. The string s will be
+    * shuffled such that the character at the ith position moves to indices[i] in the shuffled
+    * string.
     *
     * Return the shuffled string.
     *
     * Example 1:
     *
-    * Input: s = "codeleet", indices = [4,5,6,7,0,2,1,3] Output: "leetcode" Explanation: As shown, "codeleet" becomes
-    * "leetcode" after shuffling.
+    * Input: s = "codeleet", indices = [4,5,6,7,0,2,1,3] Output: "leetcode" Explanation: As shown,
+    * "codeleet" becomes "leetcode" after shuffling.
     *
     * Example 2:
     *
-    * Input: s = "abc", indices = [0,1,2] Output: "abc" Explanation: After shuffling, each character remains in its
-    * position.
+    * Input: s = "abc", indices = [0,1,2] Output: "abc" Explanation: After shuffling, each character
+    * remains in its position.
     *
     * Constraints:
     *
-    * s.length == indices.length == n 1 <= n <= 100 s consists of only lowercase English letters. 0 <= indices[i] < n
-    * All values of indices are unique.
+    * s.length == indices.length == n 1 <= n <= 100 s consists of only lowercase English letters. 0
+    * <= indices[i] < n All values of indices are unique.
     */
   def restoreString(s: String, indices: Array[Int]): String =
     s.toCharArray()
@@ -1500,34 +1568,37 @@ object StringProblems:
 
   /** 2325. Decode the message.
     *
-    * You are given the strings key and message, which represent a cipher key and a secret message, respectively. The
-    * steps to decode message are as follows:
+    * You are given the strings key and message, which represent a cipher key and a secret message,
+    * respectively. The steps to decode message are as follows:
     *
-    * Use the first appearance of all 26 lowercase English letters in key as the order of the substitution table. Align
-    * the substitution table with the regular English alphabet. Each letter in message is then substituted using the
-    * table. Spaces ' ' are transformed to themselves.
+    * Use the first appearance of all 26 lowercase English letters in key as the order of the
+    * substitution table. Align the substitution table with the regular English alphabet. Each
+    * letter in message is then substituted using the table. Spaces ' ' are transformed to
+    * themselves.
     *
-    * For example, given key = "happy boy" (actual key would have at least one instance of each letter in the alphabet),
-    * we have the partial substitution table of ('h' -> 'a', 'a' -> 'b', 'p' -> 'c', 'y' -> 'd', 'b' -> 'e', 'o' ->
-    * 'f').
+    * For example, given key = "happy boy" (actual key would have at least one instance of each
+    * letter in the alphabet), we have the partial substitution table of ('h' -> 'a', 'a' -> 'b',
+    * 'p' -> 'c', 'y' -> 'd', 'b' -> 'e', 'o' -> 'f').
     *
     * Return the decoded message.
     *
     * Example: 1
     *
-    * Input: key = "the quick brown fox jumps over the lazy dog", message = "vkbs bs t suepuv" Output: "this is a
-    * secret" Explanation: The diagram above shows the substitution table. It is obtained by taking the first appearance
-    * of each letter in "the quick brown fox jumps over the lazy dog".
+    * Input: key = "the quick brown fox jumps over the lazy dog", message = "vkbs bs t suepuv"
+    * Output: "this is a secret" Explanation: The diagram above shows the substitution table. It is
+    * obtained by taking the first appearance of each letter in "the quick brown fox jumps over the
+    * lazy dog".
     *
-    * Example 2: Input: key = "eljuxhpwnyrdgtqkviszcfmabo", message = "zwx hnfx lqantp mnoeius ycgk vcnjrdb" Output:
-    * "the five boxing wizards jump quickly" Explanation: The diagram above shows the substitution table. It is obtained
-    * by taking the first appearance of each letter in "eljuxhpwnyrdgtqkviszcfmabo".
+    * Example 2: Input: key = "eljuxhpwnyrdgtqkviszcfmabo", message = "zwx hnfx lqantp mnoeius ycgk
+    * vcnjrdb" Output: "the five boxing wizards jump quickly" Explanation: The diagram above shows
+    * the substitution table. It is obtained by taking the first appearance of each letter in
+    * "eljuxhpwnyrdgtqkviszcfmabo".
     *
     * Constraints:
     *
-    * 26 <= key.length <= 2000 key consists of lowercase English letters and ' '. key contains every letter in the
-    * English alphabet ('a' to 'z') at least once. 1 <= message.length <= 2000 message consists of lowercase English
-    * letters and ' '.
+    * 26 <= key.length <= 2000 key consists of lowercase English letters and ' '. key contains every
+    * letter in the English alphabet ('a' to 'z') at least once. 1 <= message.length <= 2000 message
+    * consists of lowercase English letters and ' '.
     */
   def decodeMessage(key: String, message: String): String =
     val substitutionTable = key.distinct.filter(_ != ' ')
@@ -1552,8 +1623,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= a.length, b.length <= 104 a and b consist only of '0' or '1' characters. Each string does not contain leading
-    * zeros except for the zero itself.
+    * 1 <= a.length, b.length <= 104 a and b consist only of '0' or '1' characters. Each string does
+    * not contain leading zeros except for the zero itself.
     */
   def addBinary(a: String, b: String): String =
     @scala.annotation.tailrec
@@ -1574,10 +1645,11 @@ object StringProblems:
 
   /** 415. Add strings.
     *
-    * Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+    * Given two non-negative integers, num1 and num2 represented as string, return the sum of num1
+    * and num2 as a string.
     *
-    * You must solve the problem without using any built-in library for handling large integers (such as BigInteger).
-    * You must also not convert the inputs to integers directly.
+    * You must solve the problem without using any built-in library for handling large integers
+    * (such as BigInteger). You must also not convert the inputs to integers directly.
     *
     * Example 1:
     *
@@ -1593,8 +1665,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= num1.length, num2.length <= 104 num1 and num2 consist of only digits. num1 and num2 don't have any leading
-    * zeros except for the zero itself.
+    * 1 <= num1.length, num2.length <= 104 num1 and num2 consist of only digits. num1 and num2 don't
+    * have any leading zeros except for the zero itself.
     */
   def addStrings(num1: String, num2: String): String =
     @scala.annotation.tailrec
@@ -1612,24 +1684,27 @@ object StringProblems:
           loop(a.tail, b.tail, sum / 10, s"${sum % 10}$acc")
     loop(num1.reverse, num2.reverse)
 
-  /** 2864. Maximum odd binary number. You are given a binary string s that contains at least one '1'.
+  /** 2864. Maximum odd binary number. You are given a binary string s that contains at least one
+    * '1'.
     *
-    * You have to rearrange the bits in such a way that the resulting binary number is the maximum odd binary number
-    * that can be created from this combination.
+    * You have to rearrange the bits in such a way that the resulting binary number is the maximum
+    * odd binary number that can be created from this combination.
     *
-    * Return a string representing the maximum odd binary number that can be created from the given combination.
+    * Return a string representing the maximum odd binary number that can be created from the given
+    * combination.
     *
     * Note that the resulting string can have leading zeros.
     *
     * Example 1:
     *
-    * Input: s = "010" Output: "001" Explanation: Because there is just one '1', it must be in the last position. So the
-    * answer is "001".
+    * Input: s = "010" Output: "001" Explanation: Because there is just one '1', it must be in the
+    * last position. So the answer is "001".
     *
     * Example 2:
     *
-    * Input: s = "0101" Output: "1001" Explanation: One of the '1's must be in the last position. The maximum number
-    * that can be made with the remaining digits is "100". So the answer is "1001".
+    * Input: s = "0101" Output: "1001" Explanation: One of the '1's must be in the last position.
+    * The maximum number that can be made with the remaining digits is "100". So the answer is
+    * "1001".
     */
   def maximumOddBinaryNumber(s: String): String =
     val zeros = s.count(_ == '0')
@@ -1638,8 +1713,8 @@ object StringProblems:
 
   /** 804. Unique morse code words
     *
-    * International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes,
-    * as follows:
+    * International Morse Code defines a standard encoding where each letter is mapped to a series
+    * of dots and dashes, as follows:
     *
     * 'a' maps to ".-", 'b' maps to "-...", 'c' maps to "-.-.", and so on.
     *
@@ -1647,19 +1722,19 @@ object StringProblems:
     *
     * [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
     *
-    * Given an array of strings words where each word can be written as a concatenation of the Morse code of each
-    * letter.
+    * Given an array of strings words where each word can be written as a concatenation of the Morse
+    * code of each letter.
     *
-    * For example, "cab" can be written as "-.-..--...", which is the concatenation of "-.-.", ".-", and "-...". We will
-    * call such a concatenation the transformation of a word.
+    * For example, "cab" can be written as "-.-..--...", which is the concatenation of "-.-.", ".-",
+    * and "-...". We will call such a concatenation the transformation of a word.
     *
     * Return the number of different transformations among all words we have.
     *
     * Example 1:
     *
-    * Input: words = ["gin","zen","gig","msg"] Output: 2 Explanation: The transformation of each word is: "gin" ->
-    * "--...-." "zen" -> "--...-." "gig" -> "--...--." "msg" -> "--...--." There are 2 different transformations:
-    * "--...-." and "--...--.".
+    * Input: words = ["gin","zen","gig","msg"] Output: 2 Explanation: The transformation of each
+    * word is: "gin" -> "--...-." "zen" -> "--...-." "gig" -> "--...--." "msg" -> "--...--." There
+    * are 2 different transformations: "--...-." and "--...--.".
     *
     * Example 2:
     *
@@ -1667,7 +1742,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= words.length <= 100 1 <= words[i].length <= 12 words[i] consists of lowercase English letters.
+    * 1 <= words.length <= 100 1 <= words[i].length <= 12 words[i] consists of lowercase English
+    * letters.
     */
   def uniqueMorseRepresentations(words: Array[String]): Int =
     val dict = Array(
@@ -1709,8 +1785,8 @@ object StringProblems:
     *
     * Given two strings s and t, return true if t is an anagram of s, and false otherwise.
     *
-    * An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using
-    * all the original letters exactly once.
+    * An Anagram is a word or phrase formed by rearranging the letters of a different word or
+    * phrase, typically using all the original letters exactly once.
     *
     * Example 1:
     *
@@ -1743,8 +1819,9 @@ object StringProblems:
     *
     * Two strings s and t are isomorphic if the characters in s can be replaced to get t.
     *
-    * All occurrences of a character must be replaced with another character while preserving the order of characters.
-    * No two characters may map to the same character, but a character may map to itself.
+    * All occurrences of a character must be replaced with another character while preserving the
+    * order of characters. No two characters may map to the same character, but a character may map
+    * to itself.
     *
     * Example 1:
     *
@@ -1770,7 +1847,8 @@ object StringProblems:
         case (Some(x), Some(y)) =>
           // println(s"x: $x, y:$y, state: ${state.mkString(",")}")
           if !state.contains(x) then
-            if !state.values.toSeq.contains(y) then compare(s.tail, t.tail, state + (x -> y)) else false
+            if !state.values.toSeq.contains(y) then compare(s.tail, t.tail, state + (x -> y))
+            else false
           else state(x) == y && compare(s.tail, t.tail, state)
         case _ => compare(s.tail, t.tail, state)
     // println(s"$s vs $t")
@@ -1780,8 +1858,9 @@ object StringProblems:
     *
     * Given an integer n, return a string array answer (1-indexed) where:
     *
-    * answer[i] == "FizzBuzz" if i is divisible by 3 and 5. answer[i] == "Fizz" if i is divisible by 3. answer[i] ==
-    * "Buzz" if i is divisible by 5. answer[i] == i (as a string) if none of the above conditions are true.
+    * answer[i] == "FizzBuzz" if i is divisible by 3 and 5. answer[i] == "Fizz" if i is divisible by
+    * 3. answer[i] == "Buzz" if i is divisible by 5. answer[i] == i (as a string) if none of the
+    * above conditions are true.
     *
     * Example 1:
     *
@@ -1793,7 +1872,8 @@ object StringProblems:
     *
     * Example 3:
     *
-    * Input: n = 15 Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+    * Input: n = 15 Output:
+    * ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
     *
     * Constraints:
     *
@@ -1811,8 +1891,8 @@ object StringProblems:
 
   /** 387. First unique character in a string.
     *
-    * Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return
-    * -1.
+    * Given a string s, find the first non-repeating character in it and return its index. If it
+    * does not exist, return -1.
     *
     * Example 1:
     *
@@ -1856,17 +1936,19 @@ object StringProblems:
     *
     * You are given a string word that consists of digits and lowercase English letters.
     *
-    * You will replace every non-digit character with a space. For example, "a123bc34d8ef34" will become " 123 34 8 34".
-    * Notice that you are left with some integers that are separated by at least one space: "123", "34", "8", and "34".
+    * You will replace every non-digit character with a space. For example, "a123bc34d8ef34" will
+    * become " 123 34 8 34". Notice that you are left with some integers that are separated by at
+    * least one space: "123", "34", "8", and "34".
     *
     * Return the number of different integers after performing the replacement operations on word.
     *
-    * Two integers are considered different if their decimal representations without any leading zeros are different.
+    * Two integers are considered different if their decimal representations without any leading
+    * zeros are different.
     *
     * Example 1:
     *
-    * Input: word = "a123bc34d8ef34" Output: 3 Explanation: The three different integers are "123", "34", and "8".
-    * Notice that "34" is only counted once.
+    * Input: word = "a123bc34d8ef34" Output: 3 Explanation: The three different integers are "123",
+    * "34", and "8". Notice that "34" is only counted once.
     *
     * Example 2:
     *
@@ -1874,8 +1956,9 @@ object StringProblems:
     *
     * Example 3:
     *
-    * Input: word = "a1b01c001" Output: 1 Explanation: The three integers "1", "01", and "001" all represent the same
-    * integer because the leading zeros are ignored when comparing their decimal values.
+    * Input: word = "a1b01c001" Output: 1 Explanation: The three integers "1", "01", and "001" all
+    * represent the same integer because the leading zeros are ignored when comparing their decimal
+    * values.
     *
     * Constraints:
     *
@@ -1893,34 +1976,35 @@ object StringProblems:
 
   /** 1455. Check if a word occurs as a prefix of any word in a sentence.
     *
-    * Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is
-    * a prefix of any word in sentence.
+    * Given a sentence that consists of some words separated by a single space, and a searchWord,
+    * check if searchWord is a prefix of any word in sentence.
     *
-    * Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a
-    * prefix of more than one word, return the index of the first word (minimum index). If there is no such word return
-    * -1.
+    * Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this
+    * word. If searchWord is a prefix of more than one word, return the index of the first word
+    * (minimum index). If there is no such word return -1.
     *
     * A prefix of a string s is any leading contiguous substring of s.
     *
     * Example 1:
     *
-    * Input: sentence = "i love eating burger", searchWord = "burg" Output: 4 Explanation: "burg" is prefix of "burger"
-    * which is the 4th word in the sentence.
+    * Input: sentence = "i love eating burger", searchWord = "burg" Output: 4 Explanation: "burg" is
+    * prefix of "burger" which is the 4th word in the sentence.
     *
     * Example 2:
     *
-    * Input: sentence = "this problem is an easy problem", searchWord = "pro" Output: 2 Explanation: "pro" is prefix of
-    * "problem" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.
+    * Input: sentence = "this problem is an easy problem", searchWord = "pro" Output: 2 Explanation:
+    * "pro" is prefix of "problem" which is the 2nd and the 6th word in the sentence, but we return
+    * 2 as it's the minimal index.
     *
     * Example 3:
     *
-    * Input: sentence = "i am tired", searchWord = "you" Output: -1 Explanation: "you" is not a prefix of any word in
-    * the sentence.
+    * Input: sentence = "i am tired", searchWord = "you" Output: -1 Explanation: "you" is not a
+    * prefix of any word in the sentence.
     *
     * Constraints:
     *
-    * 1 <= sentence.length <= 100 1 <= searchWord.length <= 10 sentence consists of lowercase English letters and
-    * spaces. searchWord consists of lowercase English letters.
+    * 1 <= sentence.length <= 100 1 <= searchWord.length <= 10 sentence consists of lowercase
+    * English letters and spaces. searchWord consists of lowercase English letters.
     */
   def isPrefixOfWord(sentence: String, searchWord: String): Int =
     val mayBeFind = sentence
@@ -1943,38 +2027,38 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: words = ["pay","attention","practice","attend"], pref = "at" Output: 2 Explanation: The 2 strings that
-    * contain "at" as a prefix are: "attention" and "attend".
+    * Input: words = ["pay","attention","practice","attend"], pref = "at" Output: 2 Explanation: The
+    * 2 strings that contain "at" as a prefix are: "attention" and "attend".
     *
     * Example 2:
     *
-    * Input: words = ["leetcode","win","loops","success"], pref = "code" Output: 0 Explanation: There are no strings
-    * that contain "code" as a prefix.
+    * Input: words = ["leetcode","win","loops","success"], pref = "code" Output: 0 Explanation:
+    * There are no strings that contain "code" as a prefix.
     *
-    * Constraints: 1 <= words.length <= 100 1 <= words[i].length, pref.length <= 100 words[i] and pref consist of
-    * lowercase English letters.
+    * Constraints: 1 <= words.length <= 100 1 <= words[i].length, pref.length <= 100 words[i] and
+    * pref consist of lowercase English letters.
     */
   def prefixCount(words: Array[String], pref: String): Int = words.count(_.startsWith(pref))
 
   /** 2124. Check if all A's appear before All B's
     *
-    * Given a string s consisting of only the characters 'a' and 'b', return true if every 'a' appears before every 'b'
-    * in the string. Otherwise, return false.
+    * Given a string s consisting of only the characters 'a' and 'b', return true if every 'a'
+    * appears before every 'b' in the string. Otherwise, return false.
     *
     * Example 1:
     *
-    * Input: s = "aaabbb" Output: true Explanation: The 'a's are at indices 0, 1, and 2, while the 'b's are at indices
-    * 3, 4, and 5. Hence, every 'a' appears before every 'b' and we return true.
+    * Input: s = "aaabbb" Output: true Explanation: The 'a's are at indices 0, 1, and 2, while the
+    * 'b's are at indices 3, 4, and 5. Hence, every 'a' appears before every 'b' and we return true.
     *
     * Example 2:
     *
-    * Input: s = "abab" Output: false Explanation: There is an 'a' at index 2 and a 'b' at index 1. Hence, not every 'a'
-    * appears before every 'b' and we return false.
+    * Input: s = "abab" Output: false Explanation: There is an 'a' at index 2 and a 'b' at index 1.
+    * Hence, not every 'a' appears before every 'b' and we return false.
     *
     * Example 3:
     *
-    * Input: s = "bbb" Output: true Explanation: There are no 'a's, hence, every 'a' appears before every 'b' and we
-    * return true.
+    * Input: s = "bbb" Output: true Explanation: There are no 'a's, hence, every 'a' appears before
+    * every 'b' and we return true.
     *
     * Constraints:
     *
@@ -1988,13 +2072,13 @@ object StringProblems:
 
   /** 500. Keyboard row
     *
-    * Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row
-    * of American keyboard like the image below.
+    * Given an array of strings words, return the words that can be typed using letters of the
+    * alphabet on only one row of American keyboard like the image below.
     *
     * In the American keyboard:
     *
-    * the first row consists of the characters "qwertyuiop", the second row consists of the characters "asdfghjkl", and
-    * the third row consists of the characters "zxcvbnm".
+    * the first row consists of the characters "qwertyuiop", the second row consists of the
+    * characters "asdfghjkl", and the third row consists of the characters "zxcvbnm".
     *
     * Example 1:
     *
@@ -2010,8 +2094,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= words.length <= 20 1 <= words[i].length <= 100 words[i] consists of English letters (both lowercase and
-    * uppercase).
+    * 1 <= words.length <= 20 1 <= words[i].length <= 100 words[i] consists of English letters (both
+    * lowercase and uppercase).
     */
   def findWords(words: Array[String]): Array[String] =
     val firstRow = "qwertyuiop".toSet
