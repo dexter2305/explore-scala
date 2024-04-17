@@ -21,7 +21,8 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("1.1.1.1", "1[.]1[.]1[.]1"),
       ("255.100.50.0", "255[.]100[.]50[.]0")
     )
-    for (input, expected) <- testCases do assert(StringProblems.defangingIPAddress(input) === expected)
+    for (input, expected) <- testCases do
+      assert(StringProblems.defangingIPAddress(input) === expected)
 
   test("709. To Lowercase"):
     val testcases = List(
@@ -36,7 +37,8 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("First leTTeR of EACH Word", "First Letter of Each Word"),
       ("i lOve leetcode", "i Love Leetcode")
     )
-    for (input, expected) <- testcases do assert(StringProblems.capitalizeTheTitle(input) === expected)
+    for (input, expected) <- testcases do
+      assert(StringProblems.capitalizeTheTitle(input) === expected)
 
   test("520. Detect capital"):
     val testcases = List(
@@ -79,7 +81,8 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     for ((words, x), expected) <- testcases do
       assert(
         StringProblems.findWordsContaining(words, x).sameElements(expected),
-        clue = s"Expecting '${words.mkString(",")}' to contain '$x' in indices '${expected.mkString(",")}'"
+        clue =
+          s"Expecting '${words.mkString(",")}' to contain '$x' in indices '${expected.mkString(",")}'"
       )
 
   test("1662. Check if two strings are equivalent"):
@@ -91,8 +94,8 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     for ((word1, word2), expected) <- testcases do
       assert(
         StringProblems.arrayStringsAreEqual(word1, word2) === expected,
-        clue =
-          s"Expecting equivalence between word1:'${word1.mkString(",")}' & word2:'${word2.mkString(",")}' as '$expected'"
+        clue = s"Expecting equivalence between word1:'${word1.mkString(",")}' & word2:'${word2
+            .mkString(",")}' as '$expected'"
       )
 
   test("1816. Truncate sentence"):
@@ -101,19 +104,28 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("What is the solution to this problem", 4, "What is the solution"),
       ("chopper is not a tanuki", 5, "chopper is not a tanuki")
     )
-    for (string, k, expected) <- testcases do assert(StringProblems.truncateSentence(string, k) === expected)
+    for (string, k, expected) <- testcases do
+      assert(StringProblems.truncateSentence(string, k) === expected)
 
   test("1773. Count items matching a rule"):
     val testcases = Table(
       ("product list", "rule key", "rule value", "expected"),
       (
-        List(List("phone", "blue", "pixel"), List("computer", "silver", "lenovo"), List("phone", "gold", "iphone")),
+        List(
+          List("phone", "blue", "pixel"),
+          List("computer", "silver", "lenovo"),
+          List("phone", "gold", "iphone")
+        ),
         "color",
         "silver",
         1
       ),
       (
-        List(List("phone", "blue", "pixel"), List("computer", "silver", "phone"), List("phone", "gold", "iphone")),
+        List(
+          List("phone", "blue", "pixel"),
+          List("computer", "silver", "phone"),
+          List("phone", "gold", "iphone")
+        ),
         "type",
         "phone",
         2
@@ -201,7 +213,10 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
 
   test("1436. Destination city"):
     val testcases = List(
-      (List(List("London", "New York"), List("New York", "Lima"), List("Lima", "Sao Paulo")), "Sao Paulo"),
+      (
+        List(List("London", "New York"), List("New York", "Lima"), List("Lima", "Sao Paulo")),
+        "Sao Paulo"
+      ),
       (List(List("B", "C"), List("D", "B"), List("C", "A")), "A"),
       (List(List("A", "Z")), "Z")
     )
@@ -275,7 +290,10 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("0P", false)
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.isPalindrome(string) === expected, clue = "Expected '$string' to return '$expected'")
+      assert(
+        StringProblems.isPalindrome(string) === expected,
+        clue = "Expected '$string' to return '$expected'"
+      )
 
   test("434. Number of segments in a string"):
     val testcases = Table(
@@ -314,7 +332,10 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("()()", 1)
     )
     forAll(testcases): (string, expectation) =>
-      assert(StringProblems.maxDepth(string) === expectation, clue = s"Depth of '$string' is '$expectation'")
+      assert(
+        StringProblems.maxDepth(string) === expectation,
+        clue = s"Depth of '$string' is '$expectation'"
+      )
 
   test("2710. Remove trailing zeroes from a string"):
     val testcases = Table(
@@ -418,7 +439,10 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         (")", false),
         ("(", false),
         ("()(", false),
-        ("(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())", false)
+        (
+          "(((((*(()((((*((**(((()()*)()()()*((((**)())*)*)))))))(())(()))())((*()()(((()((()*(())*(()**)()(())",
+          false
+        )
       )
       forAll(testcases): (string, expected) =>
         assert(StringProblems.checkValidString(string) === expected)
@@ -480,7 +504,11 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     val testcases = Table(
       ("key", "message", "expected"),
       ("the quick brown fox jumps over the lazy dog", "vkbs bs t suepuv", "this is a secret"),
-      ("eljuxhpwnyrdgtqkviszcfmabo", "zwx hnfx lqantp mnoeius ycgk vcnjrdb", "the five boxing wizards jump quickly")
+      (
+        "eljuxhpwnyrdgtqkviszcfmabo",
+        "zwx hnfx lqantp mnoeius ycgk vcnjrdb",
+        "the five boxing wizards jump quickly"
+      )
     )
     forAll(testcases): (key, message, expectedDecodedMessage) =>
       assert(StringProblems.decodeMessage(key, message) === expectedDecodedMessage)
@@ -503,7 +531,9 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll((intGenerator, "a"), (intGenerator, "b")): (a: Int, b: Int) =>
       whenever(a >= 0 && a < Int.MaxValue && b >= 0 && b != Int.MinValue):
         val expectedString = (a + b).toBinaryString
-        assert(StringProblems.addBinary(a.toBinaryString, b.toBinaryString) === (a + b).toBinaryString)
+        assert(
+          StringProblems.addBinary(a.toBinaryString, b.toBinaryString) === (a + b).toBinaryString
+        )
 
   test("415. Add strings"):
     // example based tests
@@ -654,3 +684,71 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (words, expected) =>
       assert(StringProblems.findWords(words.toArray).toList === expected)
+
+  test("2423. Remove letter to equalize frequency"):
+    pendingUntilFixed:
+      val testcases = Table(
+        ("string", "expected"),
+        ("abcc", true),
+        ("aabb", false),
+        ("abbcc", true),
+        ("abc", true),
+        ("aa", true),
+        ("abbbcc", false)
+      )
+      forAll(testcases): (string, expected) =>
+        assert(StringProblems.equalFrequency(string) === expected)
+
+  test("3110. Score of a string"):
+    val testcases = Table(
+      ("string", "expected score"),
+      ("hello", 13),
+      ("zaz", 50)
+    )
+    forAll(testcases): (string, expectedScore) =>
+      assert(StringProblems.scoreOfString(string) === expectedScore)
+
+  test("2194. Cells in a range on an excel sheet."):
+    val testcases = Table(
+      ("s", "expected range"),
+      ("K1:L2", List("K1", "K2", "L1", "L2")),
+      ("A1:F1", List("A1", "B1", "C1", "D1", "E1", "F1"))
+    )
+    forAll(testcases): (s, expected) =>
+      assert(StringProblems.cellsInRange(s) === expected)
+
+  test("824. Goat latin."):
+    val testcases = Table(
+      ("sentence", "expected"),
+      ("I speak Goat Latin", "Imaa peaksmaaa oatGmaaaa atinLmaaaaa"),
+      (
+        "The quick brown fox jumped over the lazy dog",
+        "heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa"
+      ),
+      (
+        "Each word consists of lowercase and uppercase letters only",
+        "Eachmaa ordwmaaa onsistscmaaaa ofmaaaaa owercaselmaaaaaa andmaaaaaaa uppercasemaaaaaaaa etterslmaaaaaaaaa onlymaaaaaaaaaa"
+      )
+    )
+    forAll(testcases): (s, expected) =>
+      assert(StringProblems.toGoatLatin(s) === expected)
+
+  test("1002. Find common characters."):
+    val testcases = Table(
+      ("words", "expected common chars"),
+      (List("bella", "label", "roller"), List("e", "l", "l")),
+      (List("cool", "lock", "cook"), List("c", "o")),
+      (List("a", "aaa"), List("a"))
+    )
+    forAll(testcases): (words, expected) =>
+      assert(StringProblems.commonChars(words.toArray).sorted === expected.sorted)
+
+  test("2716. Minimize string length."):
+    val testcases = Table(
+      ("string", "expected length"),
+      ("aaabc", 3),
+      ("cbbd", 3),
+      ("dddaaa", 2)
+    )
+    forAll(testcases): (string, expectedLength) =>
+      assert(StringProblems.minimizedStringLength(string) === expectedLength)

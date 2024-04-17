@@ -1152,7 +1152,6 @@ object StringProblems:
     // implemented as I was struggling to implement for 2 hours after solving quickly on paper.
     @scala.annotation.tailrec
     def loop(string: String, i: Int): String =
-      // println(s"processing $string from index= $i")
       if i + 1 < string.length then
         (string(i), string(i + 1)) match
           case (x, y) if math.abs(x - y) == 32 =>
@@ -2106,3 +2105,225 @@ object StringProblems:
       word.forall(firstRow.contains(_)) ||
       word.forall(secondRow.contains(_)) ||
       word.forall(thirdRow.contains(_))
+
+  /** 2423. Remove letter to equalize frequency.
+    *
+    * You are given a 0-indexed string word, consisting of lowercase English letters. You need to
+    * select one index and remove the letter at that index from word so that the frequency of every
+    * letter present in word is equal.
+    *
+    * Return true if it is possible to remove one letter so that the frequency of all letters in
+    * word are equal, and false otherwise.
+    *
+    * Note:
+    *
+    * The frequency of a letter x is the number of times it occurs in the string. You must remove
+    * exactly one letter and cannot choose to do nothing.
+    *
+    * Example 1:
+    *
+    * Input: word = "abcc" Output: true Explanation: Select index 3 and delete it: word becomes
+    * "abc" and each character has a frequency of 1.
+    *
+    * Example 2:
+    *
+    * Input: word = "aazz" Output: false Explanation: We must delete a character, so either the
+    * frequency of "a" is 1 and the frequency of "z" is 2, or vice versa. It is impossible to make
+    * all present letters have equal frequency.
+    *
+    * Constraints:
+    *
+    * 2 <= word.length <= 100 word consists of lowercase English letters only.
+    */
+  def equalFrequency(word: String): Boolean =
+    lazy val frequency: String => Map[Char, Int] = word =>
+      word
+        .groupBy(identity)
+        .map: (char, string) =>
+          (char, string.size)
+    word.toCharArray().toList match
+      case Nil => false
+      case head :: tail =>
+        frequency(tail.mkString).values.toSet.size == 0 || equalFrequency(tail.mkString)
+
+  /** 3110. Score of a string.
+    *
+    * You are given a string s. The score of a string is defined as the sum of the absolute
+    * difference between the ASCII values of adjacent characters.
+    *
+    * Return the score of s.
+    *
+    * Example 1:
+    *
+    * Input: s = "hello"
+    *
+    * Output: 13
+    *
+    * Explanation:
+    *
+    * The ASCII values of the characters in s are: 'h' = 104, 'e' = 101, 'l' = 108, 'o' = 111. So,
+    * the score of s would be |104 - 101| + |101 - 108| + |108 - 108| + |108 - 111| = 3 + 7 + 0 + 3
+    * \= 13.
+    *
+    * Example 2:
+    *
+    * Input: s = "zaz"
+    *
+    * Output: 50
+    *
+    * Explanation:
+    *
+    * The ASCII values of the characters in s are: 'z' = 122, 'a' = 97. So, the score of s would be
+    * \|122 - 97| + |97 - 122| = 25 + 25 = 50.
+    *
+    * Constraints:
+    *
+    * 2 <= s.length <= 100 s consists only of lowercase English letters.
+    */
+  def scoreOfString(s: String): Int =
+    (for i <- 0 to s.length - 2
+    yield math.abs(s(i) - s(i + 1))).sum
+
+  /** 2194. Cells in a range on an excel sheet.
+    *
+    * A cell (r, c) of an excel sheet is represented as a string "<col><row>" where:
+    *
+    * <col> denotes the column number c of the cell. It is represented by alphabetical letters. For
+    * example, the 1st column is denoted by 'A', the 2nd by 'B', the 3rd by 'C', and so on. <row> is
+    * the row number r of the cell. The rth row is represented by the integer r.
+    *
+    * You are given a string s in the format "<col1><row1>:<col2><row2>", where <col1> represents
+    * the column c1, <row1> represents the row r1, <col2> represents the column c2, and <row2>
+    * represents the row r2, such that r1 <= r2 and c1 <= c2.
+    *
+    * Return the list of cells (x, y) such that r1 <= x <= r2 and c1 <= y <= c2. The cells should be
+    * represented as strings in the format mentioned above and be sorted in non-decreasing order
+    * first by columns and then by rows.
+    *
+    * Example 1: Input: s = "K1:L2" Output: ["K1","K2","L1","L2"]
+    *
+    * Input: s = "A1:F1" Output: ["A1","B1","C1","D1","E1","F1"] Explanation: The above diagram
+    * shows the cells which should be present in the list. The red arrow denotes the order in which
+    * the cells should be presented.
+    *
+    * Constraints:
+    *
+    * s.length == 5 'A' <= s[0] <= s[3] <= 'Z' '1' <= s[1] <= s[4] <= '9' s consists of uppercase
+    * English letters, digits and ':'.
+    */
+  def cellsInRange(s: String): List[String] =
+    assert(s.length == 5)
+    val cs = s(0)
+    val ce = s(3)
+    val rs = s(1)
+    val re = s(4)
+    (for
+      c <- cs to ce
+      r <- rs to re
+    yield s"$c$r").toList
+
+  /** 824. Goat Latin.
+    *
+    * You are given a string sentence that consist of words separated by spaces. Each word consists
+    * of lowercase and uppercase letters only.
+    *
+    * We would like to convert the sentence to "Goat Latin" (a made-up language similar to Pig
+    * Latin.) The rules of Goat Latin are as follows:
+    *
+    * If a word begins with a vowel ('a', 'e', 'i', 'o', or 'u'), append "ma" to the end of the
+    * word. For example, the word "apple" becomes "applema". If a word begins with a consonant
+    * (i.e., not a vowel), remove the first letter and append it to the end, then add "ma". For
+    * example, the word "goat" becomes "oatgma". Add one letter 'a' to the end of each word per its
+    * word index in the sentence, starting with 1. For example, the first word gets "a" added to the
+    * end, the second word gets "aa" added to the end, and so on.
+    *
+    * Return the final sentence representing the conversion from sentence to Goat Latin.
+    *
+    * Example 1:
+    *
+    * Input: sentence = "I speak Goat Latin" Output: "Imaa peaksmaaa oatGmaaaa atinLmaaaaa"
+    *
+    * Example 2:
+    *
+    * Input: sentence = "The quick brown fox jumped over the lazy dog" Output: "heTmaa uickqmaaa
+    * rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa"
+    *
+    * Constraints:
+    *
+    * 1 <= sentence.length <= 150 sentence consists of English letters and spaces. sentence has no
+    * leading or trailing spaces. All the words in sentence are separated by a single space.
+    */
+  def toGoatLatin(sentence: String): String =
+    val transformer: String => String = s =>
+      val vowels = Set('a', 'e', 'i', 'o', 'u')
+      if vowels.contains(s.head.toLower) then s"${s}ma"
+      else s"${s.tail}${s.head}ma"
+    (for (word, index) <- sentence.split("\\s+").zipWithIndex if !word.isEmpty()
+    yield transformer(word).concat("a" * (index + 1))).mkString(" ")
+
+  /** 1002. Find common characters.
+    *
+    * Given a string array words, return an array of all characters that show up in all strings
+    * within the words (including duplicates). You may return the answer in any order.
+    *
+    * Example 1:
+    *
+    * Input: words = ["bella","label","roller"] Output: ["e","l","l"]
+    *
+    * Example 2:
+    *
+    * Input: words = ["cool","lock","cook"] Output: ["c","o"]
+    *
+    * Constraints:
+    *
+    * 1 <= words.length <= 100 1 <= words[i].length <= 100 words[i] consists of lowercase English
+    * letters.
+    */
+  def commonChars(words: Array[String]): List[String] =
+    def common(a: String, b: String): String =
+      a.toList.intersect(b).mkString
+    words.reduce(common(_, _)).toList.map(_.toString)
+
+  /** 2716. Minimize string length.
+    *
+    * Given a 0-indexed string s, repeatedly perform the following operation any number of times:
+    *
+    * Choose an index i in the string, and let c be the character in position i. Delete the closest
+    * occurrence of c to the left of i (if any) and the closest occurrence of c to the right of i
+    * (if any).
+    *
+    * Your task is to minimize the length of s by performing the above operation any number of
+    * times.
+    *
+    * Return an integer denoting the length of the minimized string.
+    *
+    * Example 1:
+    *
+    * Input: s = "aaabc" Output: 3 Explanation: In this example, s is "aaabc". We can start by
+    * selecting the character 'a' at index 1. We then remove the closest 'a' to the left of index 1,
+    * which is at index 0, and the closest 'a' to the right of index 1, which is at index 2. After
+    * this operation, the string becomes "abc". Any further operation we perform on the string will
+    * leave it unchanged. Therefore, the length of the minimized string is 3.
+    *
+    * Example 2:
+    *
+    * Input: s = "cbbd" Output: 3 Explanation: For this we can start with character 'b' at index 1.
+    * There is no occurrence of 'b' to the left of index 1, but there is one to the right at index
+    * 2, so we delete the 'b' at index 2. The string becomes "cbd" and further operations will leave
+    * it unchanged. Hence, the minimized length is 3.
+    *
+    * Example 3:
+    *
+    * Input: s = "dddaaa" Output: 2 Explanation: For this, we can start with the character 'd' at
+    * index 1. The closest occurrence of a 'd' to its left is at index 0, and the closest occurrence
+    * of a 'd' to its right is at index 2. We delete both index 0 and 2, so the string becomes
+    * "daaa". In the new string, we can select the character 'a' at index 2. The closest occurrence
+    * of an 'a' to its left is at index 1, and the closest occurrence of an 'a' to its right is at
+    * index 3. We delete both of them, and the string becomes "da". We cannot minimize this further,
+    * so the minimized length is 2.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 100 s contains only lowercase English letters
+    */
+  def minimizedStringLength(s: String): Int = s.distinct.size
