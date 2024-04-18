@@ -2372,3 +2372,85 @@ object StringProblems:
           val newAcc = s"$acc$allSingles"
           newAcc
     loop(s.toCharArray().toList, current = "", acc = "")
+
+  /** 1844. Replace all digits with characters.
+    *
+    * You are given a 0-indexed string s that has lowercase English letters in its even indices and
+    * digits in its odd indices.
+    *
+    * There is a function shift(c, x), where c is a character and x is a digit, that returns the xth
+    * character after c.
+    *
+    * For example, shift('a', 5) = 'f' and shift('x', 0) = 'x'.
+    *
+    * For every odd index i, you want to replace the digit s[i] with shift(s[i-1], s[i]).
+    *
+    * Return s after replacing all digits. It is guaranteed that shift(s[i-1], s[i]) will never
+    * exceed 'z'.
+    *
+    * Example 1:
+    *
+    * Input: s = "a1c1e1" Output: "abcdef" Explanation: The digits are replaced as follows: \- s[1]
+    * -> shift('a',1) = 'b' \- s[3] -> shift('c',1) = 'd' \- s[5] -> shift('e',1) = 'f'
+    *
+    * Example 2:
+    *
+    * Input: s = "a1b2c3d4e" Output: "abbdcfdhe" Explanation: The digits are replaced as follows: \-
+    * s[1] -> shift('a',1) = 'b' \- s[3] -> shift('b',2) = 'd' \- s[5] -> shift('c',3) = 'f' \- s[7]
+    * -> shift('d',4) = 'h'
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 100 s consists only of lowercase English letters and digits. shift(s[i-1],
+    * s[i]) <= 'z' for all odd indices i.
+    */
+  def replaceDigits(s: String): String =
+    (for index <- 0 until s.length by 2
+    yield
+      val a = s(index)
+      if index < s.length - 1 then
+        val b = s(index + 1)
+        val n = (a + b.asDigit).toChar
+        s"$a$n"
+      else s"$a"
+    ).mkString
+
+  /** 2744. Find maximum number of string pairs
+    *
+    * You are given a 0-indexed array words consisting of distinct strings.
+    *
+    * The string words[i] can be paired with the string words[j] if:
+    *
+    * The string words[i] is equal to the reversed string of words[j]. 0 <= i < j < words.length.
+    *
+    * Return the maximum number of pairs that can be formed from the array words.
+    *
+    * Note that each string can belong in at most one pair.
+    *
+    * Example 1:
+    *
+    * Input: words = ["cd","ac","dc","ca","zz"] Output: 2 Explanation: In this example, we can form
+    * 2 pair of strings in the following way: \- We pair the 0th string with the 2nd string, as the
+    * reversed string of word[0] is "dc" and is equal to words[2]. \- We pair the 1st string with
+    * the 3rd string, as the reversed string of word[1] is "ca" and is equal to words[3]. It can be
+    * proven that 2 is the maximum number of pairs that can be formed.
+    *
+    * Example 2:
+    *
+    * Input: words = ["ab","ba","cc"] Output: 1 Explanation: In this example, we can form 1 pair of
+    * strings in the following way: \- We pair the 0th string with the 1st string, as the reversed
+    * string of words[1] is "ab" and is equal to words[0]. It can be proven that 1 is the maximum
+    * number of pairs that can be formed.
+    *
+    * Example 3:
+    *
+    * Input: words = ["aa","ab"] Output: 0 Explanation: In this example, we are unable to form any
+    * pair of strings.
+    *
+    * Constraints:
+    *
+    * 1 <= words.length <= 50 words[i].length == 2 words consists of distinct strings. words[i]
+    * contains only lowercase English letters.
+    */
+  def maximumNumberOfStringPairs(words: Array[String]): Int =
+    words.map(_.sorted).groupBy(identity).map(_._2.length / 2).sum

@@ -765,3 +765,24 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expected) =>
       assert(StringProblems.freqAlphabets(string) === expected)
+
+  test("1844. Replace all digits with characters"):
+    val testcases = Table(
+      ("s", "expected"),
+      ("a1c1e1", "abcdef"),
+      ("a1b2c3d4e", "abbdcfdhe"),
+      ("a", "a"),
+      ("a3c", "adc")
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.replaceDigits(string) === expected)
+
+  test("2744. Find the maximum number of string pairs"):
+    val testcases = Table(
+      ("words", "expected pairs"),
+      (List("cd", "ac", "dc", "ca", "zz"), 2),
+      (List("ab", "ba", "cc"), 1),
+      (List("aa", "ab"), 0)
+    )
+    forAll(testcases): (words, expected) =>
+      assert(StringProblems.maximumNumberOfStringPairs(words.toArray) === expected)
