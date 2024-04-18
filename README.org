@@ -1,0 +1,51 @@
+#+title: README
+
+Catch all project to learn, explore scala.
+
+* Common commands to start with
+** Module listing.
+#+begin_example
+projects # lists all the modules
+project challenges # switches to module 'challenges'
+#+end_example
+** Test
+#+begin_example
+challenges / Test / test
+challenges / test # alias to ~challenges / Test / test~
+challenges / testOnly leetcode\*StringProblemsFunsuite  # runs only one suite
+challenges / testOnly leetcode\*StringProblemsFunsuite -- -z "test-name"  # runs only one test named "test-name" in the suite.
+#+end_example
+** Code formatting
+To enable formatting, add plugins to sbt.
+#+begin_src scala
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.2")
+#+end_src
+*** Check
+#+begin_example
+challenges / scalafmtCheck  # checks only 'src/main' for format adherence.
+challenges / scalafmtCheckAll # checks 'src/main' & 'src/test' for format adherence.
+challenges / scalafmtConfig # checks sbt configuration for format adherence.
+#+end_example
+*** Format
+#+begin_example
+challenges / scalafmt    # format 'src/main' for format adherence.
+challenges / scalafmtAll # format 'src/main' & 'src/test' for format adherence.
+challenges / scalafmtSbt # format sbt configuration for format adherence.
+#+end_example
+There are options to enable formatting on compile. I prefer format on save - reading the reformatted code is important before compilation phase.
+** Coverage
+To enable coverage, add the required plugins to sbt.
+#+begin_src scala
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.11")
+#+end_src
+*** Example
+#+begin_example
+coverage # only adds the compiler options to enable instrumentation.
+challenges / clean # not mandatory but just to ensure test runs on instrumented code.
+challenges / test  # test
+challenges / coverageReport # creates html & console report.
+#+end_example
+** Document generation
+#+begin_example
+challenges / doc
+#+end_example
