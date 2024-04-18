@@ -705,7 +705,7 @@ object StringProblems:
     *
     * Example 3:
     *
-    * Input: paths = [["A","Z"]] Output: "Z"
+    * Input: paths = \\[\\["A","Z"\\]\\] Output: "Z"
     *
     * Constraints:
     *
@@ -2327,3 +2327,48 @@ object StringProblems:
     * 1 <= s.length <= 100 s contains only lowercase English letters
     */
   def minimizedStringLength(s: String): Int = s.distinct.size
+
+  /** 1309. Decrypt string from alphabet to integer mapping.
+    *
+    * You are given a string s formed by digits and '#'. We want to map s to English lowercase
+    * characters as follows:
+    *
+    * Characters ('a' to 'i') are represented by ('1' to '9') respectively. Characters ('j' to 'z')
+    * are represented by ('10#' to '26#') respectively.
+    *
+    * Return the string formed after mapping.
+    *
+    * The test cases are generated so that a unique mapping will always exist.
+    *
+    * Example 1:
+    *
+    * Input: s = "10#11#12" Output: "jkab" Explanation: "j" -> "10#" , "k" -> "11#" , "a" -> "1" ,
+    * "b" -> "2".
+    *
+    * Example 2:
+    *
+    * Input: s = "1326#" Output: "acz"
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 1000 s consists of digits and the '#' letter. s will be a valid string such
+    * that mapping is always possible.
+    */
+  def freqAlphabets(s: String): String =
+    val asChar: String => String = string => (string.toInt - 1 + 'a').toChar.toString
+    @scala.annotation.tailrec
+    def loop(chars: List[Char], current: String, acc: String): String =
+      chars match
+        case head @ '#' :: next =>
+          val (singles, double) = current.splitAt(current.length - 2)
+          val allSingles = singles.collect(c => asChar(c.toString)).mkString
+          val doubleChar = asChar(double)
+          val newAcc = s"$acc$allSingles$doubleChar"
+          loop(next, "", newAcc)
+        case head :: next =>
+          loop(next, s"$current$head", acc)
+        case Nil =>
+          val allSingles = current.collect(c => asChar(c.toString)).mkString
+          val newAcc = s"$acc$allSingles"
+          newAcc
+    loop(s.toCharArray().toList, current = "", acc = "")

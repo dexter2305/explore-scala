@@ -752,3 +752,16 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expectedLength) =>
       assert(StringProblems.minimizedStringLength(string) === expectedLength)
+
+  test("1309. Decrypt string from alphabet to integer mapping."):
+    val testcases = Table(
+      ("string", "expected"),
+      ("10#11#12", "jkab"),
+      ("1326#", "acz"),
+      ("1", "a"),
+      ("26", "bf"),
+      ("26#", "z"),
+      ("10#126#", "jaz")
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.freqAlphabets(string) === expected)
