@@ -2454,3 +2454,215 @@ object StringProblems:
     */
   def maximumNumberOfStringPairs(words: Array[String]): Int =
     words.map(_.sorted).groupBy(identity).map(_._2.length / 2).sum
+
+  /** 13. Roman to integer.
+    *
+    * Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+    *
+    * Symbol Value I 1 V 5 X 10 L 50 C 100 D 500 M 1000
+    *
+    * For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written
+    * as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+    *
+    * Roman numerals are usually written largest to smallest from left to right. However, the
+    * numeral for four is not IIII. Instead, the number four is written as IV. Because the one is
+    * before the five we subtract it making four. The same principle applies to the number nine,
+    * which is written as IX. There are six instances where subtraction is used:
+    *
+    * I can be placed before V (5) and X (10) to make 4 and 9. X can be placed before L (50) and C
+    * (100) to make 40 and 90. C can be placed before D (500) and M (1000) to make 400 and 900.
+    *
+    * Given a roman numeral, convert it to an integer.
+    *
+    * Example 1:
+    *
+    * Input: s = "III" Output: 3 Explanation: III = 3.
+    *
+    * Example 2:
+    *
+    * Input: s = "LVIII" Output: 58 Explanation: L = 50, V= 5, III = 3.
+    *
+    * Example 3:
+    *
+    * Input: s = "MCMXCIV" Output: 1994 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 15 s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+    *
+    * It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+    */
+  def romanToInt(s: String): Int =
+    lazy val fromRomanToDecimal: Map[Char, Int] = Map(
+      ('I' -> 1),
+      ('V' -> 5),
+      ('X' -> 10),
+      ('L' -> 50),
+      ('C' -> 100),
+      ('D' -> 500),
+      ('M' -> 1000)
+    )
+    // ("MCMXCIV", 1994)
+    val (int, x) = s.foldRight(0, 0): (element, tuple) =>
+      (element, tuple) match
+        case (element, (acc, valueToRight)) if fromRomanToDecimal(element) < valueToRight =>
+          (acc - fromRomanToDecimal(element), fromRomanToDecimal(element))
+        case (element, (acc, valueToRight)) =>
+          (acc + fromRomanToDecimal(element), fromRomanToDecimal(element))
+    int
+
+  /** 1417. Reformat the string.
+    *
+    * You are given an alphanumeric string s. (Alphanumeric string is a string consisting of
+    * lowercase English letters and digits).
+    *
+    * You have to find a permutation of the string where no letter is followed by another letter and
+    * no digit is followed by another digit. That is, no two adjacent characters have the same type.
+    *
+    * Return the reformatted string or return an empty string if it is impossible to reformat the
+    * string.
+    *
+    * Example 1:
+    *
+    * Input: s = "a0b1c2" Output: "0a1b2c" Explanation: No two adjacent characters have the same
+    * type in "0a1b2c". "a0b1c2", "0a1b2c", "0c2a1b" are also valid permutations.
+    *
+    * Example 2:
+    *
+    * Input: s = "leetcode" Output: "" Explanation: "leetcode" has only characters so we cannot
+    * separate them by digits.
+    *
+    * Example 3:
+    *
+    * Input: s = "1229857369" Output: "" Explanation: "1229857369" has only digits so we cannot
+    * separate them by characters.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 500 s consists of only lowercase English letters and/or digits.
+    */
+  def reformat(s: String): String =
+    val (chars, ints) = s.foldLeft(List.empty[Char], List.empty[Int]): (tuple, element) =>
+      (tuple, element) match
+        case ((chars, ints), element) if element.isDigit => (chars, element.asDigit +: ints)
+        case ((chars, ints), element)                    => (element +: chars, ints)
+    if math.abs(chars.length - ints.length) > 1 then ""
+    else
+      (if chars.length > ints.length then chars.zipAll(ints, ' ', ' ')
+       else ints.zipAll(chars, ' ', ' '))
+        .map(t => s"${t._1}${t._2}")
+        .mkString
+        .trim
+
+  /** 345. Reverse vowels of a string.
+    *
+    * Given a string s, reverse only all the vowels in the string and return it.
+    *
+    * The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases,
+    * more than once.
+    *
+    * Example 1:
+    *
+    * Input: s = "hello" Output: "holle"
+    *
+    * Example 2:
+    *
+    * Input: s = "leetcode" Output: "leotcede"
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 3 * 105 s consist of printable ASCII characters.
+    */
+  def reverseVowels(s: String): String =
+    lazy val vowels = Set('a', 'e', 'i', 'o', 'u')
+    @scala.annotation.tailrec
+    def loop(chars: Array[Char], l: Int, r: Int): String =
+      if l < r then
+        (s(l), s(r)) match
+          case (x, y) if !vowels.contains(x.toLower) && !vowels.contains(y.toLower) =>
+            loop(chars, l + 1, r - 1)
+          case (x, y) if vowels.contains(x.toLower) && !vowels.contains(y.toLower) =>
+            loop(chars, l, r - 1)
+          case (x, y) if !vowels.contains(x.toLower) && vowels.contains(y.toLower) =>
+            loop(chars, l + 1, r)
+          case (x, y) =>
+            chars(l) = (chars(l) + chars(r)).toChar
+            chars(r) = (chars(l) - chars(r)).toChar
+            chars(l) = (chars(l) - chars(r)).toChar
+            loop(chars, l + 1, r - 1)
+      else chars.mkString
+
+    loop(s.toCharArray(), 0, s.length - 1)
+
+  /** 1941. Check if all characters have equal number of occurences.
+    *
+    * Given a string s, return true if s is a good string, or false otherwise.
+    *
+    * A string s is good if all the characters that appear in s have the same number of occurrences
+    * (i.e., the same frequency).
+    *
+    * Example 1:
+    *
+    * Input: s = "abacbc" Output: true Explanation: The characters that appear in s are 'a', 'b',
+    * and 'c'. All characters occur 2 times in s.
+    *
+    * Example 2:
+    *
+    * Input: s = "aaabb" Output: false Explanation: The characters that appear in s are 'a' and 'b'.
+    * 'a' occurs 3 times while 'b' occurs 2 times, which is not the same number of times.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 1000 s consists of lowercase English letters.
+    */
+  def areOccurrencesEqual(s: String): Boolean =
+    s.groupBy(identity).map(_._2.size).toSet.size == 1
+
+  /** 2315. Count asterisks.
+    *
+    * You are given a string s, where every two consecutive vertical bars '|' are grouped into a
+    * pair. In other words, the 1st and 2nd '|' make a pair, the 3rd and 4th '|' make a pair, and so
+    * forth.
+    *
+    * Return the number of '*' in s, excluding the '*' between each pair of '|'.
+    *
+    * Note that each '|' will belong to exactly one pair.
+    *
+    * Example 1:
+    *
+    * Input: s = "l|*e*et|c**o|*de|" Output: 2 Explanation: The considered characters are
+    * underlined: "l|*e*et|c**o|*de|". The characters between the first and second '|' are excluded
+    * from the answer. Also, the characters between the third and fourth '|' are excluded from the
+    * answer. There are 2 asterisks considered. Therefore, we return 2.
+    *
+    * Example 2:
+    *
+    * Input: s = "iamprogrammer" Output: 0 Explanation: In this example, there are no asterisks in
+    * s. Therefore, we return 0.
+    *
+    * Example 3:
+    *
+    * Input: s = "yo|uar|e**|b|e***au|tifu|l" Output: 5 Explanation: The considered characters are
+    * underlined: "yo|uar|e**|b|e***au|tifu|l". There are 5 asterisks considered. Therefore, we
+    * return 5.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 1000 s consists of lowercase English letters, vertical bars '|', and
+    * asterisks '*'.
+    *
+    * s contains an even number of vertical bars '|'.
+    *
+    * Approach:
+    *
+    * \- Parse from left to right \- Starting with out = true, keep toggling on every |. \- When out
+    * \== true, means context is outside the pair. So, accumulate counter of *StringProblems
+    */
+  def countAsterisks(s: String): Int =
+    val (counter, isOutside) =
+      s.foldLeft(0, true): (tuple, char) =>
+        (tuple, char) match
+          case ((counter, out), '*')  => if out then (counter + 1, out) else (counter, out)
+          case ((counter, out), '|')  => (counter, !out)
+          case ((counter, out), char) => (counter, out)
+    counter

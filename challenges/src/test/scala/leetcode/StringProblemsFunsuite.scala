@@ -786,3 +786,104 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (words, expected) =>
       assert(StringProblems.maximumNumberOfStringPairs(words.toArray) === expected)
+
+  test("13. Roman to integer."):
+    val basicExamples = Table(
+      ("string", "expected"),
+      ("I", 1),
+      ("V", 5),
+      ("X", 10),
+      ("L", 50),
+      ("C", 100),
+      ("D", 500),
+      ("M", 1000)
+    )
+    val incrementExamples = Table(
+      ("string", "expected"),
+      ("III", 3),
+      ("VIII", 8),
+      ("XII", 12),
+      ("LII", 52),
+      ("CIII", 103),
+      ("DIII", 503),
+      ("MI", 1001)
+    )
+    val decrementExamples = Table(
+      ("string", "expected"),
+      ("IV", 4),
+      ("IX", 9),
+      ("IL", 49),
+      ("IC", 99),
+      ("ID", 499),
+      ("IM", 999)
+    )
+    val complexExamples = Table(
+      ("string", "expected"),
+      ("MCMXCIV", 1994)
+    )
+    forAll(basicExamples ++ incrementExamples ++ decrementExamples ++ complexExamples):
+      (roman, expected) => assert(StringProblems.romanToInt(roman) === expected)
+
+  test("1417. Reformat the string."):
+    val testcases = Table(
+      ("string", "expected in"),
+      ("a0b1c2", true),
+      ("leetcode", false),
+      ("1229857369", false),
+      ("ab12", true),
+      ("1a23", false),
+      ("abc12", true),
+      ("1d2ef", true),
+      ("covid2019", true)
+    )
+    forAll(testcases): (string, expectation) =>
+      if !expectation then assert(StringProblems.reformat(string) === "")
+      else
+        val actual = StringProblems.reformat(string)
+        val eval = actual
+          .sliding(2)
+          .map(s => (s(0), s(1)))
+          .filter(t => t._1.isLetterOrDigit && t._2.isLetterOrDigit)
+          .map: (x, y) =>
+            val validity = (x.isDigit && y.isLetter) || (x.isLetter && y.isDigit)
+            (validity, s"$x$y")
+          .toList
+        println(s"$eval")
+        assert(
+          eval.forall(_._1) === true,
+          clue = s"'$actual' is invalid because of '${eval.filter(_._1 == false).map(_._2)}' "
+        )
+
+  test("345. Reverse vowels of a string."):
+    val testcases = Table(
+      ("string", "expected"),
+      ("hello", "holle"),
+      ("leetcode", "leotcede"),
+      ("abc", "abc"),
+      ("aeiou", "uoiea"),
+      ("aA", "Aa")
+    )
+    forAll(testcases): (givenString, expected) =>
+      assert(StringProblems.reverseVowels(givenString) === expected)
+
+  test("1941. Check if all characters have equal occurences."):
+    val testcases = Table(
+      ("string", "expected"),
+      ("abacbc", true),
+      ("aaabb", false),
+      ("a", true)
+    )
+    forAll(testcases): (s, expected) =>
+      assert(StringProblems.areOccurrencesEqual(s) === expected)
+
+  test("2315. Count asterisks"):
+    val testcases = Table(
+      ("s", "expected"),
+      ("l|*e*et|c**o|*de|", 2),
+      ("iamprogrammer", 0),
+      ("yo|uar|e**|b|e***au|tifu|l", 5),
+      ("*", 1),
+      ("*|ig*nore|*|e*f|*", 3)
+    )
+    forAll(testcases): (s, expected) =>
+      assert(StringProblems.countAsterisks(s) === expected)
