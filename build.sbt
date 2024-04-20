@@ -21,6 +21,9 @@ def scala3Module(moduleDir: File): Project =
       Compile / scalacOptions := Seq(
         "-deprecation",
         "-Xfatal-warnings"
+      ),
+      Compile / doc / scalacOptions ++= Seq(
+        "-groups"
       )
     )
 

@@ -887,3 +887,21 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (s, expected) =>
       assert(StringProblems.countAsterisks(s) === expected)
+
+  test("2255. Count prefixes of a given string"):
+    val testcases = Table(
+      ("words", "s", "expected"),
+      (List("a", "b", "c", "ab", "bc", "abc"), "abc", 3),
+      (List("a", "a"), "aa", 2)
+    )
+    forAll(testcases): (words, s, expected) =>
+      assert(StringProblems.countPrefixes(words.toArray, s) === expected)
+
+  test("2278. Percentage of letter in string"):
+    val testcases = Table(
+      ("s", "letter", "expected"),
+      ("foobar", 'o', 33),
+      ("jjjj", 'k', 0)
+    )
+    forAll(testcases): (s, letter, expected) =>
+      assert(StringProblems.percentageLetter(s, letter) === expected)

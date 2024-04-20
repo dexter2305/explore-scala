@@ -1,6 +1,7 @@
 package leetcode
 
-/** Companion class */
+/** Implementations for problems on string.
+  */
 object StringProblems:
   /** 2114. Maximum number of words found in sentences.
     *
@@ -2666,3 +2667,57 @@ object StringProblems:
           case ((counter, out), '|')  => (counter, !out)
           case ((counter, out), char) => (counter, out)
     counter
+
+  /** 2255. Count prefixes of a given string.
+    *
+    * You are given a string array words and a string s, where words[i] and s comprise only of
+    * lowercase English letters.
+    *
+    * Return the number of strings in words that are a prefix of s.
+    *
+    * A prefix of a string is a substring that occurs at the beginning of the string. A substring is
+    * a contiguous sequence of characters within a string.
+    *
+    * Example 1:
+    *
+    * Input: words = ["a","b","c","ab","bc","abc"], s = "abc" Output: 3 Explanation: The strings in
+    * words which are a prefix of s = "abc" are: "a", "ab", and "abc". Thus the number of strings in
+    * words which are a prefix of s is 3.
+    *
+    * Example 2:
+    *
+    * Input: words = ["a","a"], s = "aa" Output: 2 Explanation: Both of the strings are a prefix of
+    * s. Note that the same string can occur multiple times in words, and it should be counted each
+    * time.
+    *
+    * Constraints:
+    *
+    * 1 <= words.length <= 1000 1 <= words[i].length, s.length <= 10 words[i] and s consist of
+    * lowercase English letters only.
+    */
+  def countPrefixes(words: Array[String], s: String): Int =
+    words.count(s.startsWith)
+
+  /** 2278. Percentage of letter in string.
+    *
+    * Given a string s and a character letter, return the percentage of characters in s that equal
+    * letter rounded down to the nearest whole percent.
+    *
+    * Example 1:
+    *
+    * Input: s = "foobar", letter = "o" Output: 33 Explanation: The percentage of characters in s
+    * that equal the letter 'o' is 2 / 6 * 100% = 33% when rounded down, so we return 33.
+    *
+    * Example 2:
+    *
+    * Input: s = "jjjj", letter = "k" Output: 0 Explanation: The percentage of characters in s that
+    * equal the letter 'k' is 0%, so we return 0.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 100 s consists of lowercase English letters. letter is a lowercase English
+    * letter.
+    */
+
+  def percentageLetter(s: String, letter: Char): Int =
+    s.count(_ == letter) * 100 / s.length
