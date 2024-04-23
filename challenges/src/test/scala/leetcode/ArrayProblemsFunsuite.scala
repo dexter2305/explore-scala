@@ -31,3 +31,19 @@ class ArrayProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (candies, extras, expected) =>
       assert(ArrayProblems.kidsWithCandies(candies.toArray, extras) === expected)
+
+  test("605. Can place flowers."):
+    val testcases = Table(
+      ("flowerbed", "extras", "expected"),
+      (List(1, 0, 0, 0, 1), 1, true),
+      (List(1, 0, 0, 0, 1), 2, false),
+      (List(1, 0, 0, 0, 1), 0, true),
+      (List(0, 0, 0, 0, 0), 2, true),
+      (List(1), 1, false),
+      (List(1, 0, 1, 0), 1, false),
+      (List(1, 0, 0, 0), 1, true),
+      (List(0, 1, 0), 1, false),
+      (List(0), 1, true)
+    )
+    forAll(testcases): (bed, extra, expected) =>
+      assert(ArrayProblems.canPlaceFlowers(bed.toArray, extra) === expected)

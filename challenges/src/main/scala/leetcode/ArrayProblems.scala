@@ -1,5 +1,7 @@
 package leetcode
 
+import scala.compiletime.ops.double
+
 object ArrayProblems:
 
   /** 2073. Time needed to buy tickets.
@@ -155,3 +157,47 @@ object ArrayProblems:
   def kidsWithCandies(candies: Array[Int], extraCandies: Int): List[Boolean] =
     val max = candies.max
     candies.map(_ + extraCandies >= max).toList
+
+  /** 605. Can place flowers
+    *
+    * You have a long flowerbed in which some of the plots are planted, and some are not. However,
+    * flowers cannot be planted in adjacent plots.
+    *
+    * Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not
+    * empty, and an integer n, return true if n new flowers can be planted in the flowerbed without
+    * violating the no-adjacent-flowers rule and false otherwise.
+    *
+    * Example 1:
+    *
+    * Input: flowerbed = [1,0,0,0,1], n = 1 Output: true
+    *
+    * Example 2:
+    *
+    * Input: flowerbed = [1,0,0,0,1], n = 2 Output: false
+    *
+    * Constraints:
+    *
+    *   - 1 <= flowerbed.length <= 2 * 104
+    *   - flowerbed[i] is 0 or 1. There are no two adjacent flowers in * flowerbed. 0 <= n <=
+    *     flowerbed.length
+    *
+    * ==Approach==
+    *
+    *   - If the bed is List(0), 1 plant can be planted. This is true because of the assumption
+    *     List(0) => [0]-List(0)-[0] => [0,0,0]
+    *   - Going with this assumption, add head and tail to flowerbed with value = 0.
+    *   - iterate from 1 until bed.length -1 - skip the first and last because of assumption.
+    *   - now start matching if pointer == 0 and look for prev == next == 0.
+    */
+  def canPlaceFlowers(flowerbed: Array[Int], n: Int): Boolean =
+    @scala.annotation.tailrec
+    def iterate(bed: Array[Int], current: Int, terminal: Int, planted: Int): Boolean =
+      if current <= terminal && planted < n then
+        (bed(current - 1), bed(current), bed(current + 1)) match
+          case (0, 0, 0) =>
+            bed(current) = 1
+            iterate(bed, current + 1, terminal, planted + 1)
+          case _ =>
+            iterate(bed, current + 1, terminal, planted)
+      else planted == n
+    iterate(0 +: flowerbed :+ 0, current = 1, terminal = flowerbed.length, 0)
