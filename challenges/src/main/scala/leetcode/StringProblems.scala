@@ -2692,8 +2692,8 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= words.length <= 1000 1 <= words[i].length, s.length <= 10 words[i] and s consist of
-    * lowercase English letters only.
+    *   - 1 <= words.length <= 1000 1 <= words[i].length,
+    *   - s.length <= 10 words[i] and s consist of * lowercase English letters only.
     */
   def countPrefixes(words: Array[String], s: String): Int =
     words.count(s.startsWith)
@@ -2721,3 +2721,42 @@ object StringProblems:
 
   def percentageLetter(s: String, letter: Char): Int =
     s.count(_ == letter) * 100 / s.length
+
+  /** 1071. Greatest common divisor.
+    *
+    * For two strings s and t, we say "t divides s" if and only if s = t + t + t + ... + t + t
+    * (i.e., t is concatenated with itself one or more times).
+    *
+    * Given two strings str1 and str2, return the largest string x such that x divides both str1 and
+    * str2.
+    *
+    * Example 1:
+    *
+    * Input: str1 = "ABCABC", str2 = "ABC" Output: "ABC"
+    *
+    * Example 2:
+    *
+    * Input: str1 = "ABABAB", str2 = "ABAB" Output: "AB"
+    *
+    * Example 3:
+    *
+    * Input: str1 = "LEET", str2 = "CODE" Output: ""
+    *
+    * Constraints:
+    *
+    *   - 1 <= str1.length, str2.length <= 1000
+    *   - str1 and str2 consist of English uppercase letters.
+    *
+    * ===Approach===
+    *   - Assume one of the given strings to be smaller and other one to be larger, say (x, y)
+    *     respectively.
+    *   - For smaller to be a divisor of larger, the larger one should start with smaller one.
+    *   - Substring the larger one by the smaller until either the last two undivided units are
+    *     either equal or unequal.
+    */
+  def gcdOfStrings(str1: String, str2: String): String =
+    (str1, str2) match
+      case (x, y) if x == y              => x
+      case (x, y) if x.length > y.length => gcdOfStrings(y, x)
+      case (x, y) if y.startsWith(x)     => gcdOfStrings(y.substring(x.length), x)
+      case _                             => ""

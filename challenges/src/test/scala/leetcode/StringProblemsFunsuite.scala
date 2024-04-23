@@ -905,3 +905,13 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (s, letter, expected) =>
       assert(StringProblems.percentageLetter(s, letter) === expected)
+
+  test("1071. Greatest common divisor of strings."):
+    val testcases = Table(
+      ("string1", "string2", "expected"),
+      ("ABCABCABC", "ABC", "ABC"),
+      ("ABABAB", "ABAB", "AB"),
+      ("LEET", "CODE", "")
+    )
+    forAll(testcases): (a, b, expected) =>
+      assert(StringProblems.gcdOfStrings(a, b) === expected)
