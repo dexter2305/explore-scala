@@ -24,7 +24,10 @@ def scala3Module(moduleDir: File): Project =
       ),
       Compile / doc / scalacOptions ++= Seq(
         "-groups"
-      )
+      ),
+      coverageFailOnMinimum := true,
+      coverageMinimumStmtTotal := 90,
+      coverageMinimumBranchTotal := 90
     )
 
 lazy val challenges: Project = scala3Module(file("challenges"))

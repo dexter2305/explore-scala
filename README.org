@@ -38,6 +38,8 @@ To enable coverage, add the required plugins to sbt.
 #+begin_src scala
 addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.11")
 #+end_src
+*** Configuration
+- Use ~coverageFailOnMinimum := true~ in project level setting in build.sbt. This enables the ~coverageReport~ task to fail when the minimum criteria for coverage are not met. Some of the conditions are ~coverageMinimumStmtTotal && coverageMinimumBranchTotal~.
 *** Example
 #+begin_example
 coverage # only adds the compiler options to enable instrumentation.
