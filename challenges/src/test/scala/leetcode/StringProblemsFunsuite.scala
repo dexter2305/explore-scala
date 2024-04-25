@@ -146,7 +146,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("Let's take LeetCode contest", "s'teL ekat edoCteeL tsetnoc"),
       ("Mr Ding", "rM gniD")
     )
-    for (input, expected) <- testcases do assert(StringProblems.reverseWords(input) === expected)
+    for (input, expected) <- testcases do assert(StringProblems.reverseWordsIII(input) === expected)
 
   test("1859. Sorting the sequence"):
     val testcases = List(
@@ -915,3 +915,15 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (a, b, expected) =>
       assert(StringProblems.gcdOfStrings(a, b) === expected)
+
+  test("151. Reverse words in a string."):
+    val testcases = Table(
+      ("string", "expected"),
+      ("good", "good"),
+      ("   hello  ", "hello"),
+      ("  hello world  ", "world hello"),
+      ("the sky is blue", "blue is sky the"),
+      ("a good   example", "example good a")
+    )
+    forAll(testcases): (string, expect) =>
+      assert(StringProblems.reverseWords(string) === expect)

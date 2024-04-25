@@ -47,3 +47,12 @@ class ArrayProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (bed, extra, expected) =>
       assert(ArrayProblems.canPlaceFlowers(bed.toArray, extra) === expected)
+
+  test("238. Product of array except self."):
+    val testcases = Table(
+      ("nums", "expected"),
+      (List(1, 2, 3, 4), List(24, 12, 8, 6)),
+      (List(-1, 1, 0, -3, 3), List(0, 0, 9, 0, 0))
+    )
+    forAll(testcases): (nums, expected) =>
+      assert(ArrayProblems.productExceptSelf(nums.toArray) === expected)

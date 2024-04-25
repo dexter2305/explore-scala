@@ -201,3 +201,36 @@ object ArrayProblems:
             iterate(bed, current + 1, terminal, planted)
       else planted == n
     iterate(0 +: flowerbed :+ 0, current = 1, terminal = flowerbed.length, 0)
+
+  /** 238. Product of array except self.
+    *
+    * Given an integer array nums, return an array answer such that answer[i] is equal to the
+    * product of all the elements of nums except nums[i].
+    *
+    * The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+    *
+    * You must write an algorithm that runs in O(n) time and without using the division operation.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,3,4] Output: [24,12,8,6]
+    *
+    * Example 2:
+    *
+    * Input: nums = [-1,1,0,-3,3] Output: [0,0,9,0,0]
+    *
+    * Constraints:
+    *
+    *   - 2 <= nums.length <= 105 -30 <= nums[i] <= 30 The product of any prefix or suffix of nums
+    *     is guaranteed to fit in a 32-bit integer.
+    */
+
+  def productExceptSelf(nums: Array[Int]): Array[Int] =
+    // Scan will include the extra starting 1 so there are 5 elements
+    // not a problem for prefix, but it causes the indices to be off by 1
+    // for suffixes, so I take the tail
+    val prefixProducts: Array[Int] = nums.scanLeft(1)(_ * _)
+    val suffixProducts: Array[Int] = nums.scanRight(1)(_ * _).tail
+    nums.indices
+      .map(i => prefixProducts(i) * suffixProducts(i))
+      .toArray
