@@ -927,3 +927,40 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expect) =>
       assert(StringProblems.reverseWords(string) === expect)
+
+  test("443. String compression."):
+    pendingUntilFixed:
+      val testcases = Table(
+        ("string", "expected"),
+        (List("a"), 1),
+        (List("a", "a"), 2),
+        (List("a", "a", "b", "b", "c", "c", "c"), 6),
+        (List("a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"), 4)
+      )
+      forAll(testcases): (string, expectedLength) =>
+        assert(StringProblems.compress(string.map(_.head).toArray) === expectedLength)
+
+  test("2351. First letter to appear twice."):
+    val testcases = Table(
+      ("string", "char"),
+      ("abccbaacz", 'c'),
+      ("abcdd", 'd'),
+      ("aa", 'a'),
+      ("aabaa", 'a')
+    )
+    forAll(testcases): (string, expected) =>
+      assert(StringProblems.repeatedCharacter(string) === expected)
+
+  test("2788. Split string by separator."):
+    val testcases = Table(
+      ("words", "separator", "expected"),
+      (
+        List("one.two.three", "four.five", "six"),
+        '.',
+        List("one", "two", "three", "four", "five", "six")
+      ),
+      (List("$easy$", "$problem$"), '$', List("easy", "problems")),
+      (List("|||"), '|', List.empty[String])
+    )
+    forAll(testcases): (words, sep, exp) =>
+      assert(StringProblems.splitWordsBySeparator(words, sep) === exp)

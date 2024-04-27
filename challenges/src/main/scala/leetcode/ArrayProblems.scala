@@ -1,6 +1,7 @@
 package leetcode
 
 import scala.compiletime.ops.double
+import scala.annotation.meta.param
 
 object ArrayProblems:
 
@@ -20,23 +21,31 @@ object ArrayProblems:
     *
     * Example 1:
     *
-    * Input: tickets = [2,3,2], k = 2 Output: 6 Explanation: \- In the first pass, everyone in the
-    * line buys a ticket and the line becomes [1, 2, 1]. \- In the second pass, everyone in the line
-    * buys a ticket and the line becomes [0, 1, 0]. The person at position 2 has successfully bought
-    * 2 tickets and it took 3 + 3 = 6 seconds.
+    *   - Input: tickets = [2,3,2], k = 2
+    *   - Output: 6
+    *   - Explanation:
+    *     - In the first pass, everyone in the line buys a ticket and the line becomes [1, 2, 1].
+    *     - In the second pass, everyone in the line buys a ticket and the line becomes [0, 1, 0].
+    *       The person at position 2 has successfully bought 2 tickets and it took 3 + 3 = 6
+    *       seconds.
     *
     * Example 2:
     *
-    * Input: tickets = [5,1,1,1], k = 0 Output: 8 Explanation: \- In the first pass, everyone in the
-    * line buys a ticket and the line becomes [4, 0, 0, 0]. \- In the next 4 passes, only the person
-    * in position 0 is buying tickets. The person at position 0 has successfully bought 5 tickets
-    * and it took 4 + 1 + 1 + 1 + 1 = 8 seconds.
+    *   - Input: tickets = [5,1,1,1], k = 0
+    *   - Output: 8
+    *   - Explanation:
+    *     - In the first pass, everyone in the line buys a ticket and the line becomes [4, 0, 0, 0].
+    *     - In the next 4 passes, only the person in position 0 is buying tickets. The person at
+    *       position 0 has successfully bought 5 tickets and it took 4 + 1 + 1 + 1 + 1 = 8 seconds.
     *
     * Constraints:
     *
-    * n == tickets.length 1 <= n <= 100 1 <= tickets[i] <= 100 0 <= k < n
+    *   - n == tickets.length
+    *   - 1 <= n <= 100
+    *   - 1 <= tickets[i] <= 100
+    *   - 0 <= k < n
     *
-    * Approach
+    * ##### Approach
     *
     * Solution to be approached in a single pass Every ticket bought is ONE second. Question is to
     * find the time required. Time required will be equal to the number of tickets sold until kth
@@ -63,21 +72,33 @@ object ArrayProblems:
       * around the island. One cell is a square with side length 1. The grid is rectangular, width
       * and height don't exceed 100. Determine the perimeter of the island.
       *
+      * ```
       * Example 1:
       *
-      * Input: grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]] Output: 16 Explanation: The
-      * perimeter is the 16 yellow stripes in the image above.
+      * - Input: grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]
+      * - Output: 16
+      * - Explanation: The perimeter is the 16 yellow stripes in the image above.
       *
       * Example 2:
       *
-      * Input: grid = [[1]] Output: 4
+      * - Input: grid = [[1]]
+      * - Output: 4
       *
       * Example 3:
       *
-      * Input: grid = [[1,0]] Output: 4 Constraints:
+      * - Input: grid = [[1,0]]
+      * - Output: 4
+      * ```
+      * Constraints:
+      *   - row == grid.length
+      *   - col == grid[i].length
+      *   - 1 <= row, col <= 100
+      *   - grid[i][j] is 0 or 1.
+      *   - There is exactly one island in grid.
       *
-      * row == grid.length col == grid[i].length 1 <= row, col <= 100 grid[i][j] is 0 or 1. There is
-      * exactly one island in grid.
+      * @param Array[Array[Int]]
+      * @return
+      *   Int
       */
   def islandPerimeter(grid: Array[Array[Int]]): Int =
 
@@ -141,17 +162,22 @@ object ArrayProblems:
     *
     * Example 2:
     *
-    * Input: candies = [4,2,1,1,2], extraCandies = 1 Output: [true,false,false,false,false]
-    * Explanation: There is only 1 extra candy. Kid 1 will always have the greatest number of
-    * candies, even if a different kid is given the extra candy.
+    *   - Input: candies = [4,2,1,1,2], extraCandies = 1
+    *   - Output: [true,false,false,false,false]
+    *   - Explanation: There is only 1 extra candy. Kid 1 will always have the greatest number of
+    *     candies, even if a different kid is given the extra candy.
     *
     * Example 3:
     *
-    * Input: candies = [12,1,12], extraCandies = 10 Output: [true,false,true]
+    *   - Input: candies = [12,1,12], extraCandies = 10
+    *   - Output: [true,false,true]
     *
     * Constraints:
     *
-    * n == candies.length 2 <= n <= 100 1 <= candies[i] <= 100 1 <= extraCandies <= 50
+    *   - n == candies.length
+    *   - 2 <= n <= 100
+    *   - 1 <= candies[i] <= 100
+    *   - 1 <= extraCandies <= 50
     */
 
   def kidsWithCandies(candies: Array[Int], extraCandies: Int): List[Boolean] =
@@ -169,19 +195,21 @@ object ArrayProblems:
     *
     * Example 1:
     *
-    * Input: flowerbed = [1,0,0,0,1], n = 1 Output: true
+    *   - Input: flowerbed = [1,0,0,0,1], n = 1
+    *   - Output: true
     *
     * Example 2:
     *
-    * Input: flowerbed = [1,0,0,0,1], n = 2 Output: false
+    *   - Input: flowerbed = [1,0,0,0,1], n = 2
+    *   - Output: false
     *
     * Constraints:
     *
-    *   - 1 <= flowerbed.length <= 2 * 104
+    *   - 1 <= flowerbed.length <= 2 * 10^4
     *   - flowerbed[i] is 0 or 1. There are no two adjacent flowers in * flowerbed. 0 <= n <=
     *     flowerbed.length
     *
-    * ==Approach==
+    * ##### Approach
     *
     *   - If the bed is List(0), 1 plant can be planted. This is true because of the assumption
     *     List(0) => [0]-List(0)-[0] => [0,0,0]
@@ -213,24 +241,157 @@ object ArrayProblems:
     *
     * Example 1:
     *
-    * Input: nums = [1,2,3,4] Output: [24,12,8,6]
+    *   - Input: nums = [1,2,3,4]
+    *   - Output: [24,12,8,6]
     *
     * Example 2:
     *
-    * Input: nums = [-1,1,0,-3,3] Output: [0,0,9,0,0]
+    *   - Input: nums = [-1,1,0,-3,3]
+    *   - Output: [0,0,9,0,0]
     *
     * Constraints:
     *
-    *   - 2 <= nums.length <= 105 -30 <= nums[i] <= 30 The product of any prefix or suffix of nums
-    *     is guaranteed to fit in a 32-bit integer.
+    *   - 2 <= nums.length <= 10^5
+    *   - -30 <= nums[i] <= 30
+    *   - The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+    *
+    * ##### Approach
+    *
+    * Scan will include the extra starting 1 so there are 5 elements not a problem for prefix, but
+    * it causes the indices to be off by 1 for suffixes, so I take the tail
     */
-
   def productExceptSelf(nums: Array[Int]): Array[Int] =
-    // Scan will include the extra starting 1 so there are 5 elements
-    // not a problem for prefix, but it causes the indices to be off by 1
-    // for suffixes, so I take the tail
     val prefixProducts: Array[Int] = nums.scanLeft(1)(_ * _)
     val suffixProducts: Array[Int] = nums.scanRight(1)(_ * _).tail
     nums.indices
       .map(i => prefixProducts(i) * suffixProducts(i))
       .toArray
+
+  /** 283. Move zeroes.
+    *
+    * Given an integer array nums, move all 0's to the end of it while maintaining the relative
+    * order of the non-zero elements.
+    *
+    * Note that you must do this in-place without making a copy of the array.
+    *
+    * Example 1:
+    *
+    *   - Input: nums = [0,1,0,3,12]
+    *   - Output: [1,3,12,0,0]
+    *
+    * Example 2:
+    *
+    *   - Input: nums = [0]
+    *   - Output: [0]
+    *
+    * Constraints:
+    *
+    *   - 1 <= nums.length <= 10^4
+    *   - -2^31 <= nums[i] <= 2^31 - 1
+    *
+    * Follow up: Could you minimize the total number of operations done?
+    */
+  def moveZeroes(nums: Array[Int]): Unit =
+    @scala.annotation.tailrec
+    def loop(first: Int, second: Int): Unit =
+      if second < nums.length then
+        (nums(first), nums(second)) match
+          case (x @ 0, y @ 0) => loop(first, second + 1)
+          case (x @ 0, y) if y != 0 =>
+            nums(first) = nums(second)
+            nums(second) = 0
+            println(s"[${nums.mkString(",")}]")
+            loop(first + 1, second + 1)
+          case (x, y) if x != 0 && y != 0 => loop(first + 1, second + 1)
+    loop(0, 0)
+
+  /** 66. Plus one.
+    *
+    * You are given a large integer represented as an integer array digits, where each digits[i] is
+    * the ith digit of the integer. The digits are ordered from most significant to least
+    * significant in left-to-right order. The large integer does not contain any leading 0's.
+    *
+    * Increment the large integer by one and return the resulting array of digits.
+    *
+    * Example 1:
+    *
+    *   - Input: digits = [1,2,3]
+    *   - Output: [1,2,4]
+    *   - Explanation: The array represents the integer 123. Incrementing by one gives 123 + 1 =
+    *     124. Thus, the result should be [1,2,4].
+    *
+    * Example 2:
+    *
+    *   - Input: digits = [4,3,2,1]
+    *   - Output: [4,3,2,2]
+    *   - Explanation: The array represents the integer 4321. Incrementing by one gives 4321 + 1 =
+    *     4322. Thus, the result should be [4,3,2,2].
+    *
+    * Example 3:
+    *
+    *   - Input: digits = [9]
+    *   - Output: [1,0]
+    *   - Explanation: The array represents the integer 9. Incrementing by one gives 9 + 1 = 10.
+    *     Thus, the result should be [1,0].
+    *
+    * Constraints:
+    *
+    *   - 1 <= digits.length <= 100
+    *   - 0 <= digits[i] <= 9
+    *   - digits does not contain any leading 0's.
+    */
+  def plusOne(digits: Array[Int]): Array[Int] =
+    @scala.annotation.tailrec
+    def loop(index: Int, carry: Int, acc: Array[Int]): Array[Int] =
+      if index >= 0 then
+        val sum = carry + digits(index)
+        val q = sum / 10
+        val r = sum % 10
+        loop(index - 1, q, acc :+ r)
+      else if carry > 0 then acc :+ carry
+      else acc
+    loop(digits.length - 1, 1, Array.emptyIntArray).reverse
+
+  /** 1822. Sign of the product of an array.
+    *
+    * There is a function signFunc(x) that returns:
+    *
+    *   - 1 if x is positive.
+    *   - -1 if x is negative.
+    *   - 0 if x is equal to 0.
+    *
+    * You are given an integer array nums. Let product be the product of all values in the array
+    * nums.
+    *
+    * Return signFunc(product).
+    *
+    * Example 1:
+    *
+    *   - Input: nums = [-1,-2,-3,-4,3,2,1]
+    *   - Output: 1
+    *   - Explanation: The product of all values in the array is 144, and signFunc(144) = 1
+    *
+    * Example 2:
+    *
+    *   - Input: nums = [1,5,0,2,-3]
+    *   - Output: 0
+    *   - Explanation: The product of all values in the array is 0, and signFunc(0) = 0
+    *
+    * Example 3:
+    *
+    *   - Input: nums = [-1,1,-1,1,-1]
+    *   - Output: -1
+    *   - Explanation: The product of all values in the array is -1, and signFunc(-1) = -1
+    *
+    * Constraints:
+    *
+    *   - 1 <= nums.length <= 1000
+    *   - -100 <= nums[i] <= 100
+    */
+  def arraySign(nums: Array[Int]): Int =
+    @scala.annotation.tailrec
+    def loop(index: Int, acc: Int): Int =
+      if index == nums.length then acc
+      else if nums(index) == 0 then 0
+      else loop(index + 1, acc * (if nums(index) > 0 then 1 else -1))
+    loop(0, 1)

@@ -1,5 +1,7 @@
 package leetcode
 
+import scala.compiletime.ops.string
+
 /** Implementations for problems on string.
   */
 object StringProblems:
@@ -1001,7 +1003,15 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= word1.length, word2.length <= 100 word1 and word2 consist of lowercase English letters.
+    *   - 1 <= word1.length, word2.length <= 100
+    *   - word1 and word2 consist of lowercase English letters.
+    *
+    * ### Approach
+    *   - zipAll with place holders is easier to maintain.
+    *   - another approach is to loop and maintain the indices.
+    *
+    * @note
+    *   programming-skills
     */
   def mergeAlternately(word1: String, word2: String): String =
     word1
@@ -1216,8 +1226,11 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= haystack.length, needle.length <= 104 haystack and needle consist of only lowercase
-    * English characters.
+    *   - 1 <= haystack.length, needle.length <= 104
+    *   - haystack and needle consist of only lowercase english characters.
+    *
+    * @note
+    *   programming-skills
     */
   def strStr(haystack: String, needle: String): Int =
     haystack.indexOf(needle)
@@ -1411,7 +1424,16 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 0 <= s.length <= 1000 t.length == s.length + 1 s and t consist of lowercase English letters.
+    *   - 0 <= s.length <= 1000
+    *   - t.length == s.length + 1 s
+    *   - t consist of lowercase English letters.
+    *
+    * ### Approach
+    *   - Sum all chars of s & t.
+    *   - Find the difference and return the character equivalent of the difference.
+    *
+    * @note
+    *   programming-skills
     */
   def findTheDifference(s: String, t: String): Char =
     (t.sum - s.sum).toChar
@@ -1798,7 +1820,15 @@ object StringProblems:
     *
     * Constraints:
     *
-    * 1 <= s.length, t.length <= 5 * 104 s and t consist of lowercase English letters.
+    *   - 1 <= s.length, t.length <= 5 * 104 s
+    *   - t consist of lowercase English letters.
+    *
+    * @note
+    *   programming-skills
+    *
+    * ### Approach
+    *   - Remember - anagram != palindrome.
+    *   - Frquency of every char in given strings would match for an anagram.
     */
   def isAnagram(s: String, t: String): Boolean =
     if s.length == t.length then
@@ -2799,3 +2829,142 @@ object StringProblems:
     */
   def reverseWords(s: String): String =
     s.split(" ").filter(!_.isEmpty()).reverse.mkString(" ")
+
+  /** 443. String compression.
+    *
+    * Given an array of characters chars, compress it using the following algorithm:
+    *
+    * Begin with an empty string s. For each group of consecutive repeating characters in chars:
+    *
+    * If the group's length is 1, append the character to s. Otherwise, append the character
+    * followed by the group's length.
+    *
+    * The compressed string s should not be returned separately, but instead, be stored in the input
+    * character array chars. Note that group lengths that are 10 or longer will be split into
+    * multiple characters in chars.
+    *
+    * After you are done modifying the input array, return the new length of the array.
+    *
+    * You must write an algorithm that uses only constant extra space.
+    *
+    * Example 1:
+    *
+    * Input: chars = ["a","a","b","b","c","c","c"] Output: Return 6, and the first 6 characters of
+    * the input array should be: ["a","2","b","2","c","3"] Explanation: The groups are "aa", "bb",
+    * and "ccc". This compresses to "a2b2c3".
+    *
+    * Example 2:
+    *
+    * Input: chars = ["a"] Output: Return 1, and the first character of the input array should be:
+    * ["a"] Explanation: The only group is "a", which remains uncompressed since it's a single
+    * character.
+    *
+    * Example 3:
+    *
+    * Input: chars = ["a","b","b","b","b","b","b","b","b","b","b","b","b"] Output: Return 4, and the
+    * first 4 characters of the input array should be: ["a","b","1","2"]. Explanation: The groups
+    * are "a" and "bbbbbbbbbbbb". This compresses to "ab12".
+    *
+    * Constraints:
+    *
+    * 1 <= chars.length <= 2000 chars[i] is a lowercase English letter, uppercase English letter,
+    * digit, or symbol.
+    */
+
+  def compress(chars: Array[Char]): Int =
+    @scala.annotation.tailrec
+    def iterate(chars: Array[Char], prevChar: Char, prevCharCounter: Int, acc: String): String =
+      chars.headOption match
+        case Some(char) =>
+          if prevChar == char then
+            iterate(chars.tail, prevChar = prevChar, prevCharCounter = prevCharCounter + 1, acc)
+          else
+            val c = if prevCharCounter > 1 then s"$prevChar$prevCharCounter" else s"$prevChar"
+            iterate(chars.tail, char, 1, s"$acc$c")
+        case None =>
+          val c = if prevCharCounter > 1 then s"$prevChar$prevCharCounter" else s"$prevChar"
+          s"$acc$c"
+    val compressedString: String = iterate(chars.tail, chars.head, 1, "")
+    compressedString.length
+
+  /** 2351. First letter to appear twice.
+    *
+    * Given a string s consisting of lowercase English letters, return the first letter to appear
+    * twice.
+    *
+    * Note:
+    *
+    * A letter a appears twice before another letter b if the second occurrence of a is before the
+    * second occurrence of b. s will contain at least one letter that appears twice.
+    *
+    * Example 1:
+    *
+    * Input: s = "abccbaacz" Output: "c" Explanation: The letter 'a' appears on the indexes 0, 5 and
+    * 6. The letter 'b' appears on the indexes 1 and 4. The letter 'c' appears on the indexes 2, 3
+    * and 7. The letter 'z' appears on the index 8. The letter 'c' is the first letter to appear
+    * twice, because out of all the letters the index of its second occurrence is the smallest.
+    *
+    * Example 2:
+    *
+    * Input: s = "abcdd" Output: "d" Explanation: The only letter that appears twice is 'd' so we
+    * return 'd'.
+    *
+    * Constraints:
+    *
+    * 2 <= s.length <= 100 s consists of lowercase English letters.
+    *
+    * s has at least one repeated letter.
+    */
+  def repeatedCharacter(s: String): Char =
+    @scala.annotation.tailrec
+    def loop(index: Int, visited: Set[Char]): Char =
+      if visited.contains(s(index)) then s(index) else loop(index + 1, visited + s(index))
+    loop(0, Set.empty[Char])
+
+  /** 2788. Split strings by separator.
+    *
+    * Given an array of strings words and a character separator, split each string in words by
+    * separator.
+    *
+    * Return an array of strings containing the new strings formed after the splits, excluding empty
+    * strings.
+    *
+    * Notes
+    *
+    * separator is used to determine where the split should occur, but it is not included as part of
+    * the resulting strings. A split may result in more than two strings. The resulting strings must
+    * maintain the same order as they were initially given.
+    *
+    * Example 1:
+    *
+    * Input: words = ["one.two.three","four.five","six"], separator = "." Output:
+    * ["one","two","three","four","five","six"] Explanation: In this example we split as follows:
+    *
+    * "one.two.three" splits into "one", "two", "three" "four.five" splits into "four", "five" "six"
+    * splits into "six"
+    *
+    * Hence, the resulting array is ["one","two","three","four","five","six"].
+    *
+    * Example 2:
+    *
+    * Input: words = ["$easy$","$problem$"], separator = "$" Output: ["easy","problem"] Explanation:
+    * In this example we split as follows:
+    *
+    * "$easy$" splits into "easy" (excluding empty strings) "$problem$" splits into "problem"
+    * (excluding empty strings)
+    *
+    * Hence, the resulting array is ["easy","problem"].
+    *
+    * Example 3:
+    *
+    * Input: words = ["|||"], separator = "|" Output: [] Explanation: In this example the resulting
+    * split of "|||" will contain only empty strings, so we return an empty array [].
+    *
+    * Constraints:
+    *
+    * 1 <= words.length <= 100 1 <= words[i].length <= 20 characters in words[i] are either
+    * lowercase English letters or characters from the string ".,|$#@" (excluding the quotes)
+    * separator is a character from the string ".,|$#@" (excluding the quotes)
+    */
+  def splitWordsBySeparator(words: List[String], separator: Char): List[String] =
+    words.map(_.split(separator)).flatMap(as => as.filter(!_.isEmpty()))
