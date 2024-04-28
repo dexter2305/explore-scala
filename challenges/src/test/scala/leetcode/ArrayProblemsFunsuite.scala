@@ -98,3 +98,30 @@ class ArrayProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (ints, expected) =>
       assert(ArrayProblems.arraySign(ints.toArray) === expected)
+
+  test("1502. Can make arithmetic sequence from sequence."):
+    val testcases = Table(
+      ("array", "result"),
+      (List(3, 5, 1), true),
+      (List(1, 2, 4), false),
+      (List(1, 100), true)
+    )
+    forAll(testcases): (array, expected) =>
+      assert(ArrayProblems.canMakeArithmeticProgression(array.toArray) === expected)
+
+  test("896. Monotonic array."):
+    val testcases = Table(
+      ("array", "expected"),
+      (List(1, 2, 3), true),
+      (List(6, 5, 4), true),
+      (List(1, 3, 2), false),
+      (List(1, 2, 2, 3), true),
+      (List(3, 2, 2, 1), true),
+      (List(1, 1, 1, 2), true),
+      (List(1, 1), true),
+      (List(1), true),
+      (List(1, 1, 1), true)
+    )
+    forAll(testcases): (ints, expected) =>
+      assertResult(expected):
+        ArrayProblems.isMonotonic(ints.toArray)

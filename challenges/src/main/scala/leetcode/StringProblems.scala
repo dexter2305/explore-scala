@@ -66,19 +66,26 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: s = "Hello" Output: "hello"
+    *   - Input: s = "Hello"
+    *   - Output: "hello"
     *
     * Example 2:
     *
-    * Input: s = "here" Output: "here"
+    *   - Input: s = "here"
+    *   - Output: "here"
     *
     * Example 3:
     *
-    * Input: s = "LOVELY" Output: "lovely"
+    *   - Input: s = "LOVELY"
+    *   - Output: "lovely"
     *
     * Constraints:
     *
-    * 1 <= s.length <= 100 s consists of printable ASCII characters.
+    *   - 1 <= s.length <= 100
+    *   - s consists of printable ASCII characters.
+    *
+    * @note
+    *   programming-skills
     */
   def toLowerCase(s: String): String =
     s.map: c =>
@@ -1185,29 +1192,38 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: s = "Hello World" Output: 5 Explanation: The last word is "World" with length 5.
+    *   - Input: s = "Hello World"
+    *   - Output: 5
+    *   - Explanation: The last word is "World" with length 5.
     *
     * Example 2:
     *
-    * Input: s = " fly me to the moon " Output: 4 Explanation: The last word is "moon" with length
-    * 4.
+    *   - Input: s = " fly me to the moon "
+    *   - Output: 4
+    *   - Explanation: The last word is "moon" with length 4.
     *
     * Example 3:
     *
-    * Input: s = "luffy is still joyboy" Output: 6 Explanation: The last word is "joyboy" with
-    * length 6.
+    *   - Input: s = "luffy is still joyboy"
+    *   - Output: 6
+    *   - Explanation: The last word is "joyboy" with length 6.
     *
     * Constraints:
     *
-    * 1 <= s.length <= 104 s consists of only English letters and spaces ' '. There will be at least
-    * one word in s.
+    *   - 1 <= s.length <= 10^4
+    *   - s consists of only English letters and spaces ' '.
+    *   - There will be at least one word in s.
+    *
+    * @note
+    *   programming-skills
     */
   def lengthOfLastWord(s: String): Int =
-    "\\s*[\\w]*\\s*$".r
-      .findFirstIn(s) match
-      case None => 0
-      case Some(value) =>
-        value.trim.length()
+    // "\\s*[\\w]*\\s*$".r
+    //   .findFirstIn(s) match
+    //   case None => 0
+    //   case Some(value) =>
+    //     value.trim.length()
+    s.split(" ").last.length
 
   /** 28. Find the index of first occurence in a string.
     *
@@ -2507,21 +2523,30 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: s = "III" Output: 3 Explanation: III = 3.
+    *   - Input: s = "III"
+    *   - Output: 3
+    *   - Explanation: III = 3.
     *
     * Example 2:
     *
-    * Input: s = "LVIII" Output: 58 Explanation: L = 50, V= 5, III = 3.
+    *   - Input: s = "LVIII"
+    *   - Output: 58
+    *   - Explanation: L = 50, V= 5, III = 3.
     *
     * Example 3:
     *
-    * Input: s = "MCMXCIV" Output: 1994 Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+    *   - Input: s = "MCMXCIV"
+    *   - Output: 1994
+    *   - Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
     *
     * Constraints:
     *
-    * 1 <= s.length <= 15 s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+    *   - 1 <= s.length <= 15
+    *   - s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+    *   - It is guaranteed that s is a valid roman numeral in the range [1, 3999].
     *
-    * It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+    * @note
+    *   programming-skills
     */
   def romanToInt(s: String): Int =
     lazy val fromRomanToDecimal: Map[Char, Int] = Map(
@@ -2924,10 +2949,8 @@ object StringProblems:
   /** 2788. Split strings by separator.
     *
     * Given an array of strings words and a character separator, split each string in words by
-    * separator.
-    *
-    * Return an array of strings containing the new strings formed after the splits, excluding empty
-    * strings.
+    * separator. Return an array of strings containing the new strings formed after the splits,
+    * excluding empty strings.
     *
     * Notes
     *
@@ -2937,34 +2960,35 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: words = ["one.two.three","four.five","six"], separator = "." Output:
-    * ["one","two","three","four","five","six"] Explanation: In this example we split as follows:
-    *
-    * "one.two.three" splits into "one", "two", "three" "four.five" splits into "four", "five" "six"
-    * splits into "six"
+    *   - Input: words = ["one.two.three","four.five","six"], separator = "."
+    *   - Output: ["one","two","three","four","five","six"]
+    *   - Explanation: In this example we split as follows: "one.two.three" splits into "one",
+    *     "two", "three" "four.five" splits into "four", "five" "six" splits into "six"
     *
     * Hence, the resulting array is ["one","two","three","four","five","six"].
     *
     * Example 2:
     *
-    * Input: words = ["$easy$","$problem$"], separator = "$" Output: ["easy","problem"] Explanation:
-    * In this example we split as follows:
-    *
-    * "$easy$" splits into "easy" (excluding empty strings) "$problem$" splits into "problem"
-    * (excluding empty strings)
-    *
-    * Hence, the resulting array is ["easy","problem"].
+    *   - Input: words = ["$easy$","$problem$"], separator = "$"
+    *   - Output: ["easy","problem"]
+    *   - Explanation: In this example we split as follows: "$easy$" splits into "easy" (excluding
+    *     empty strings) "$problem$" splits into "problem" (excluding empty strings). Hence, the
+    *     resulting array is ["easy","problem"].
     *
     * Example 3:
     *
-    * Input: words = ["|||"], separator = "|" Output: [] Explanation: In this example the resulting
-    * split of "|||" will contain only empty strings, so we return an empty array [].
+    *   - Input: words = ["|||"], separator = "|"
+    *   - Output: []
+    *   - Explanation: In this example the resulting split of "|||" will contain only empty strings,
+    *     so we return an empty array [].
     *
     * Constraints:
     *
-    * 1 <= words.length <= 100 1 <= words[i].length <= 20 characters in words[i] are either
-    * lowercase English letters or characters from the string ".,|$#@" (excluding the quotes)
-    * separator is a character from the string ".,|$#@" (excluding the quotes)
+    *   - 1 <= words.length <= 100
+    *   - 1 <= words[i].length <= 20
+    *   - characters in words[i] are either lowercase English letters or characters from the string
+    *     ".,|$#@" (excluding the quotes) separator is a character from the string ".,|$#@"
+    *     (excluding the quotes)
     */
   def splitWordsBySeparator(words: List[String], separator: Char): List[String] =
     words.map(_.split(separator)).flatMap(as => as.filter(!_.isEmpty()))

@@ -376,7 +376,8 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("   fly me   to   the moon  ", 4),
       ("luffy is still joyboy", 6),
       ("a", 1),
-      ("", 0)
+      ("", 0),
+      ("hello world   ", 5)
     )
     forAll(testcases): (sentence, expected) =>
       assert(StringProblems.lengthOfLastWord(sentence) === expected)
@@ -959,7 +960,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         '.',
         List("one", "two", "three", "four", "five", "six")
       ),
-      (List("$easy$", "$problem$"), '$', List("easy", "problems")),
+      (List("$easy$", "$problem$"), '$', List("easy", "problem")),
       (List("|||"), '|', List.empty[String])
     )
     forAll(testcases): (words, sep, exp) =>

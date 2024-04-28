@@ -387,6 +387,15 @@ object ArrayProblems:
     *
     *   - 1 <= nums.length <= 1000
     *   - -100 <= nums[i] <= 100
+    *
+    * @param integers
+    * @return
+    *   - -1 when product < 0
+    *   - 0 when product == 0
+    *   - 1 when product > 0
+    *
+    * @note
+    *   programming-skils
     */
   def arraySign(nums: Array[Int]): Int =
     @scala.annotation.tailrec
@@ -395,3 +404,83 @@ object ArrayProblems:
       else if nums(index) == 0 then 0
       else loop(index + 1, acc * (if nums(index) > 0 then 1 else -1))
     loop(0, 1)
+
+  /** 1502. Can make arithmetic progression from sequence.
+    *
+    * A sequence of numbers is called an arithmetic progression if the difference between any two
+    * consecutive elements is the same.
+    *
+    * Given an array of numbers arr, return true if the array can be rearranged to form an
+    * arithmetic progression. Otherwise, return false.
+    *
+    * Example 1:
+    *
+    *   - Input: arr = [3,5,1]
+    *   - Output: true
+    *   - Explanation: We can reorder the elements as [1,3,5] or [5,3,1] with differences 2 and -2
+    *     respectively, between each consecutive elements.
+    *
+    * Example 2:
+    *
+    *   - Input: arr = [1,2,4]
+    *   - Output: false
+    *   - Explanation: There is no way to reorder the elements to obtain an arithmetic progression.
+    *
+    * Constraints:
+    *
+    *   - 2 <= arr.length <= 1000
+    *   - -10^6 <= arr[i] <= 10^6
+    *
+    * @param integers
+    * @return
+    *   true when AP can be formed from sequence
+    *
+    * @note
+    *   programming-skills
+    */
+  def canMakeArithmeticProgression(arr: Array[Int]): Boolean =
+    arr.sorted
+      .sliding(2)
+      .toList
+      .map(pairAsList => pairAsList(1) - pairAsList(0))
+      .distinct
+      .size == 1
+
+  /** 896. Monotonic array.
+    *
+    * An array is monotonic if it is either monotone increasing or monotone decreasing.
+    *
+    * An array nums is monotone increasing if for all i <= j, nums[i] <= nums[j]. An array nums is
+    * monotone decreasing if for all i <= j, nums[i] >= nums[j].
+    *
+    * Given an integer array nums, return true if the given array is monotonic, or false otherwise.
+    *
+    * Example 1:
+    *
+    *   - Input: nums = [1,2,2,3]
+    *   - Output: true
+    *
+    * Example 2:
+    *
+    *   - Input: nums = [6,5,4,4]
+    *   - Output: true
+    *
+    * Example 3:
+    *
+    *   - Input: nums = [1,3,2]
+    *   - Output: false
+    *
+    * Constraints:
+    *
+    *   - 1 <= nums.length <= 10^5
+    *   - -10^5 <= nums[i] <= 10^5
+    */
+  def isMonotonic(nums: Array[Int]): Boolean =
+    var isInc = false
+    var isDec = false
+    for i <- 1 until nums.length do
+      if nums(i) > nums(i - 1) then isInc = true
+      else if nums(i) < nums(i - 1) then isDec = true
+
+    if isInc && isDec then false
+    else true
