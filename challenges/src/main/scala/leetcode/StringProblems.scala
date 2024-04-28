@@ -790,25 +790,29 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: sentence = "cat and dog" Output: 3 Explanation: The valid words in the sentence are
-    * "cat", "and", and "dog".
+    *   - Input: sentence = "cat and dog"
+    *   - Output: 3
+    *   - Explanation: The valid words in the sentence are "cat", "and", and "dog".
     *
     * Example 2:
     *
-    * Input: sentence = "!this 1-s b8d!" Output: 0 Explanation: There are no valid words in the
-    * sentence. "!this" is invalid because it starts with a punctuation mark. "1-s" and "b8d" are
-    * invalid because they contain digits.
+    *   - Input: sentence = "!this 1-s b8d!"
+    *   - Output: 0
+    *   - Explanation: There are no valid words in the sentence. "!this" is invalid because it
+    *     starts with a punctuation mark. "1-s" and "b8d" are invalid because they contain digits.
     *
     * Example 3:
     *
-    * Input: sentence = "alice and bob are playing stone-game10" Output: 5 Explanation: The valid
-    * words in the sentence are "alice", "and", "bob", "are", and "playing". "stone-game10" is
-    * invalid because it contains digits.
+    *   - Input: sentence = "alice and bob are playing stone-game10"
+    *   - Output: 5
+    *   - Explanation: The valid words in the sentence are "alice", "and", "bob", "are", and
+    *     "playing". "stone-game10" is invalid because it contains digits.
     *
     * Constraints:
     *
-    * 1 <= sentence.length <= 1000 sentence only contains lowercase English letters, digits, ' ',
-    * '-', '!', '.', and ','. There will be at least 1 token.
+    *   - 1 <= sentence.length <= 1000
+    *   - sentence only contains lowercase English letters, digits, ' ', * '-', '!', '.', and ','.
+    *     There will be at least 1 token.
     */
   def countValidWords(sentence: String): Int =
 
@@ -2169,29 +2173,37 @@ object StringProblems:
     *
     * Example 1:
     *
-    * Input: word = "abcc" Output: true Explanation: Select index 3 and delete it: word becomes
-    * "abc" and each character has a frequency of 1.
+    *   - Input: word = "abcc"
+    *   - Output: true
+    *   - Explanation: Select index 3 and delete it: word becomes "abc" and each character has a
+    *     frequency of 1.
     *
     * Example 2:
     *
-    * Input: word = "aazz" Output: false Explanation: We must delete a character, so either the
-    * frequency of "a" is 1 and the frequency of "z" is 2, or vice versa. It is impossible to make
-    * all present letters have equal frequency.
+    *   - Input: word = "aazz"
+    *   - Output: false
+    *   - Explanation: We must delete a character, so either the frequency of "a" is 1 and the
+    *     frequency of "z" is 2, or vice versa. It is impossible to make all present letters have
+    *     equal frequency.
     *
     * Constraints:
     *
-    * 2 <= word.length <= 100 word consists of lowercase English letters only.
+    *   - 2 <= word.length <= 100
+    *   - word consists of lowercase English letters only.
     */
   def equalFrequency(word: String): Boolean =
-    lazy val frequency: String => Map[Char, Int] = word =>
+    lazy val isEqualFrequency: String => Boolean = word =>
       word
         .groupBy(identity)
         .map: (char, string) =>
           (char, string.size)
-    word.toCharArray().toList match
-      case Nil => false
-      case head :: tail =>
-        frequency(tail.mkString).values.toSet.size == 0 || equalFrequency(tail.mkString)
+        .map(_._2)
+        .toSet
+        .size == 1
+
+    (for i <- 0 until word.length
+    yield word.take(i).concat(word.substring(i + 1)))
+      .exists(isEqualFrequency)
 
   /** 3110. Score of a string.
     *
@@ -2910,6 +2922,8 @@ object StringProblems:
           val c = if prevCharCounter > 1 then s"$prevChar$prevCharCounter" else s"$prevChar"
           s"$acc$c"
     val compressedString: String = iterate(chars.tail, chars.head, 1, "")
+    for i <- compressedString.indices
+    do chars(i) = compressedString(i)
     compressedString.length
 
   /** 2351. First letter to appear twice.

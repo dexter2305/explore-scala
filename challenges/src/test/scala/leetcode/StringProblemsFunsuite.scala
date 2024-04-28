@@ -236,7 +236,6 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
 
   test("2047. Number of valid words in a sentence"):
-    // pendingUntilFixed:
     val testcases = Table(
       ("sentence", "valid token count"),
       ("123", 0),
@@ -687,18 +686,18 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       assert(StringProblems.findWords(words.toArray).toList === expected)
 
   test("2423. Remove letter to equalize frequency"):
-    pendingUntilFixed:
-      val testcases = Table(
-        ("string", "expected"),
-        ("abcc", true),
-        ("aabb", false),
-        ("abbcc", true),
-        ("abc", true),
-        ("aa", true),
-        ("abbbcc", false)
-      )
-      forAll(testcases): (string, expected) =>
-        assert(StringProblems.equalFrequency(string) === expected)
+    val testcases = Table(
+      ("string", "expected"),
+      ("abcc", true),
+      ("aabb", false),
+      ("abbcc", true),
+      ("abc", true),
+      ("aa", true),
+      ("abbbcc", false)
+    )
+    forAll(testcases): (string, expected) =>
+      assertResult(expected):
+        StringProblems.equalFrequency(string)
 
   test("3110. Score of a string"):
     val testcases = Table(
@@ -930,16 +929,15 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       assert(StringProblems.reverseWords(string) === expect)
 
   test("443. String compression."):
-    pendingUntilFixed:
-      val testcases = Table(
-        ("string", "expected"),
-        (List("a"), 1),
-        (List("a", "a"), 2),
-        (List("a", "a", "b", "b", "c", "c", "c"), 6),
-        (List("a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"), 4)
-      )
-      forAll(testcases): (string, expectedLength) =>
-        assert(StringProblems.compress(string.map(_.head).toArray) === expectedLength)
+    val testcases = Table(
+      ("string", "expected"),
+      (List("a"), 1),
+      (List("a", "a"), 2),
+      (List("a", "a", "b", "b", "c", "c", "c"), 6),
+      (List("a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"), 4)
+    )
+    forAll(testcases): (string, expectedLength) =>
+      assert(StringProblems.compress(string.map(_.head).toArray) === expectedLength)
 
   test("2351. First letter to appear twice."):
     val testcases = Table(
