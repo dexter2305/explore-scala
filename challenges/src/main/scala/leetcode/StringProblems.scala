@@ -2721,7 +2721,7 @@ object StringProblems:
     *
     * s contains an even number of vertical bars '|'.
     *
-    * Approach:
+    * ### Approach:
     *
     * \- Parse from left to right \- Starting with out = true, keep toggling on every |. \- When out
     * \== true, means context is outside the pair. So, accumulate counter of *StringProblems
@@ -2814,7 +2814,7 @@ object StringProblems:
     *   - 1 <= str1.length, str2.length <= 1000
     *   - str1 and str2 consist of English uppercase letters.
     *
-    * ===Approach===
+    * ### Approach
     *   - Assume one of the given strings to be smaller and other one to be larger, say (x, y)
     *     respectively.
     *   - For smaller to be a divisor of larger, the larger one should start with smaller one.
@@ -3006,3 +3006,178 @@ object StringProblems:
     */
   def splitWordsBySeparator(words: List[String], separator: Char): List[String] =
     words.map(_.split(separator)).flatMap(as => as.filter(!_.isEmpty()))
+
+  /** 459. Repeated substring pattern.
+    *
+    * Given a string s, check if it can be constructed by taking a substring of it and appending
+    * multiple copies of the substring together.
+    *
+    * Example 1:
+    *
+    *   - Input: s = "abab"
+    *   - Output: true
+    *   - Explanation: It is the substring "ab" twice.
+    *
+    * Example 2:
+    *
+    *   - Input: s = "aba"
+    *   - Output: false
+    *
+    * Example 3:
+    *
+    *   - Input: s = "abcabcabcabc"
+    *   - Output: true
+    *   - Explanation: It is the substring "abc" four times or the substring "abcabc" twice.
+    *
+    * Constraints:
+    *
+    *   - 1 <= s.length <= 10^4
+    *   - s consists of lowercase English letters.
+    *
+    * ### Approach
+    *   - a substring is repeatable to form the larger string.
+    *   - so length of subtring must be a factor of the length of the larger string.
+    *   - 1 & s.length is also a factor.
+    *   - If a subtring of length == s.length is the only repeatable substring then there is exists no other substring.
+    *     - For example, in "ababab" - length is 6 and factors are 2 & 3.
+    *     - answer lies in the set (of length =2) or aba (of length=3)
+    */
+
+  def repeatedSubstringPattern(s: String): Boolean =
+    def factors(n: Int): Seq[Int] =
+      (for i <- (1 to n / 2) if n % i == 0 yield Set(i, n / i)).flatten.distinct.sorted
+    factors(s.length())
+      .filter(_ != s.length)
+      .exists: f =>
+        s.substring(0, f) * (s.length / f) == s
+
+  /** 657. Robot return to origin.
+    *
+    * There is a robot starting at the position (0, 0), the origin, on a 2D plane. Given a sequence of its moves, judge if this robot ends up at (0, 0) after it completes its moves.
+    *
+    * You are given a string moves that represents the move sequence of the robot where moves[i] represents its ith move. Valid moves are 'R' (right), 'L' (left), 'U' (up), and 'D' (down).
+    *
+    * Return true if the robot returns to the origin after it finishes all of its moves, or false otherwise.
+    *
+    * Note: The way that the robot is "facing" is irrelevant. 'R' will always make the robot move to the right once, 'L' will always make it move left, etc. Also, assume that the magnitude of the robot's movement is the same for each move.
+    *
+    * Example 1:
+    *
+    * - Input: moves = "UD"
+    * - Output: true
+    * - Explanation: The robot moves up once, and then down once. All moves have the same magnitude, so it ended up at the origin where it started. Therefore, we return true.
+    *
+    * Example 2:
+    *
+    * - Input: moves = "LL"
+    * - Output: false
+    * - Explanation: The robot moves left twice. It ends up two "moves" to the left of the origin. We return false because it is not at the origin at the end of its moves.
+    *
+    * Constraints:
+    *
+    *   - 1 <= moves.length <= 2 * 10^4
+    *   - moves only contains the characters 'U', 'D', 'L' and 'R'.
+    */
+  def judgeCircle(moves: String): Boolean =
+    moves.foldLeft((0, 0)): (state, move) =>
+      move match
+        case 'L' => (state._1 - 1, state._2)
+        case 'R' => (state._1 + 1, state._2)
+        case 'U' => (state._1, state._2 + 1)
+        case 'D' => (state._1, state._2 - 1)
+    == (0, 0)
+
+  /** 1041. Robot bounded in a circle.
+    *
+    * On an infinite plane, a robot initially stands at (0, 0) and faces north. Note that:
+    *
+    *    The north direction is the positive direction of the y-axis.
+    *    The south direction is the negative direction of the y-axis.
+    *    The east direction is the positive direction of the x-axis.
+    *    The west direction is the negative direction of the x-axis.
+    *
+    * The robot can receive one of three instructions:
+    *
+    *    "G": go straight 1 unit.
+    *    "L": turn 90 degrees to the left (i.e., anti-clockwise direction).
+    *    "R": turn 90 degrees to the right (i.e., clockwise direction).
+    *
+    * The robot performs the instructions given in order, and repeats them forever.
+    *
+    * Return true if and only if there exists a circle in the plane such that the robot never leaves the circle.
+    *
+    * Example 1:
+    *
+    * - Input: instructions = "GGLLGG"
+    * - Output: true
+    * - Explanation: The robot is initially at (0, 0) facing the north direction.
+    *     "G": move one step. Position: (0, 1). Direction: North.
+    *     "G": move one step. Position: (0, 2). Direction: North.
+    *     "L": turn 90 degrees anti-clockwise. Position: (0, 2). Direction: West.
+    *     "L": turn 90 degrees anti-clockwise. Position: (0, 2). Direction: South.
+    *     "G": move one step. Position: (0, 1). Direction: South.
+    *     "G": move one step. Position: (0, 0). Direction: South.
+    * Repeating the instructions, the robot goes into the cycle: (0, 0) --> (0, 1) --> (0, 2) --> (0, 1) --> (0, 0).
+    * Based on that, we return true.
+    *
+    * Example 2:
+    *
+    * - Input: instructions = "GG"
+    * - Output: false
+    * - Explanation: The robot is initially at (0, 0) facing the north direction.
+    *     "G": move one step. Position: (0, 1). Direction: North.
+    *     "G": move one step. Position: (0, 2). Direction: North.
+    * Repeating the instructions, keeps advancing in the north direction and does not go into cycles.
+    * Based on that, we return false.
+    *
+    * Example 3:
+    *
+    * - Input: instructions = "GL"
+    * - Output: true
+    * - Explanation: The robot is initially at (0, 0) facing the north direction.
+    *     "G": move one step. Position: (0, 1). Direction: North.
+    *     "L": turn 90 degrees anti-clockwise. Position: (0, 1). Direction: West.
+    *     "G": move one step. Position: (-1, 1). Direction: West.
+    *     "L": turn 90 degrees anti-clockwise. Position: (-1, 1). Direction: South.
+    *     "G": move one step. Position: (-1, 0). Direction: South.
+    *     "L": turn 90 degrees anti-clockwise. Position: (-1, 0). Direction: East.
+    *     "G": move one step. Position: (0, 0). Direction: East.
+    *     "L": turn 90 degrees anti-clockwise. Position: (0, 0). Direction: North.
+    * Repeating the instructions, the robot goes into the cycle: (0, 0) --> (0, 1) --> (-1, 1) --> (-1, 0) --> (0, 0). Based on that, we return true.
+    *
+    * Constraints:
+    *
+    *    - 1 <= instructions.length <= 100
+    *    - instructions[i] is 'G', 'L' or, 'R'.
+    *
+    * ### Approach
+    * - After completing the instruction once, if the robot ends up facing north then it will never reach origin unless it has completed a circle.
+    * - So, check if the robot should not be facing north for it to reach origin
+    * - if facing north, check for equi distance traveled in every direction.
+    */
+
+  def isRobotBounded(instructions: String): Boolean =
+    enum Directions(v: Int):
+      case n extends Directions(0)
+      case e extends Directions(1)
+      case s extends Directions(2)
+      case w extends Directions(3)
+
+      def rotateClockwise: Directions =
+        Directions.fromOrdinal((v + 1) % 4)
+
+      def rotateCounterClockwise: Directions =
+        Directions.fromOrdinal((v - 1 + 4) % 4)
+
+    val (vector, map) =
+      instructions.foldLeft(Directions.n, Map.empty[Directions, Int]): (tuple, instruction) =>
+        (tuple, instruction) match
+          case ((direction, map), 'L') => (direction.rotateClockwise, map)
+          case ((direction, map), 'R') => (direction.rotateCounterClockwise, map)
+          case ((direction, map), n) =>
+            val move: (Directions, Int) = (direction -> (map.getOrElse(direction, 0) + 1))
+            (direction, map + move)
+    vector != Directions.n || (
+      map.getOrElse(Directions.n, 0) == map.getOrElse(Directions.s, 0) &&
+        map.getOrElse(Directions.e, 0) == map.getOrElse(Directions.w, 0)
+    )

@@ -963,3 +963,40 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (words, sep, exp) =>
       assert(StringProblems.splitWordsBySeparator(words, sep) === exp)
+
+  test("459. Repeated substring pattern."):
+    val testcases = Table(
+      ("string", "expected"),
+      ("abab", true),
+      ("aba", false),
+      ("ababa", false),
+      ("abcabcabcabc", true),
+      ("ababab", true),
+      ("aabbccddee", false),
+      ("bb", true)
+    )
+    forAll(testcases): (string, expected) =>
+      assertResult(expected):
+        StringProblems.repeatedSubstringPattern(string)
+
+  test("657. Robot return to origin."):
+    val testcases = Table(
+      ("moves", "expected"),
+      ("UD", true),
+      ("LL", false)
+    )
+    forAll(testcases): (moves, expected) =>
+      assertResult(expected):
+        StringProblems.judgeCircle(moves)
+
+  test("1041. Robot bounded in a circle."):
+    val testcases = Table(
+      ("instructions", "expected"),
+      ("G", false),
+      ("GL", true),
+      ("GGLLGG", true),
+      ("GLRLLGLL", true)
+    )
+    forAll(testcases): (ins, expected) =>
+      assertResult(expected):
+        StringProblems.isRobotBounded(ins)
