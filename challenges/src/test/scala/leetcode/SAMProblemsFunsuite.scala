@@ -1,10 +1,11 @@
 package leetcode
 
-import org.scalacheck.Gen
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import leetcode.SAMProblems.*
+import org.scalacheck.Gen
 
-class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
+class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
 
   test("2114. Maximum number of words in a sentence"):
     val testcases = List(
@@ -14,21 +15,20 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     for testcase <- testcases do
       testcase match
-        case (input, expected) => assert(StringProblems.maxNumberOfWords(input) === expected)
+        case (input, expected) => assert(maxNumberOfWords(input) === expected)
 
   test("1108. Defanging IP address"):
     val testCases = List(
       ("1.1.1.1", "1[.]1[.]1[.]1"),
       ("255.100.50.0", "255[.]100[.]50[.]0")
     )
-    for (input, expected) <- testCases do
-      assert(StringProblems.defangingIPAddress(input) === expected)
+    for (input, expected) <- testCases do assert(defangingIPAddress(input) === expected)
 
   test("709. To Lowercase"):
     val testcases = List(
       ("Must BE LOweR", "must be lower")
     )
-    for (input, e) <- testcases do assert(StringProblems.toLowerCase(input) === e)
+    for (input, e) <- testcases do assert(toLowerCase(input) === e)
 
   test("2129. Capitalize the title"):
     val testcases = List(
@@ -37,8 +37,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("First leTTeR of EACH Word", "First Letter of Each Word"),
       ("i lOve leetcode", "i Love Leetcode")
     )
-    for (input, expected) <- testcases do
-      assert(StringProblems.capitalizeTheTitle(input) === expected)
+    for (input, expected) <- testcases do assert(capitalizeTheTitle(input) === expected)
 
   test("520. Detect capital"):
     val testcases = List(
@@ -47,7 +46,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("India", true),
       ("InDIa", false)
     )
-    for (input, expected) <- testcases do assert(StringProblems.detectCapital(input) === expected)
+    for (input, expected) <- testcases do assert(detectCapital(input) === expected)
 
   test("771. Jewels and stones"):
     val testcases = List(
@@ -56,7 +55,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     for ((jewels, stones), expected) <- testcases do
       assert(
-        StringProblems.jewelsAndStones(jewels, stones) === expected,
+        jewelsAndStones(jewels, stones) === expected,
         clue = s"Jewels: '$jewels' && stones:'$stones' must return '$expected'"
       )
 
@@ -68,7 +67,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     for (input, expected) <- testcases do
       assert(
-        StringProblems.finalValueAfterOps(input) === expected,
+        finalValueAfterOps(input) === expected,
         clue = s"Operations: '${input.mkString(",")}' must return '$expected'"
       )
 
@@ -80,7 +79,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     for ((words, x), expected) <- testcases do
       assert(
-        StringProblems.findWordsContaining(words, x).sameElements(expected),
+        findWordsContaining(words, x).sameElements(expected),
         clue =
           s"Expecting '${words.mkString(",")}' to contain '$x' in indices '${expected.mkString(",")}'"
       )
@@ -93,7 +92,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     for ((word1, word2), expected) <- testcases do
       assert(
-        StringProblems.arrayStringsAreEqual(word1, word2) === expected,
+        arrayStringsAreEqual(word1, word2) === expected,
         clue = s"Expecting equivalence between word1:'${word1.mkString(",")}' & word2:'${word2
             .mkString(",")}' as '$expected'"
       )
@@ -104,8 +103,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("What is the solution to this problem", 4, "What is the solution"),
       ("chopper is not a tanuki", 5, "chopper is not a tanuki")
     )
-    for (string, k, expected) <- testcases do
-      assert(StringProblems.truncateSentence(string, k) === expected)
+    for (string, k, expected) <- testcases do assert(truncateSentence(string, k) === expected)
 
   test("1773. Count items matching a rule"):
     val testcases = Table(
@@ -132,35 +130,35 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
     )
     forAll(testcases): (items, ruleKey, ruleValue, expected) =>
-      assert(StringProblems.countMatches(items, ruleKey, ruleValue) === expected)
+      assert(countMatches(items, ruleKey, ruleValue) === expected)
 
   test("1832. Check if sentence is pangram"):
     val testcases = List(
       ("thequickbrownfoxjumpsoverthelazydog", true),
       ("leetcode", false)
     )
-    for (input, expected) <- testcases do assert(StringProblems.checkIfPangram(input) === expected)
+    for (input, expected) <- testcases do assert(checkIfPangram(input) === expected)
 
   test("557. Reverse words III"):
     val testcases = List(
       ("Let's take LeetCode contest", "s'teL ekat edoCteeL tsetnoc"),
       ("Mr Ding", "rM gniD")
     )
-    for (input, expected) <- testcases do assert(StringProblems.reverseWordsIII(input) === expected)
+    for (input, expected) <- testcases do assert(reverseWordsIII(input) === expected)
 
   test("1859. Sorting the sequence"):
     val testcases = List(
       ("Myself2 Me1 I4 and3", "Me Myself and I"),
       ("is2 sentence4 This1 a3", "This is a sentence")
     )
-    for (input, expected) <- testcases do assert(StringProblems.sortSentence(input) === expected)
+    for (input, expected) <- testcases do assert(sortSentence(input) === expected)
 
   test("2810. Faulty keyboard"):
     val testcases = List(
       ("string", "rtsng"),
       ("poiinter", "ponter")
     )
-    for (input, expected) <- testcases do assert(StringProblems.finalString(input) === expected)
+    for (input, expected) <- testcases do assert(finalString(input) === expected)
 
   test("541. Reverse String II"):
     for (string, k, expected) <-
@@ -168,7 +166,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
           ("abcdefg", 2, "bacdfeg"),
           ("abcd", 2, "bacd")
         )
-    do assert(StringProblems.reverseStr(string, k) === expected)
+    do assert(reverseStr(string, k) === expected)
 
   test("2828. Check if a string is an acronym of words"):
     for (words, s, expected) <- List(
@@ -176,7 +174,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         (List("an", "apple"), "a", false),
         (List("never", "gonna", "give", "up", "on", "you"), "ngguoy", true)
       )
-    do assert(StringProblems.isAcronym(words, s) === expected)
+    do assert(isAcronym(words, s) === expected)
 
   test("1684. Count the number of consistent strings"):
     for (words, allowed, expected) <- List(
@@ -186,7 +184,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
     do
       assert(
-        StringProblems.countConsistentStrings(allowed, words) === expected,
+        countConsistentStrings(allowed, words) === expected,
         clue = s"Expecting '[${words.mkString(",")}]' to contain '${allowed}' '$expected' times."
       )
 
@@ -196,7 +194,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (Array("Alice", "Bob", "Bob"), Array(155, 185, 150), Array("Bob", "Alice", "Bob"))
     )
     for (names, heights, expected) <- testcases do
-      assert(StringProblems.sortPeople(names, heights).toList === expected.toList)
+      assert(sortPeople(names, heights).toList === expected.toList)
 
   test("917. Reverse only letters"):
     for (input, expected) <- List(
@@ -204,11 +202,11 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         ("a-bC-dEf-ghIj", "j-Ih-gfE-dCba"),
         ("Test1ng-Leet=code-Q!", "Qedo1ct-eeLg=ntse-T!")
       )
-    do assert(StringProblems.reverseOnlyLetters(input) === expected)
+    do assert(reverseOnlyLetters(input) === expected)
 
   test("344. Reverse string"):
     val data = "Hello".toCharArray()
-    StringProblems.reverseString(data)
+    reverseString(data)
     assert(data.toList === "olleH".toCharArray().toList)
 
   test("1436. Destination city"):
@@ -220,7 +218,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List(List("B", "C"), List("D", "B"), List("C", "A")), "A"),
       (List(List("A", "Z")), "Z")
     )
-    for (input, expected) <- testcases do assert(StringProblems.destCity(input) === expected)
+    for (input, expected) <- testcases do assert(destCity(input) === expected)
 
   test("383. Can construct"):
     val testcases = List(
@@ -231,7 +229,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
 
     for (ransomeNote, magazine, expected) <- testcases do
       assert(
-        StringProblems.canConstruct(ransomeNote, magazine) === expected,
+        canConstruct(ransomeNote, magazine) === expected,
         clue = s"Can construct $ransomeNote from $magazine should be $expected"
       )
 
@@ -252,7 +250,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (testcase, expected) =>
       assert(
-        StringProblems.countValidWords(testcase) === expected,
+        countValidWords(testcase) === expected,
         clue = s"Expected '${testcase}' to return '$expected'"
       )
 
@@ -263,7 +261,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("abcdefghij", 3, 'x', Array("abc", "def", "ghi", "jxx"))
     )
     forAll(testcases): (s, k, fill, expected) =>
-      assert(StringProblems.divideString(s, k, fill).toList === expected.toList)
+      assert(divideString(s, k, fill).toList === expected.toList)
 
   test("2108. Find first palindromic string in the array"):
     val testcases = Table(
@@ -274,7 +272,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (givenArray, expected) =>
       assert(
-        StringProblems.firstPalindrome(givenArray) === expected,
+        firstPalindrome(givenArray) === expected,
         clue = s"Expected '${givenArray.mkString(",")}' to return '$expected'."
       )
 
@@ -290,7 +288,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expected) =>
       assert(
-        StringProblems.isPalindrome(string) === expected,
+        isPalindrome(string) === expected,
         clue = "Expected '$string' to return '$expected'"
       )
 
@@ -304,7 +302,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expected) =>
       assert(
-        StringProblems.countSegments(string) === expected,
+        countSegments(string) === expected,
         clue = s"For string '$string', expected value is '$expected'."
       )
 
@@ -319,7 +317,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("a", " ", "a ")
     )
     forAll(testcases): (word1, word2, expected) =>
-      assert(StringProblems.mergeAlternately(word1, word2) === expected)
+      assert(mergeAlternately(word1, word2) === expected)
 
   test("1614. Maximum nesting depth of parantheses"):
     val testcases = Table(
@@ -332,7 +330,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expectation) =>
       assert(
-        StringProblems.maxDepth(string) === expectation,
+        maxDepth(string) === expectation,
         clue = s"Depth of '$string' is '$expectation'"
       )
 
@@ -345,7 +343,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("00000", "")
     )
     forAll(testcases): (num, expected) =>
-      assert(StringProblems.removeTrailingZeros(num) === expected)
+      assert(removeTrailingZeros(num) === expected)
 
   test("2678. Number of senior citizens"):
     val testcases = Table(
@@ -354,7 +352,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (Array("1313579440F2036", "2921522980M5644"), 0)
     )
     forAll(testcases): (details, expected) =>
-      assert(StringProblems.countSeniors(details) === expected)
+      assert(countSeniors(details) === expected)
 
   test("1544. Make the string great"):
     val testcases = Table(
@@ -366,7 +364,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("leEeetcode", "leetcode")
     )
     forAll(testcases): (s, expected) =>
-      assert(StringProblems.makeGood(s) === expected)
+      assert(makeGood(s) === expected)
 
   test("58. Length of last word"):
     val testcases = Table(
@@ -379,7 +377,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("hello world   ", 5)
     )
     forAll(testcases): (sentence, expected) =>
-      assert(StringProblems.lengthOfLastWord(sentence) === expected)
+      assert(lengthOfLastWord(sentence) === expected)
 
   test("28. Find index of the first occurence in a string"):
     val testcases = Table(
@@ -388,7 +386,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("leetcode", "leeto", -1)
     )
     forAll(testcases): (haystack, needle, expected) =>
-      assert(StringProblems.strStr(haystack, needle) === expected)
+      assert(strStr(haystack, needle) === expected)
 
   test("20. Valid parentheses"):
     val testcases = Table(
@@ -401,7 +399,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (")", false)
     )
     forAll(testcases): (input, expected) =>
-      assert(StringProblems.isValid(input) === expected)
+      assert(isValid(input) === expected)
 
   test("1249. Minimum remove to make valid parantheses"):
     val testcases = Table(
@@ -414,7 +412,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("allgood", "allgood")
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.minRemoveToMakeValid(string) === expected)
+      assert(minRemoveToMakeValid(string) === expected)
 
   test("1678. Goal parser interpretation"):
     val testcases = Table(
@@ -424,7 +422,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("(al)G(al)()()G", "alGalooG")
     )
     forAll(testcases): (command, expected) =>
-      assert(StringProblems.interpret(command) === expected)
+      assert(interpret(command) === expected)
 
   test("678. Valid paranthesis string"):
     pendingUntilFixed:
@@ -445,7 +443,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
         )
       )
       forAll(testcases): (string, expected) =>
-        assert(StringProblems.checkValidString(string) === expected)
+        assert(checkValidString(string) === expected)
 
   test("389. Find the difference"):
     val testcases = Table(
@@ -454,7 +452,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("", "y", 'y')
     )
     forAll(testcases): (s, t, expected) =>
-      assert(StringProblems.findTheDifference(s, t) == expected)
+      assert(findTheDifference(s, t) == expected)
 
   test("2000. Reverse prefix of word"):
     val testcases = Table(
@@ -465,7 +463,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("abcd", 'd', "dcba")
     )
     forAll(testcases): (word, ch, expected) =>
-      assert(StringProblems.reversePrefix(word, ch) === expected)
+      assert(reversePrefix(word, ch) === expected)
 
   test("3019. Number of changing keys"):
     val testcases = Table(
@@ -475,7 +473,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("a", 0)
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.countKeyChanges(string) === expected)
+      assert(countKeyChanges(string) === expected)
 
   test("1221. Split a string in balanced string"):
     val testcases = Table(
@@ -489,7 +487,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("LR", 1)
     )
     forAll(testcases): (s, expected) =>
-      assert(StringProblems.balancedStringSplit(s) === expected)
+      assert(balancedStringSplit(s) === expected)
 
   test("1528. Shufftle string"):
     val testcases = Table(
@@ -498,7 +496,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("abc", Array(0, 1, 2), "abc")
     )
     forAll(testcases): (string, array, expected) =>
-      assert(StringProblems.restoreString(string, array) === expected)
+      assert(restoreString(string, array) === expected)
 
   test("2325. Decode the message"):
     val testcases = Table(
@@ -511,7 +509,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
     )
     forAll(testcases): (key, message, expectedDecodedMessage) =>
-      assert(StringProblems.decodeMessage(key, message) === expectedDecodedMessage)
+      assert(decodeMessage(key, message) === expectedDecodedMessage)
 
   test("67. Add binary"):
     // example based test
@@ -523,7 +521,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("1010", "1011", "10101")
     )
     forAll(testcases): (x, y, expected) =>
-      assert(StringProblems.addBinary(x, y) === expected)
+      assert(addBinary(x, y) === expected)
 
     // property based test to cover wider range
     given PropertyCheckConfiguration(minSuccessful = 50000, maxDiscardedFactor = 100)
@@ -532,7 +530,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       whenever(a >= 0 && a < Int.MaxValue && b >= 0 && b != Int.MinValue):
         val expectedString = (a + b).toBinaryString
         assert(
-          StringProblems.addBinary(a.toBinaryString, b.toBinaryString) === (a + b).toBinaryString
+          addBinary(a.toBinaryString, b.toBinaryString) === (a + b).toBinaryString
         )
 
   test("415. Add strings"):
@@ -544,7 +542,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("0", "0", "0")
     )
     forAll(testcases): (a, b, expected) =>
-      assert(StringProblems.addStrings(a, b) === expected)
+      assert(addStrings(a, b) === expected)
 
     given PropertyCheckConfiguration(minSuccessful = 1000, maxDiscardedFactor = 1)
     // property based tests
@@ -552,7 +550,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
 
     forAll((intGenerator, "a"), (intGenerator, "b")): (a: Int, b: Int) =>
       whenever(a > 0 && a < Int.MaxValue && b > 0 && b < Int.MaxValue):
-        assert(StringProblems.addStrings(a.toString(), b.toString) === (a + b).toString)
+        assert(addStrings(a.toString(), b.toString) === (a + b).toString)
 
   test("2864. Maximum odd binary number"):
     val testcases = Table(
@@ -561,7 +559,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("1", "1")
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.maximumOddBinaryNumber(string) === expected)
+      assert(maximumOddBinaryNumber(string) === expected)
 
   test("804. Unique morse code of words."):
     val testcases = Table(
@@ -570,7 +568,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("a"), 1)
     )
     forAll(testcases): (words, expected) =>
-      assert(StringProblems.uniqueMorseRepresentations(words.toArray) === expected)
+      assert(uniqueMorseRepresentations(words.toArray) === expected)
 
   test("242. Valid anagram."):
     val testcases = Table(
@@ -579,7 +577,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("rat", "car", false)
     )
     forAll(testcases): (s, t, expected) =>
-      assert(StringProblems.isAnagram(s, t) === expected)
+      assert(isAnagram(s, t) === expected)
 
   test("205. Isomorphic strings"):
     val testcases = Table(
@@ -591,7 +589,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("aaeaa", "uuxyy", false)
     )
     forAll(testcases): (s, t, expected) =>
-      assert(StringProblems.isIsomorphic(s, t) === expected)
+      assert(isIsomorphic(s, t) === expected)
 
   test("412. Fizz Buzz"):
     val testcases = Table(
@@ -602,7 +600,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (5, List("1", "2", "Fizz", "4", "Buzz"))
     )
     forAll(testcases): (input, expected) =>
-      assert(StringProblems.fizzBuzz(input) === expected)
+      assert(fizzBuzz(input) === expected)
 
   test("387. First unique character in a string."):
     val testcases = Table(
@@ -612,7 +610,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("aabb", -1)
     )
     forAll(testcases): (string, expectedIndex) =>
-      assert(StringProblems.firstUniqChar(string) === expectedIndex)
+      assert(firstUniqChar(string) === expectedIndex)
 
   test("1556. Thousand separator."):
     val testcases = Table(
@@ -621,7 +619,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (1000, "1.000")
     )
     forAll(testcases): (n, expected) =>
-      assert(StringProblems.thousandSeparator(n) === expected)
+      assert(thousandSeparator(n) === expected)
 
   test("1805. Number of different integers in a string."):
     val testcases = Table(
@@ -640,7 +638,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("010a", 1)
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.numDifferentIntegers(string) === expected)
+      assert(numDifferentIntegers(string) === expected)
 
   test("1455. Check if a word occurs as a prefix of a word in a sentence."):
     val testcases = Table(
@@ -651,7 +649,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("trick", "t", 1)
     )
     forAll(testcases): (sentence, searchWord, expectedIndex) =>
-      assert(StringProblems.isPrefixOfWord(sentence = sentence, searchWord) === expectedIndex)
+      assert(isPrefixOfWord(sentence = sentence, searchWord) === expectedIndex)
 
   test("2185. Counting words with a given prefix"):
     val testcases = Table(
@@ -660,7 +658,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("leetcode", "win", "loops", "success"), "code", 0)
     )
     forAll(testcases): (words, prefix, expected) =>
-      assert(StringProblems.prefixCount(words.toArray, prefix) === expected)
+      assert(prefixCount(words.toArray, prefix) === expected)
 
   test("2124. Check if all A's appear before all B's"):
     val testcases = Table(
@@ -673,7 +671,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("b", true)
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.checkString(string) == expected)
+      assert(checkString(string) == expected)
 
   test("500. Keyboard row"):
     val testcases = Table(
@@ -683,7 +681,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("adsdf", "sfd"), List("adsdf", "sfd"))
     )
     forAll(testcases): (words, expected) =>
-      assert(StringProblems.findWords(words.toArray).toList === expected)
+      assert(findWords(words.toArray).toList === expected)
 
   test("2423. Remove letter to equalize frequency"):
     val testcases = Table(
@@ -697,7 +695,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expected) =>
       assertResult(expected):
-        StringProblems.equalFrequency(string)
+        equalFrequency(string)
 
   test("3110. Score of a string"):
     val testcases = Table(
@@ -706,7 +704,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("zaz", 50)
     )
     forAll(testcases): (string, expectedScore) =>
-      assert(StringProblems.scoreOfString(string) === expectedScore)
+      assert(scoreOfString(string) === expectedScore)
 
   test("2194. Cells in a range on an excel sheet."):
     val testcases = Table(
@@ -715,7 +713,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("A1:F1", List("A1", "B1", "C1", "D1", "E1", "F1"))
     )
     forAll(testcases): (s, expected) =>
-      assert(StringProblems.cellsInRange(s) === expected)
+      assert(cellsInRange(s) === expected)
 
   test("824. Goat latin."):
     val testcases = Table(
@@ -731,7 +729,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       )
     )
     forAll(testcases): (s, expected) =>
-      assert(StringProblems.toGoatLatin(s) === expected)
+      assert(toGoatLatin(s) === expected)
 
   test("1002. Find common characters."):
     val testcases = Table(
@@ -741,7 +739,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("a", "aaa"), List("a"))
     )
     forAll(testcases): (words, expected) =>
-      assert(StringProblems.commonChars(words.toArray).sorted === expected.sorted)
+      assert(commonChars(words.toArray).sorted === expected.sorted)
 
   test("2716. Minimize string length."):
     val testcases = Table(
@@ -751,7 +749,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("dddaaa", 2)
     )
     forAll(testcases): (string, expectedLength) =>
-      assert(StringProblems.minimizedStringLength(string) === expectedLength)
+      assert(minimizedStringLength(string) === expectedLength)
 
   test("1309. Decrypt string from alphabet to integer mapping."):
     val testcases = Table(
@@ -764,7 +762,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("10#126#", "jaz")
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.freqAlphabets(string) === expected)
+      assert(freqAlphabets(string) === expected)
 
   test("1844. Replace all digits with characters"):
     val testcases = Table(
@@ -775,7 +773,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("a3c", "adc")
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.replaceDigits(string) === expected)
+      assert(replaceDigits(string) === expected)
 
   test("2744. Find the maximum number of string pairs"):
     val testcases = Table(
@@ -785,7 +783,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("aa", "ab"), 0)
     )
     forAll(testcases): (words, expected) =>
-      assert(StringProblems.maximumNumberOfStringPairs(words.toArray) === expected)
+      assert(maximumNumberOfStringPairs(words.toArray) === expected)
 
   test("13. Roman to integer."):
     val basicExamples = Table(
@@ -822,7 +820,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("MCMXCIV", 1994)
     )
     forAll(basicExamples ++ incrementExamples ++ decrementExamples ++ complexExamples):
-      (roman, expected) => assert(StringProblems.romanToInt(roman) === expected)
+      (roman, expected) => assert(romanToInt(roman) === expected)
 
   test("1417. Reformat the string."):
     val testcases = Table(
@@ -837,9 +835,9 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("covid2019", true)
     )
     forAll(testcases): (string, expectation) =>
-      if !expectation then assert(StringProblems.reformat(string) === "")
+      if !expectation then assert(reformat(string) === "")
       else
-        val actual = StringProblems.reformat(string)
+        val actual = reformat(string)
         val eval = actual
           .sliding(2)
           .map(s => (s(0), s(1)))
@@ -864,7 +862,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("aA", "Aa")
     )
     forAll(testcases): (givenString, expected) =>
-      assert(StringProblems.reverseVowels(givenString) === expected)
+      assert(reverseVowels(givenString) === expected)
 
   test("1941. Check if all characters have equal occurences."):
     val testcases = Table(
@@ -874,7 +872,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("a", true)
     )
     forAll(testcases): (s, expected) =>
-      assert(StringProblems.areOccurrencesEqual(s) === expected)
+      assert(areOccurrencesEqual(s) === expected)
 
   test("2315. Count asterisks"):
     val testcases = Table(
@@ -886,7 +884,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("*|ig*nore|*|e*f|*", 3)
     )
     forAll(testcases): (s, expected) =>
-      assert(StringProblems.countAsterisks(s) === expected)
+      assert(countAsterisks(s) === expected)
 
   test("2255. Count prefixes of a given string"):
     val testcases = Table(
@@ -895,7 +893,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("a", "a"), "aa", 2)
     )
     forAll(testcases): (words, s, expected) =>
-      assert(StringProblems.countPrefixes(words.toArray, s) === expected)
+      assert(countPrefixes(words.toArray, s) === expected)
 
   test("2278. Percentage of letter in string"):
     val testcases = Table(
@@ -904,7 +902,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("jjjj", 'k', 0)
     )
     forAll(testcases): (s, letter, expected) =>
-      assert(StringProblems.percentageLetter(s, letter) === expected)
+      assert(percentageLetter(s, letter) === expected)
 
   test("1071. Greatest common divisor of strings."):
     val testcases = Table(
@@ -914,7 +912,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("LEET", "CODE", "")
     )
     forAll(testcases): (a, b, expected) =>
-      assert(StringProblems.gcdOfStrings(a, b) === expected)
+      assert(gcdOfStrings(a, b) === expected)
 
   test("151. Reverse words in a string."):
     val testcases = Table(
@@ -926,7 +924,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("a good   example", "example good a")
     )
     forAll(testcases): (string, expect) =>
-      assert(StringProblems.reverseWords(string) === expect)
+      assert(reverseWords(string) === expect)
 
   test("443. String compression."):
     val testcases = Table(
@@ -937,7 +935,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b"), 4)
     )
     forAll(testcases): (string, expectedLength) =>
-      assert(StringProblems.compress(string.map(_.head).toArray) === expectedLength)
+      assert(compress(string.map(_.head).toArray) === expectedLength)
 
   test("2351. First letter to appear twice."):
     val testcases = Table(
@@ -948,7 +946,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("aabaa", 'a')
     )
     forAll(testcases): (string, expected) =>
-      assert(StringProblems.repeatedCharacter(string) === expected)
+      assert(repeatedCharacter(string) === expected)
 
   test("2788. Split string by separator."):
     val testcases = Table(
@@ -962,7 +960,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       (List("|||"), '|', List.empty[String])
     )
     forAll(testcases): (words, sep, exp) =>
-      assert(StringProblems.splitWordsBySeparator(words, sep) === exp)
+      assert(splitWordsBySeparator(words, sep) === exp)
 
   test("459. Repeated substring pattern."):
     val testcases = Table(
@@ -977,7 +975,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, expected) =>
       assertResult(expected):
-        StringProblems.repeatedSubstringPattern(string)
+        repeatedSubstringPattern(string)
 
   test("657. Robot return to origin."):
     val testcases = Table(
@@ -987,7 +985,7 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (moves, expected) =>
       assertResult(expected):
-        StringProblems.judgeCircle(moves)
+        judgeCircle(moves)
 
   test("1041. Robot bounded in a circle."):
     val testcases = Table(
@@ -999,4 +997,149 @@ class StringProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (ins, expected) =>
       assertResult(expected):
-        StringProblems.isRobotBounded(ins)
+        isRobotBounded(ins)
+
+  test("2073. Time needed to buy tickets"):
+    val testcases = Table(
+      ("tickets", "k", "expected"),
+      (Array(2, 3, 2), 2, 6),
+      (Array(5, 1, 1, 1), 0, 8)
+    )
+    forAll(testcases): (tickets, k, expected) =>
+      assert(timeRequiredToBuy(tickets, k) === expected)
+
+  test("463. Island perimter"):
+    val testcases = Table(
+      ("grid", "expected perimeter"),
+      (Array(Array(0, 1, 0, 0), Array(1, 1, 1, 0), Array(0, 1, 0, 0), Array(1, 1, 0, 0)), 16),
+      (Array(Array(1)), 4),
+      (Array(Array(1, 0)), 4)
+    )
+    forAll(testcases): (grid, expected) =>
+      assert(islandPerimeter(grid) === expected)
+
+  test("1431. Kids with greatest number of candies"):
+    val testcases = Table(
+      ("candies", "extras", "expected"),
+      (List(2, 3, 5, 1, 3), 3, List(true, true, true, false, true)),
+      (List(4, 2, 1, 1, 2), 1, List(true, false, false, false, false)),
+      (List(12, 1, 12), 1, List(true, false, true))
+    )
+    forAll(testcases): (candies, extras, expected) =>
+      assert(kidsWithCandies(candies.toArray, extras) === expected)
+
+  test("605. Can place flowers."):
+    val testcases = Table(
+      ("flowerbed", "extras", "expected"),
+      (List(1, 0, 0, 0, 1), 1, true),
+      (List(1, 0, 0, 0, 1), 2, false),
+      (List(1, 0, 0, 0, 1), 0, true),
+      (List(0, 0, 0, 0, 0), 2, true),
+      (List(1), 1, false),
+      (List(1, 0, 1, 0), 1, false),
+      (List(1, 0, 0, 0), 1, true),
+      (List(0, 1, 0), 1, false),
+      (List(0), 1, true)
+    )
+    forAll(testcases): (bed, extra, expected) =>
+      assert(canPlaceFlowers(bed.toArray, extra) === expected)
+
+  test("238. Product of array except self."):
+    val testcases = Table(
+      ("nums", "expected"),
+      (List(1, 2, 3, 4), List(24, 12, 8, 6)),
+      (List(-1, 1, 0, -3, 3), List(0, 0, 9, 0, 0))
+    )
+    forAll(testcases): (nums, expected) =>
+      assert(productExceptSelf(nums.toArray) === expected)
+
+  test("283. Move zeroes."):
+    val testcases = Table(
+      ("array", "expected"),
+      (List(0, 1, 0, 3, 12), List(1, 3, 12, 0, 0)),
+      (List(0), List(0)),
+      (List(1, 2, 3), List(1, 2, 3)),
+      (List(1), List(1)),
+      (List(0, 0, 0, 0, 5), List(5, 0, 0, 0, 0))
+    )
+    forAll(testcases): (ints, expected) =>
+      val array = ints.toArray
+      moveZeroes(array)
+      assert(array.toList === expected)
+
+  test("66. Plus One."):
+    val testcases = Table(
+      ("digits", "expected"),
+      (List(1, 2, 3), List(1, 2, 4)),
+      (List(1), List(2)),
+      (List(9), List(1, 0)),
+      (List(4, 3, 2, 1), List(4, 3, 2, 2)),
+      (List.empty[Int], List(1))
+    )
+    forAll(testcases): (digits, expected) =>
+      assert(plusOne(digits.toArray).toList === expected)
+
+  test("1822. Sign of the product of the array."):
+    val testcases = Table(
+      ("array", "expected"),
+      (List(-1, -2, -3, -4, 3, 2, 1), 1),
+      (List(1, 5, 0, 2, -3), 0),
+      (List(-1, 1, -1, 1, -1), -1),
+      (
+        List(41, 65, 14, 80, 20, 10, 55, 58, 24, 56, 28, 86, 96, 10, 3, 84, 4, 41, 13, 32, 42, 43,
+          83, 78, 82, 70, 15, -41),
+        -1
+      ),
+      (List(3), 1)
+    )
+    forAll(testcases): (ints, expected) =>
+      assert(arraySign(ints.toArray) === expected)
+
+  test("1502. Can make arithmetic sequence from sequence."):
+    val testcases = Table(
+      ("array", "result"),
+      (List(3, 5, 1), true),
+      (List(1, 2, 4), false),
+      (List(1, 100), true)
+    )
+    forAll(testcases): (array, expected) =>
+      assert(canMakeArithmeticProgression(array.toArray) === expected)
+
+  test("896. Monotonic array."):
+    val testcases = Table(
+      ("array", "expected"),
+      (List(1, 2, 3), true),
+      (List(6, 5, 4), true),
+      (List(1, 3, 2), false),
+      (List(1, 2, 2, 3), true),
+      (List(3, 2, 2, 1), true),
+      (List(1, 1, 1, 2), true),
+      (List(1, 1), true),
+      (List(1), true),
+      (List(1, 1, 1), true)
+    )
+    forAll(testcases): (ints, expected) =>
+      assertResult(expected):
+        isMonotonic(ints.toArray)
+
+  test("682. Baseball game"):
+    val testcases = Table(
+      ("operations", "expected sum"),
+      (List("5", "2", "C", "D", "+"), 30),
+      (List("5", "-2", "4", "C", "D", "9", "+", "+"), 27),
+      (List("1", "C"), 0)
+    )
+    forAll(testcases): (ops, expected) =>
+      assertResult(expected):
+        calPoints(ops.toArray)
+
+  test("2441. Largest positive integer that exists with its negative"):
+    val testcases = Table(
+      ("ints", "expected"),
+      (List(-1, 2, -3, 3), 3),
+      (List(-1, 10, 6, 7, -7, 1), 7),
+      (List(-10, 8, 6, 7, -2, -3), -1)
+    )
+    forAll(testcases): (ints, expected) =>
+      assertResult(expected):
+        findMaxK(ints.toArray)
