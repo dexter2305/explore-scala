@@ -125,3 +125,14 @@ class ArrayProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (ints, expected) =>
       assertResult(expected):
         ArrayProblems.isMonotonic(ints.toArray)
+
+  test("682. Baseball game"):
+    val testcases = Table(
+      ("operations", "expected sum"),
+      (List("5", "2", "C", "D", "+"), 30),
+      (List("5", "-2", "4", "C", "D", "9", "+", "+"), 27),
+      (List("1", "C"), 0)
+    )
+    forAll(testcases): (ops, expected) =>
+      assertResult(expected):
+        ArrayProblems.calPoints(ops.toArray)

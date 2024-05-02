@@ -484,3 +484,143 @@ object ArrayProblems:
 
     if isInc && isDec then false
     else true
+
+  /** 682. Baseball game
+    *
+    * You are keeping the scores for a baseball game with strange rules. At the beginning of the game, you start with an empty record.
+    *
+    * You are given a list of strings operations, where operations[i] is the ith operation you must apply to the record and is one of the following:
+    *
+    *    An integer x.
+    *        Record a new score of x.
+    *    '+'.
+    *        Record a new score that is the sum of the previous two scores.
+    *    'D'.
+    *        Record a new score that is the double of the previous score.
+    *    'C'.
+    *        Invalidate the previous score, removing it from the record.
+    *
+    * Return the sum of all the scores on the record after applying all the operations.
+    *
+    * The test cases are generated such that the answer and all intermediate calculations fit in a 32-bit integer and that all operations are valid.
+    *
+    * Example 1:
+    *
+    * - Input: ops = ["5","2","C","D","+"]
+    * - Output: 30
+    * - Explanation:
+    *     - "5" - Add 5 to the record, record is now [5].
+    *     - "2" - Add 2 to the record, record is now [5, 2].
+    *     - "C" - Invalidate and remove the previous score, record is now [5].
+    *     - "D" - Add 2 * 5 = 10 to the record, record is now [5, 10].
+    *     - "+" - Add 5 + 10 = 15 to the record, record is now [5, 10, 15].
+    *     The total sum is 5 + 10 + 15 = 30.
+    *
+    * Example 2:
+    *
+    * - Input: ops = ["5","-2","4","C","D","9","+","+"]
+    * - Output: 27
+    * - Explanation:
+    *   - "5" - Add 5 to the record, record is now [5].
+    *   - "-2" - Add -2 to the record, record is now [5, -2].
+    *   - "4" - Add 4 to the record, record is now [5, -2, 4].
+    *   - "C" - Invalidate and remove the previous score, record is now [5, -2].
+    *   - "D" - Add 2 * -2 = -4 to the record, record is now [5, -2, -4].
+    *   - "9" - Add 9 to the record, record is now [5, -2, -4, 9].
+    *   - "+" - Add -4 + 9 = 5 to the record, record is now [5, -2, -4, 9, 5].
+    *   - "+" - Add 9 + 5 = 14 to the record, record is now [5, -2, -4, 9, 5, 14].
+    *   The total sum is 5 + -2 + -4 + 9 + 5 + 14 = 27.
+    *
+    * Example 3:
+    *
+    * - Input: ops = ["1","C"]
+    * - Output: 0
+    * - Explanation:
+    *   - "1" - Add 1 to the record, record is now [1].
+    *   - "C" - Invalidate and remove the previous score, record is now [].
+    *   Since the record is empty, the total sum is 0.
+    *
+    * Constraints:
+    *
+    *   - 1 <= operations.length <= 1000
+    *   - operations[i] is "C", "D", "+", or a string representing an integer in the range [-3 * 10^4, 3 * 10^4].
+    *   - For operation "+", there will always be at least two previous scores on the record.
+    *   - For operations "C" and "D", there will always be at least one previous score on the record.
+    */
+
+  def calPoints(operations: Array[String]): Int =
+    val scores =
+      operations
+        .foldLeft(List.empty[Int]): (acc, element) =>
+          element match
+            case "C" => acc.tail
+            case "D" => (acc.head * 2) +: acc
+            case "+" => (acc.head + acc.tail.head) +: acc
+            case n   => n.toInt +: acc
+    // println(s"operations: [${operations.mkString(",")}] => [${scores.mkString(",")}]")
+    scores.sum
+
+/** 1275. Find winner on a tic tac toe game.
+  *
+  * Tic-tac-toe is played by two players A and B on a 3 x 3 grid. The rules of Tic-Tac-Toe are:
+  *
+  *    Players take turns placing characters into empty squares ' '.
+  *    The first player A always places 'X' characters, while the second player B always places 'O' characters.
+  *    'X' and 'O' characters are always placed into empty squares, never on filled ones.
+  *    The game ends when there are three of the same (non-empty) character filling any row, column, or diagonal.
+  *    The game also ends if all squares are non-empty.
+  *    No more moves can be played if the game is over.
+  *
+  * Given a 2D integer array moves where moves[i] = [rowi, coli] indicates that the ith move will be played on grid[rowi][coli]. return the winner of the game if it exists (A or B). In case the game ends in a draw return "Draw". If there are still movements to play return "Pending".
+  *
+  * You can assume that moves is valid (i.e., it follows the rules of Tic-Tac-Toe), the grid is initially empty, and A will play first.
+  *
+  * Example 1
+  *
+  * | X |   |   |
+  * |   | X |   |
+  * | 0 | 0 | X |
+  * - Input: moves = [[0,0],[2,0],[1,1],[2,1],[2,2]]
+  * - Output: "A"
+  * - Explanation: A wins, they always play first.
+  *
+  * ### Approach
+  * - There are 8 lines to be considered; 3 row, 3 col and 2 diagonals.
+  * - Place the moves and parse to find the player where one of the lines is completely occupied.
+  */
+def tictactoe(moves: Array[Array[Int]]): String =
+  val arr = Array.ofDim[String](3, 3) // O(n*n)
+  val played = moves.length
+  // Fill board O(n)
+  for i <- 0 until played by 2 do {
+    val r = moves(i)(0)
+    val c = moves(i)(1)
+    arr(r)(c) = "A"
+  }
+  for i <- 1 until played by 2 do {
+    val r = moves(i)(0)
+    val c = moves(i)(1)
+    arr(r)(c) = "B"
+  }
+
+  def check: Option[String] =
+    var winner: Option[String] = None
+    // check row & col O(n)
+    for i <- 0 to 2 do {
+      if winner.isEmpty && arr(i)(0) == arr(i)(1) && arr(i)(1) == arr(i)(2) && arr(i)(2) != null
+      then winner = Some(arr(i)(0))
+      if winner.isEmpty && arr(0)(i) == arr(1)(i) && arr(1)(i) == arr(2)(i) && arr(2)(i) != null
+      then winner = Some(arr(0)(i))
+    }
+    // check diagonal  O(1)
+    if winner.isEmpty && arr(0)(0) == arr(1)(1) && arr(1)(1) == arr(2)(2) && arr(1)(1) != null then
+      winner = Some(arr(1)(1))
+    if winner.isEmpty && arr(0)(2) == arr(1)(1) && arr(1)(1) == arr(2)(0) && arr(1)(1) != null then
+      winner = Some(arr(1)(1))
+
+    winner
+
+  check match
+    case Some(v)             => v
+    case None if played == 9 => "Draw"
+    case _                   => "Pending"
