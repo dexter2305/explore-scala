@@ -1143,3 +1143,30 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (ints, expected) =>
       assertResult(expected):
         findMaxK(ints.toArray)
+
+  test("1672. Richest customer wealth."):
+    val testcases = Table(
+      ("wealths", "expected"),
+      (List(List(1, 2, 3), List(3, 2, 1)), 6),
+      (List(List(1, 5), List(7, 3), List(3, 5)), 10),
+      (List(List(2, 8, 7), List(7, 1, 3), List(1, 9, 5)), 17)
+    )
+    forAll(testcases): (wealths, expected) =>
+      assertResult(expected):
+        maximumWealth(wealths.map(_.toArray).toArray)
+
+  test("165. Compare  version numbers."):
+    val testcases = Table(
+      ("version1", "version2", "expected"),
+      ("1.01", "1.001", 0),
+      ("1.02", "1.001", 1),
+      ("1.02", "1.03", -1),
+      ("1.02", "1.02", 0),
+      ("0.1", "1.1", -1),
+      ("1.0.0", "1.0", 0),
+      ("1.0", "1.0.0", 0),
+      ("0.0.5", "0.1.0", -1)
+    )
+    forAll(testcases): (version1, version2, exp) =>
+      assertResult(exp):
+        SAMProblems.compareVersion(version1, version2)
