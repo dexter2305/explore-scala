@@ -4,6 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import leetcode.SAMProblems.*
 import org.scalacheck.Gen
+import org.scalactic.Tolerance.*
 
 class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
 
@@ -1168,5 +1169,28 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       ("0.0.5", "0.1.0", -1)
     )
     forAll(testcases): (version1, version2, exp) =>
-      assertResult(exp):
-        SAMProblems.compareVersion(version1, version2)
+      assertResult(exp)(SAMProblems.compareVersion(version1, version2))
+
+  test("1523. Count odd numbers in an interval range."):
+    val testcases = Table(
+      ("low", "high", "expected"),
+      (3, 7, 3),
+      (8, 10, 1)
+    )
+    forAll(testcases): (low, high, expected) =>
+      assertResult(expected)(SAMProblems.countOdds(low, high))
+
+  test("1491. Average salary excluding the minimum and maximum salary."):
+
+    val testcases = Table(
+      ("salaries", "expected average"),
+      (List(4000, 3000, 1000, 2000), 2500.00000),
+      (List(1000, 2000, 3000), 2000.00000),
+      (
+        List(48000, 59000, 99000, 13000, 78000, 45000, 31000, 17000, 39000, 37000, 93000, 77000,
+          33000, 28000, 4000, 54000, 67000, 6000, 1000, 11000),
+        41111.11111
+      )
+    )
+    forAll(testcases): (salaries, exp) =>
+      assert(exp +- 0.00001 === SAMProblems.average(salaries.toArray))

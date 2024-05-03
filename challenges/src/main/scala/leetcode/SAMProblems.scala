@@ -3941,3 +3941,60 @@ object SAMProblems:
         case (Some(x, y))          => loop(pair.tail)
         case None                  => 0
     loop(rs)
+
+  /** 1523. Count of odd numbers in an interval range.
+    *
+    *  Given two non-negative integers low and high. Return the count of odd numbers between low and high (inclusive).
+    *
+    * Example 1:
+    *
+    * - Input: low = 3, high = 7
+    * - Output: 3
+    * - Explanation: The odd numbers between 3 and 7 are [3,5,7].
+    *
+    * Example 2:
+    *
+    * - Input: low = 8, high = 10
+    * - Output: 1
+    * - Explanation: The odd numbers between 8 and 10 are [9].
+    *
+    * Constraints:
+    *  - 0 <= low <= high <= 10^9
+    *
+    * ### Approach
+    * - Only when high is odd, increment by 1.
+    */
+  def countOdds(low: Int, high: Int): Int =
+    (high / 2) - (low / 2) + high % 2
+
+  /** 1491. Average salary excluding the minimum and maximum salary.
+    *
+    * You are given an array of unique integers salary where salary[i] is the salary of the ith employee.
+    *
+    * Return the average salary of employees excluding the minimum and maximum salary. Answers within 10^-5 of the actual answer will be accepted.
+    *
+    * Example 1:
+    *
+    * - Input: salary = [4000,3000,1000,2000]
+    * - Output: 2500.00000
+    * - Explanation: Minimum salary and maximum salary are 1000 and 4000 respectively. Average salary excluding minimum and maximum salary is (2000+3000) / 2 = 2500
+    *
+    * Example 2:
+    *
+    * - Input: salary = [1000,2000,3000]
+    * - Output: 2000.00000
+    * - Explanation: Minimum salary and maximum salary are 1000 and 3000 respectively. Average salary excluding minimum and maximum salary is (2000) / 1 = 2000
+    *
+    * Constraints:
+    *
+    * - 3 <= salary.length <= 100
+    * - 1000 <= salary[i] <= 106
+    * - All the integers of salary are unique.
+    */
+  def average(salary: Array[Int]): Double =
+    val (min, max, sum) =
+      salary.tail.foldLeft((salary.head, salary.head, salary.head)): (state, e) =>
+        (state, e) match
+          case ((min, max, sum), e) => (e.min(min), e.max(max), e + sum)
+    // println(s"min: $min, max: $max, sum: $sum, length: ${salary.length}")
+    (sum - min - max) / (salary.length - 2).toDouble
