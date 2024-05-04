@@ -24,3 +24,11 @@ class MatrixProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (matrix, expected) =>
       assertResult(expected):
         MatrixProblems.diagonalSum(matrix.map(_.toArray).toArray)
+  test("54. Spiral matrix."):
+    val testcases = Table(
+      ("array", "expected"),
+      (List(List(1,2,3), List(4,5,6), List(7,8,9)), List(1,2,3,6,9,8,7,4,5))
+    )
+    forAll(testcases): (matrix, expected) =>
+      assertResult(expected):
+          MatrixProblems.spiralOrder(matrix.map(_.toArray).toArray)

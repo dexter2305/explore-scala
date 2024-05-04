@@ -55,3 +55,61 @@ object MatrixProblems:
     val gt =
       (for i <- mat.indices yield mat(i)(i) + mat(i)(mat.length - i - 1)).sum
     if mat.length % 2 == 0 then gt else gt - mat(mat.length / 2)(mat.length / 2)
+
+  /** 54. Spiral Matrix.
+    *
+    * Given an m x n matrix, return all elements of the matrix in spiral order.
+    *
+    * Example 1
+    *   - Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+    *   - Output: [1,2,3,6,9,8,7,4,5]
+    *
+    * Constraints:
+    *
+    *    - m == matrix.length
+    *    - n == matrix[i].length
+    *    - 1 <= m, n <= 10
+    *    - -100 <= matrix[i][j] <= 100
+    */
+  def spiralOrder(matrix: Array[Array[Int]]): List[Int] =
+    def goRight(matrix: Array[Array[Int]]): List[Int] = {
+      if matrix.nonEmpty && matrix(0).nonEmpty then {
+        val upLine = matrix(0)
+        val newMatrix = matrix.drop(1)
+
+        upLine.toList ++ goDown(newMatrix)
+      } else List.empty
+    }
+
+    def goDown(matrix: Array[Array[Int]]): List[Int] = {
+      if matrix.nonEmpty && matrix(0).nonEmpty then {
+
+        val downLine = matrix.map(row => row(row.length - 1))
+        val newMatrix = matrix.map(row => row.dropRight(1))
+
+        downLine.toList ++ goLeft(newMatrix)
+      } else List.empty
+
+    }
+
+    def goLeft(matrix: Array[Array[Int]]): List[Int] = {
+      if matrix.nonEmpty && matrix(0).nonEmpty then {
+
+        val leftLine = matrix(matrix.length - 1)
+        val newMatrix = matrix.dropRight(1)
+
+        leftLine.reverse.toList ++ goUp(newMatrix)
+      } else List.empty
+
+    }
+
+    def goUp(matrix: Array[Array[Int]]): List[Int] = {
+      if matrix.nonEmpty && matrix(0).nonEmpty then {
+        val upLine = matrix.map(elem => elem(0))
+        val newMatrix = matrix.map(elem => elem.drop(1))
+
+        upLine.reverse.toList ++ goRight(newMatrix)
+      } else List.empty
+    }
+
+    goRight(matrix = matrix)

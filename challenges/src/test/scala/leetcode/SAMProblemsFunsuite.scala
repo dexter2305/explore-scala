@@ -1194,3 +1194,13 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (salaries, exp) =>
       assert(exp +- 0.00001 === SAMProblems.average(salaries.toArray))
+
+  test("881. Boats to save people."):
+    val testcases = Table(
+      ("people", "limit", "expected boats"),
+      (List(1, 2), 3, 1),
+      (List(3, 2, 2, 1), 3, 3),
+      (List(3, 5, 3, 4), 5, 4)
+    )
+    forAll(testcases): (ppl, limit, exp) =>
+      assertResult(exp)(SAMProblems.numRescueBoats(ppl.toArray, limit))
