@@ -3477,7 +3477,7 @@ object SAMProblems:
           case (x @ 0, y) if y != 0 =>
             nums(first) = nums(second)
             nums(second) = 0
-            println(s"[${nums.mkString(",")}]")
+            // println(s"[${nums.mkString(",")}]")
             loop(first + 1, second + 1)
           case (x, y) if x != 0 && y != 0 => loop(first + 1, second + 1)
     loop(0, 0)
@@ -4055,3 +4055,42 @@ object SAMProblems:
       else if r == l then loop(l + 1, r - 1, List(List(sorted(r))) ++ boats)
       else boats.size
     loop(0, sorted.length - 1, List.empty)
+
+  /** 2785. Sort vowel in a string.
+    *
+    * Given a 0-indexed string s, permute s to get a new string t such that:
+    *
+    *    All consonants remain in their original places. More formally, if there is an index i with 0 <= i < s.length such that s[i] is a consonant, then t[i] = s[i].
+    *    The vowels must be sorted in the nondecreasing order of their ASCII values. More formally, for pairs of indices i, j with 0 <= i < j < s.length such that s[i] and s[j] are vowels, then t[i] must not have a higher ASCII value than t[j].
+    *
+    * Return the resulting string.
+    *
+    * The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in lowercase or uppercase. Consonants comprise all letters that are not vowels.
+    *
+    * Example 1:
+    *
+    * Input: s = "lEetcOde"
+    * Output: "lEOtcede"
+    * Explanation: 'E', 'O', and 'e' are the vowels in s; 'l', 't', 'c', and 'd' are all consonants. The vowels are sorted according to their ASCII values, and the consonants remain in the same places.
+    *
+    * Example 2:
+    *
+    * Input: s = "lYmpH"
+    * Output: "lYmpH"
+    * Explanation: There are no vowels in s (all characters in s are consonants), so we return "lYmpH".
+    *
+    * Constraints:
+    *
+    *    1 <= s.length <= 105
+    *    s consists only of letters of the English alphabet in uppercase and lowercase.
+    */
+
+  def sortVowels(s: String): String =
+    val vowels = "aeiou".toSet
+    val sorted = s.filter(c => vowels.contains(c.toLower)).sorted.mkString
+    @scala.annotation.tailrec
+    def traverse(i: Int, j: Int, acc: List[Char]): String =
+      if i == s.length then acc.reverse.mkString
+      else if vowels.contains(s(i).toLower) then traverse(i + 1, j + 1, sorted(j) +: acc)
+      else traverse(i + 1, j, s(i) +: acc)
+    traverse(0, 0, List.empty[Char])

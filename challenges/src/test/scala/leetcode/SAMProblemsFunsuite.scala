@@ -1204,3 +1204,12 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (ppl, limit, exp) =>
       assertResult(exp)(SAMProblems.numRescueBoats(ppl.toArray, limit))
+
+  test("2785. Sort vowel in a string."):
+    val testcases = Table(
+      ("string", "expected"),
+      ("lEetcOde", "lEOtcede"),
+      ("lYmpH", "lYmpH")
+    )
+    forAll(testcases): (string, exp) =>
+      assertResult(exp)(SAMProblems.sortVowels(string))
