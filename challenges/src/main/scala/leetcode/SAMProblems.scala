@@ -17,22 +17,26 @@ object SAMProblems:
     *
     * Example 1:
     *
-    * Input: sentences = ["alice and bob love leetcode", "i think so too", "this is great thanks
-    * very much"] Output: 6 Explanation: \- The first sentence, "alice and bob love leetcode", has 5
-    * words in total. \- The second sentence, "i think so too", has 4 words in total. \- The third
-    * sentence, "this is great thanks very much", has 6 words in total. Thus, the maximum number of
-    * words in a single sentence comes from the third sentence, which has 6 words.
+    * - Input: sentences = ["alice and bob love leetcode", "i think so too", "this is great thanks
+    * very much"]
+    * - Output: 6
+    * - Explanation:
+    *   - The first sentence, "alice and bob love leetcode", has 5 words in total.
+    *   - The second sentence, "i think so too", has 4 words in total.
+    *   - The third sentence, "this is great thanks very much", has 6 words in total. Thus, the maximum number of words in a single sentence comes from the third sentence, which has 6 words.
     *
     * Example 2:
     *
-    * Input: sentences = ["please wait", "continue to fight", "continue to win"] Output: 3
-    * Explanation: It is possible that multiple sentences contain the same number of words. In this
-    * example, the second and third sentences (underlined) have the same number of words.
+    * - Input: sentences = ["please wait", "continue to fight", "continue to win"]
+    * - Output: 3
+    * - Explanation: It is possible that multiple sentences contain the same number of words. In this example, the second and third sentences (underlined) have the same number of words.
     *
     * Constraints:
     *
-    * 1 <= sentences.length <= 100 1 <= sentences[i].length <= 100 sentences[i] consists only of
-    * lowercase English letters and ' ' only. sentences[i] does not have leading or trailing spaces.
+    * - 1 <= sentences.length <= 100
+    * - 1 <= sentences[i].length <= 100
+    * - sentences[i] consists only of lowercase English letters and ' ' only.
+    * - sentences[i] does not have leading or trailing spaces.
     * All the words in sentences[i] are separated by a single space.
     */
   def maxNumberOfWords(sentences: Array[String]): Int =
@@ -146,15 +150,18 @@ object SAMProblems:
     *
     * Example 1:
     *
-    * Input: word = "USA" Output: true
+    * - Input: word = "USA"
+    * - Output: true
     *
     * Example 2:
     *
-    * Input: word = "FlaG" Output: false
+    * - Input: word = "FlaG"
+    * - Output: false
     *
     * Constraints:
     *
-    * 1 <= word.length <= 100 word consists of lowercase and uppercase English letters.
+    * - 1 <= word.length <= 100
+    * - word consists of lowercase and uppercase English letters.
     */
   def detectCapital(capital: String): Boolean =
     capital.forall(_.isUpper) ||
@@ -171,16 +178,18 @@ object SAMProblems:
     *
     * Example 1:
     *
-    * Input: jewels = "aA", stones = "aAAbbbb" Output: 3
+    * - Input: jewels = "aA", stones = "aAAbbbb"
+    * - Output: 3
     *
     * Example 2:
     *
-    * Input: jewels = "z", stones = "ZZ" Output: 0
+    * - Input: jewels = "z", stones = "ZZ"
+    * - Output: 0
     *
     * Constraints:
     *
-    * 1 <= jewels.length, stones.length <= 50 jewels and stones consist of only English letters. All
-    * the characters of jewels are unique.
+    * - 1 <= jewels.length, stones.length <= 50
+    * - jewels and stones consist of only English letters. All the characters of jewels are unique.
     */
   def jewelsAndStones(jewels: String, stones: String): Int =
     val j = jewels.toSet
@@ -200,16 +209,19 @@ object SAMProblems:
     *
     * Example 1:
     *
-    * Input: operations = ["--X","X++","X++"] Output: 1 Explanation: The operations are performed as
-    * follows: Initially, X = 0. --X: X is decremented by 1, X = 0 - 1 = -1. X++: X is incremented
-    * by 1, X = -1 + 1 = 0. X++: X is incremented by 1, X = 0 + 1 = 1.
+    * - Input: operations = ["--X","X++","X++"]
+    * - Output: 1
+    * - Explanation: The operations are performed as follows: Initially, X = 0. --X: X is decremented by 1, X = 0 - 1 = -1. X++: X is incremented by 1, X = -1 + 1 = 0. X++: X is incremented by 1, X = 0 + 1 = 1.
     *
     * Example 2:
     *
-    * Input: operations = ["++X","++X","X++"] Output: 3 Explanation: The operations are performed as
-    * follows: Initially, X = 0.
-    * ++X: X is incremented by 1, X = 0 + 1 = 1.
-    * ++X: X is incremented by 1, X = 1 + 1 = 2. X++: X is incremented by 1, X = 2 + 1 = 3.
+    * - Input: operations = ["++X","++X","X++"]
+    * - Output: 3
+    * - Explanation: The operations are performed as follows:
+    *  - Initially, X = 0.
+    *  - ++X: X is incremented by 1, X = 0 + 1 = 1.
+    *  - ++X: X is incremented by 1, X = 1 + 1 = 2.
+    *  - X++: X is incremented by 1, X = 2 + 1 = 3.
     *
     * Example 3:
     *
@@ -703,25 +715,33 @@ object SAMProblems:
     *
     * Example 1:
     *
-    * Input: paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]] Output: "Sao
-    * Paulo" Explanation: Starting at "London" city you will reach "Sao Paulo" city which is the
+    * - Input: paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]
+    * - Output: "Sao Paulo"
+    * - Explanation: Starting at "London" city you will reach "Sao Paulo" city which is the
     * destination city. Your trip consist of: "London" -> "New York" -> "Lima" -> "Sao Paulo".
     *
     * Example 2:
     *
-    * Input: paths = [["B","C"],["D","B"],["C","A"]] Output: "A" Explanation: All possible trips
-    * are: "D" -> "B" -> "C" -> "A". "B" -> "C" -> "A". "C" -> "A". "A". Clearly the destination
-    * city is "A".
+    * - Input: paths = [["B","C"],["D","B"],["C","A"]]
+    * - Output: "A"
+    * - Explanation: All possible trips are: "D" -> "B" -> "C" -> "A". "B" -> "C" -> "A". "C" -> "A". "A". Clearly the destination city is "A".
     *
     * Example 3:
     *
-    * Input: paths = \\[\\["A","Z"\\]\\] Output: "Z"
+    * - Input: paths = [["A","Z"]]
+    * - Output: "Z"
     *
     * Constraints:
     *
-    * 1 <= paths.length <= 100 paths[i].length == 2 1 <= cityAi.length, cityBi.length <= 10 cityAi
-    * != cityBi All strings consist of lowercase and uppercase English letters and the space
+    * - 1 <= paths.length <= 100
+    * - paths[i].length == 2
+    * - 1 <= cityAi.length, cityBi.length <= 10 cityAi
+    * - != cityBi All strings consist of lowercase and uppercase English letters and the space
     * character.
+    *
+    * ### Approach
+    * - Randomly select a starting point.
+    * - Keep travelling to destination until there is no destination
     */
   def destCity(paths: List[List[String]]): String =
     @scala.annotation.tailrec
@@ -850,13 +870,11 @@ object SAMProblems:
     *
     * A string s can be partitioned into groups of size k using the following procedure:
     *
-    * The first group consists of the first k characters of the string, the second group consists of
-    * the next k characters of the string, and so on. Each character can be a part of exactly one
+    * The first group consists of the first k characters of the string, the second group consists of the next k characters of the string, and so on. Each character can be a part of exactly one
     * group. For the last group, if the string does not have k characters remaining, a character
     * fill is used to complete the group.
     *
-    * Note that the partition is done so that after removing the fill character from the last group
-    * (if it exists) and concatenating all the groups in order, the resultant string should be s.
+    * Note that the partition is done so that after removing the fill character from the last group (if it exists) and concatenating all the groups in order, the resultant string should be s.
     *
     * Given the string s, the size of each group k and the character fill, return a string array
     * denoting the composition of every group s has been divided into, using the above procedure.
@@ -887,8 +905,7 @@ object SAMProblems:
 
   /** 2108. Find first palindromic string in the array.
     *
-    * Given an array of strings words, return the first palindromic string in the array. If there is
-    * no such string, return an empty string "".
+    * Given an array of strings words, return the first palindromic string in the array. If there is no such string, return an empty string "".
     *
     * A string is palindromic if it reads the same forward and backward.
     *
@@ -916,10 +933,10 @@ object SAMProblems:
   def firstPalindrome(words: Array[String]): String =
     def isPalindrome(s: String): Boolean =
       @scala.annotation.tailrec
-      def helper(head: Int = 0, tail: Int): Boolean = (head, tail) match
+      def helper(head: Int, tail: Int): Boolean = (head, tail) match
         case (h, t) if h <= t => s(h) == s(t) && helper(h + 1, t - 1)
         case _                => true
-      helper(tail = s.length - 1)
+      helper(head = 0, tail = s.length - 1)
 
     words.find(isPalindrome) match
       case Some(s) => s
@@ -950,7 +967,7 @@ object SAMProblems:
     *
     * Constraints:
     *
-    * 1 <= s.length <= 2 * 105 s consists only of printable ASCII characters.
+    * 1 <= s.length <= 2 * 10^5 s consists only of printable ASCII characters.
     */
   def isPalindrome(s: String): Boolean =
     @scala.annotation.tailrec
@@ -999,18 +1016,21 @@ object SAMProblems:
     *
     * Example 1:
     *
-    * Input: word1 = "abc", word2 = "pqr" Output: "apbqcr" Explanation: The merged string will be
-    * merged as so: word1: a b c word2: p q r merged: a p b q c r
+    * - Input: word1 = "abc", word2 = "pqr"
+    * - Output: "apbqcr"
+    * - Explanation: The merged string will be merged as so: word1: a b c word2: p q r merged: a p b q c r
     *
     * Example 2:
     *
-    * Input: word1 = "ab", word2 = "pqrs" Output: "apbqrs" Explanation: Notice that as word2 is
-    * longer, "rs" is appended to the end. word1: a b word2: p q r s merged: a p b q r s
+    * - Input: word1 = "ab", word2 = "pqrs"
+    * - Output: "apbqrs"
+    * - Explanation: Notice that as word2 is longer, "rs" is appended to the end. word1: a b word2: p q r s merged: a p b q r s
     *
     * Example 3:
     *
-    * Input: word1 = "abcd", word2 = "pq" Output: "apbqcd" Explanation: Notice that as word1 is
-    * longer, "cd" is appended to the end. word1: a b c d word2: p q merged: a p b q c d
+    * - Input: word1 = "abcd", word2 = "pq"
+    * - Output: "apbqcd"
+    * - Explanation: Notice that as word1 is longer, "cd" is appended to the end. word1: a b c d word2: p q merged: a p b q c d
     *
     * Constraints:
     *
@@ -1168,10 +1188,13 @@ object SAMProblems:
     * Constraints:
     *
     * 1 <= s.length <= 100 s contains only lower and upper case English letters.
+    *
+    * ### Approach
+    *
+    * - using stack is a much optimized and readable solution yet this is done for the heck of it.
+    * - implemented as I was struggling to implement for 2 hours after solving quickly on paper.
     */
   def makeGood(s: String): String =
-    // using stack is a much optimized and readable solution yet this is done for the heck of it.
-    // implemented as I was struggling to implement for 2 hours after solving quickly on paper.
     @scala.annotation.tailrec
     def loop(string: String, i: Int): String =
       if i + 1 < string.length then
@@ -1245,9 +1268,8 @@ object SAMProblems:
     * in "leetcode", so we return -1.
     *
     * Constraints:
-    *
-    *   - 1 <= haystack.length, needle.length <= 104
-    *   - haystack and needle consist of only lowercase english characters.
+    * - 1 <= haystack.length, needle.length <= 104
+    * - haystack and needle consist of only lowercase english characters.
     *
     * @note
     *   programming-skills
@@ -1257,13 +1279,11 @@ object SAMProblems:
 
   /** 20. Valid parantheses.
     *
-    * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if
-    * the input string is valid.
+    * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
     *
     * An input string is valid if:
     *
-    * Open brackets must be closed by the same type of brackets. Open brackets must be closed in the
-    * correct order. Every close bracket has a corresponding open bracket of the same type.
+    * Open brackets must be closed by the same type of brackets. Open brackets must be closed in the correct order. Every close bracket has a corresponding open bracket of the same type.
     *
     * Example 1:
     *
@@ -1325,21 +1345,24 @@ object SAMProblems:
     * Constraints:
     *
     * 1 <= s.length <= 105 s[i] is either'(' , ')', or lowercase English letter.
+    *
+    * ### Approach
+    *
+    * - scan left to right and ignore excess right parantheses
+    * - scan right to left and ignore excess left parantheses
     */
   def minRemoveToMakeValid(s: String): String =
-    // scan left to right and ignore excess right parantheses
-    // scan right to left and ignore excess left parantheses
     val (leftFixedReversedList, _) =
       s.foldLeft(List.empty[Char], 0): (t, char) =>
         (t, char) match
           case ((acc, l), '(') => ('(' :: acc, l + 1)
-          case ((acc, l), ')') => if l > 0 then (')' :: acc, l - 1) else (acc, l)
+          case ((acc, l), ')') => if l > 0 then (')' :: acc, l - 1) else (acc, l) // ')' ignored
           case ((acc, l), c)   => (c :: acc, l)
 
     val (rFixedList, _) =
       leftFixedReversedList.foldLeft(List.empty[Char], 0): (t, char) =>
         (t, char) match
-          case ((acc, r), '(') => if r > 0 then ('(' :: acc, r - 1) else (acc, r)
+          case ((acc, r), '(') => if r > 0 then ('(' :: acc, r - 1) else (acc, r) // '(' ignored
           case ((acc, r), ')') => (')' :: acc, r + 1)
           case ((acc, r), c)   => (c :: acc, r)
 
@@ -1464,8 +1487,7 @@ object SAMProblems:
     * index 0 and ends at the index of the first occurrence of ch (inclusive). If the character ch
     * does not exist in word, do nothing.
     *
-    * For example, if word = "abcdefd" and ch = "d", then you should reverse the segment that starts
-    * at 0 and ends at 3 (inclusive). The resulting string will be "dcbaefd".
+    * For example, if word = "abcdefd" and ch = "d", then you should reverse the segment that starts at 0 and ends at 3 (inclusive). The resulting string will be "dcbaefd".
     *
     * Return the resulting string.
     *
@@ -1500,22 +1522,16 @@ object SAMProblems:
   /** 3019. Number of changing keys.
     *
     * You are given a 0-indexed string s typed by a user. Changing a key is defined as using a key
-    * different from the last used key. For example, s = "ab" has a change of a key while s = "bBBb"
-    * does not have any.
+    * different from the last used key. For example, s = "ab" has a change of a key while s = "bBBb" does not have any.
     *
     * Return the number of times the user had to change the key.
     *
-    * Note: Modifiers like shift or caps lock won't be counted in changing the key that is if a user
-    * typed the letter 'a' and then the letter 'A' then it will not be considered as a changing of
-    * key.
+    * Note: Modifiers like shift or caps lock won't be counted in changing the key that is if a user typed the letter 'a' and then the letter 'A' then it will not be considered as a changing of key.
     *
     * Example 1:
     *
     * Input: s = "aAbBcC" Output: 2 Explanation: From s[0] = 'a' to s[1] = 'A', there is no change
-    * of key as caps lock or shift is not counted. From s[1] = 'A' to s[2] = 'b', there is a change
-    * of key. From s[2] = 'b' to s[3] = 'B', there is no change of key as caps lock or shift is not
-    * counted. From s[3] = 'B' to s[4] = 'c', there is a change of key. From s[4] = 'c' to s[5] =
-    * 'C', there is no change of key as caps lock or shift is not counted.
+    * of key as caps lock or shift is not counted. From s[1] = 'A' to s[2] = 'b', there is a change of key. From s[2] = 'b' to s[3] = 'B', there is no change of key as caps lock or shift is not counted. From s[3] = 'B' to s[4] = 'c', there is a change of key. From s[4] = 'c' to s[5] = 'C', there is no change of key as caps lock or shift is not counted.
     *
     * Example 2:
     *
@@ -4085,7 +4101,7 @@ object SAMProblems:
     *    s consists only of letters of the English alphabet in uppercase and lowercase.
     */
 
-  def sortVowels(s: String): String =
+  def sortVowels(s: String): String = {
     val vowels = "aeiou".toSet
     val sorted = s.filter(c => vowels.contains(c.toLower)).sorted.mkString
     @scala.annotation.tailrec
@@ -4094,3 +4110,78 @@ object SAMProblems:
       else if vowels.contains(s(i).toLower) then traverse(i + 1, j + 1, sorted(j) +: acc)
       else traverse(i + 1, j, s(i) +: acc)
     traverse(0, 0, List.empty[Char])
+  }
+
+  /** 1929. Concatenation of array.
+    *
+    * Given an integer array nums of length n, you want to create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+    *
+    * Specifically, ans is the concatenation of two nums arrays.
+    *
+    * Return the array ans.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,1]
+    * Output: [1,2,1,1,2,1]
+    * Explanation: The array ans is formed as follows:
+    * - ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]]
+    * - ans = [1,2,1,1,2,1]
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,3,2,1]
+    * Output: [1,3,2,1,1,3,2,1]
+    * Explanation: The array ans is formed as follows:
+    * - ans = [nums[0],nums[1],nums[2],nums[3],nums[0],nums[1],nums[2],nums[3]]
+    * - ans = [1,3,2,1,1,3,2,1]
+    *
+    * Constraints:
+    *
+    *    n == nums.length
+    *    1 <= n <= 1000
+    *    1 <= nums[i] <= 1000
+    */
+  def getConcatenation(nums: Array[Int]): Array[Int] = {
+    val ans = Array.ofDim[Int](nums.length * 2)
+    for i <- 0 until ans.length
+    yield ans(i) = nums(i % nums.length)
+    ans
+  }
+
+  /** 1512. Number of good pairs.
+    *
+    * Given an array of integers nums, return the number of good pairs.
+    *
+    * A pair (i, j) is called good if nums[i] == nums[j] and i < j.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,3,1,1,3]
+    * Output: 4
+    * Explanation: There are 4 good pairs (0,3), (0,4), (3,4), (2,5) 0-indexed.
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,1,1,1]
+    * Output: 6
+    * Explanation: Each pair in the array are good.
+    *
+    * Example 3:
+    *
+    * Input: nums = [1,2,3]
+    * Output: 0
+    *
+    * Constraints:
+    *
+    *    1 <= nums.length <= 100
+    *    1 <= nums[i] <= 100
+    */
+  def numIdenticalPairs(nums: Array[Int]): Int = {
+    val pairs = for
+      i <- 0 until nums.length
+      j <- 0 until i
+    yield (nums(i), nums(j))
+    pairs.count:
+      case (x, y) => x == y
+  }

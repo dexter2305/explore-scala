@@ -1213,3 +1213,25 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (string, exp) =>
       assertResult(exp)(SAMProblems.sortVowels(string))
+
+  test("1929. Concatenation of array") {
+    val testcases = Table(
+      ("ints", "expected"),
+      (List(1, 2, 1), List(1, 2, 1, 1, 2, 1)),
+      (List(1, 3, 2, 1), List(1, 3, 2, 1, 1, 3, 2, 1))
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp)(SAMProblems.getConcatenation(ints.toArray).toList)
+  }
+
+  test("1512. Number of good pairs.") {
+    val testcases = Table(
+      ("ints", "exp"),
+      (List(1, 2, 3, 1, 1, 3), 4),
+      (List(1, 1, 1, 1), 6),
+      (List(1, 2, 3), 0)
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp):
+        SAMProblems.numIdenticalPairs(ints.toArray)
+  }
