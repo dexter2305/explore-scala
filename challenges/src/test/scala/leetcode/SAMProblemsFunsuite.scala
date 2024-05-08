@@ -1235,3 +1235,63 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       assertResult(exp):
         SAMProblems.numIdenticalPairs(ints.toArray)
   }
+
+  test("1470. Shuffle the array"):
+    val testcases = Table(
+      ("ints", "expected"),
+      (List(2, 5, 1, 3, 4, 7), List(2, 3, 5, 4, 1, 7)),
+      (List(1, 2, 3, 4, 4, 3, 2, 1), List(1, 4, 2, 3, 3, 2, 4, 1)),
+      (List(1, 1, 2, 2), List(1, 2, 1, 2))
+    )
+    forAll(testcases): (ints, exp) =>
+      assert(SAMProblems.shuffle(ints.toArray, ints.length / 2).toList === exp)
+
+  test("1365. How many numbers are smaller than the current number."):
+    val testcases = Table(
+      ("ints", "exp"),
+      (List(7, 7, 7, 7), List(0, 0, 0, 0)),
+      (List(8, 1, 2, 2, 3), List(4, 0, 1, 1, 3)),
+      (List(6, 5, 4, 8), List(2, 1, 0, 3))
+    )
+    forAll(testcases): (ints, exp) =>
+      assert(SAMProblems.smallerNumbersThanCurrent(ints.toArray) === exp)
+
+  test("506. Relative ranks."):
+    val testcases = Table(
+      ("score", "exp"),
+      (List(5, 4, 3, 2, 1), List("Gold Medal", "Silver Medal", "Bronze Medal", "4", "5")),
+      (List(10, 3, 8, 9, 4), List("Gold Medal", "5", "Bronze Medal", "Silver Medal", "4"))
+    )
+    forAll(testcases): (scores, exp) =>
+      assertResult(exp):
+        SAMProblems.findRelativeRanks(scores.toArray).toList
+
+  test("2798. Number of employees who met the target."):
+    val testcases = Table(
+      ("hours", "target", "exp"),
+      (List(0, 1, 2, 3, 4), 2, 3),
+      (List(5, 1, 4, 2, 2), 6, 0)
+    )
+    forAll(testcases): (hours, target, exp) =>
+      assert(SAMProblems.numberOfEmployeesWhoMetTarget(hours.toArray, target) === exp)
+
+  test("2824. Count pairs whose sum is less than target"):
+    val testcases = Table(
+      ("ints", "target", "exp"),
+      (List(-1, 1, 2, 3, 1), 2, 3),
+      (List(-6, 2, 5, -2, -7, -1, 3), -2, 10)
+    )
+    forAll(testcases): (ints, target, exp) =>
+      assertResult(exp):
+        SAMProblems.countPairs(ints, target)
+
+  test("1480. Running sum of 1d array."):
+    val testcases = Table(
+      ("ints", "exp"),
+      (List(1, 2, 3, 4), List(1, 3, 6, 10)),
+      (List(1, 1, 1, 1, 1), List(1, 2, 3, 4, 5)),
+      (List(3, 1, 2, 10, 1), List(3, 4, 6, 16, 17))
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp):
+        SAMProblems.runningSum(ints.toArray).toList

@@ -4185,3 +4185,237 @@ object SAMProblems:
     pairs.count:
       case (x, y) => x == y
   }
+
+  /** 1470. Shuffle the array.
+    *
+    * Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
+    *
+    * Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+    *
+    * Example 1:
+    *
+    * Input: nums = [2,5,1,3,4,7], n = 3
+    * Output: [2,3,5,4,1,7]
+    * Explanation: Since x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 then the answer is [2,3,5,4,1,7].
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,2,3,4,4,3,2,1], n = 4
+    * Output: [1,4,2,3,3,2,4,1]
+    *
+    * Example 3:
+    *
+    * Input: nums = [1,1,2,2], n = 2
+    * Output: [1,2,1,2]
+    *
+    * Constraints:
+    *
+    *    1 <= n <= 500
+    *    nums.length == 2n
+    *    1 <= nums[i] <= 10^3
+    */
+  def shuffle(nums: Array[Int], n: Int): Array[Int] = {
+    (nums.take(n) zip nums.drop(n)).flatMap(x => List(x._1, x._2))
+  }
+
+  /** 1365. How many numbers are smaller than the current numbers.
+    *
+    * Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
+    *
+    * Return the answer in an array.
+    *
+    * Example 1:
+    *
+    * Input: nums = [8,1,2,2,3]
+    * Output: [4,0,1,1,3]
+    * Explanation:
+    * For nums[0]=8 there exist four smaller numbers than it (1, 2, 2 and 3).
+    * For nums[1]=1 does not exist any smaller number than it.
+    * For nums[2]=2 there exist one smaller number than it (1).
+    * For nums[3]=2 there exist one smaller number than it (1).
+    * For nums[4]=3 there exist three smaller numbers than it (1, 2 and 2).
+    *
+    * Example 2:
+    *
+    * Input: nums = [6,5,4,8]
+    * Output: [2,1,0,3]
+    *
+    * Example 3:
+    *
+    * Input: nums = [7,7,7,7]
+    * Output: [0,0,0,0]
+    *
+    * Constraints:
+    *
+    *    2 <= nums.length <= 500
+    *    0 <= nums[i] <= 100
+    */
+
+  def smallerNumbersThanCurrent(nums: Array[Int]): Array[Int] = {
+    nums.map(n => nums.count(_ < n))
+  }
+
+  /** 506. Relative ranks.
+    *
+    * ou are given an integer array score of size n, where score[i] is the score of the ith athlete in a competition. All the scores are guaranteed to be unique.
+    *
+    * The athletes are placed based on their scores, where the 1st place athlete has the highest score, the 2nd place athlete has the 2nd highest score, and so on. The placement of each athlete determines their rank:
+    *
+    *    The 1st place athlete's rank is "Gold Medal".
+    *    The 2nd place athlete's rank is "Silver Medal".
+    *    The 3rd place athlete's rank is "Bronze Medal".
+    *    For the 4th place to the nth place athlete, their rank is their placement number (i.e., the xth place athlete's rank is "x").
+    *
+    * Return an array answer of size n where answer[i] is the rank of the ith athlete.
+    *
+    * Example 1:
+    *
+    * Input: score = [5,4,3,2,1]
+    * Output: ["Gold Medal","Silver Medal","Bronze Medal","4","5"]
+    * Explanation: The placements are [1st, 2nd, 3rd, 4th, 5th].
+    *
+    * Example 2:
+    *
+    * Input: score = [10,3,8,9,4]
+    * Output: ["Gold Medal","5","Bronze Medal","Silver Medal","4"]
+    * Explanation: The placements are [1st, 5th, 3rd, 2nd, 4th].
+    *
+    * Constraints:
+    *
+    * - n == score.length
+    * - 1 <= n <= 10^4
+    * - 0 <= score[i] <= 10^6
+    * - All the values in score are unique.
+    */
+
+  def findRelativeRanks(score: Array[Int]): Array[String] = {
+    val sorted = score.sortWith(_ >= _).zipWithIndex
+    score.map: s =>
+      sorted.find(_._1 == s) match
+        case Some((_, 0))     => "Gold Medal"
+        case Some((_, 1))     => "Silver Medal"
+        case Some((_, 2))     => "Bronze Medal"
+        case Some((_, index)) => (index + 1).toString
+        case _                => ""
+  }
+
+  /** 2798. Number of employees who met the target.
+    *
+    * There are n employees in a company, numbered from 0 to n - 1. Each employee i has worked for hours[i] hours in the company.
+    *
+    * The company requires each employee to work for at least target hours.
+    *
+    * You are given a 0-indexed array of non-negative integers hours of length n and a non-negative integer target.
+    *
+    * Return the integer denoting the number of employees who worked at least target hours.
+    *
+    * Example 1:
+    *
+    * Input: hours = [0,1,2,3,4], target = 2
+    * Output: 3
+    * Explanation: The company wants each employee to work for at least 2 hours.
+    * - Employee 0 worked for 0 hours and didn't meet the target.
+    * - Employee 1 worked for 1 hours and didn't meet the target.
+    * - Employee 2 worked for 2 hours and met the target.
+    * - Employee 3 worked for 3 hours and met the target.
+    * - Employee 4 worked for 4 hours and met the target.
+    * There are 3 employees who met the target.
+    *
+    * Example 2:
+    *
+    * Input: hours = [5,1,4,2,2], target = 6
+    * Output: 0
+    * Explanation: The company wants each employee to work for at least 6 hours.
+    * There are 0 employees who met the target.
+    *
+    * Constraints:
+    *
+    *    1 <= n == hours.length <= 50
+    *    0 <= hours[i], target <= 105
+    */
+
+  def numberOfEmployeesWhoMetTarget(hours: Array[Int], target: Int): Int = hours.count(_ >= target)
+
+  /** 2824. Count pairs whose sum is less than target.
+    *
+    * Given a 0-indexed integer array nums of length n and an integer target, return the number of pairs (i, j) where 0 <= i < j < n and nums[i] + nums[j] < target.
+    *
+    * Example 1:
+    *
+    * Input: nums = [-1,1,2,3,1], target = 2
+    * Output: 3
+    * Explanation: There are 3 pairs of indices that satisfy the conditions in the statement:
+    * - (0, 1) since 0 < 1 and nums[0] + nums[1] = 0 < target
+    * - (0, 2) since 0 < 2 and nums[0] + nums[2] = 1 < target
+    * - (0, 4) since 0 < 4 and nums[0] + nums[4] = 0 < target
+    * Note that (0, 3) is not counted since nums[0] + nums[3] is not strictly less than the target.
+    *
+    * Example 2:
+    *
+    * Input: nums = [-6,2,5,-2,-7,-1,3], target = -2
+    * Output: 10
+    * Explanation: There are 10 pairs of indices that satisfy the conditions in the statement:
+    * - (0, 1) since 0 < 1 and nums[0] + nums[1] = -4 < target
+    * - (0, 3) since 0 < 3 and nums[0] + nums[3] = -8 < target
+    * - (0, 4) since 0 < 4 and nums[0] + nums[4] = -13 < target
+    * - (0, 5) since 0 < 5 and nums[0] + nums[5] = -7 < target
+    * - (0, 6) since 0 < 6 and nums[0] + nums[6] = -3 < target
+    * - (1, 4) since 1 < 4 and nums[1] + nums[4] = -5 < target
+    * - (3, 4) since 3 < 4 and nums[3] + nums[4] = -9 < target
+    * - (3, 5) since 3 < 5 and nums[3] + nums[5] = -3 < target
+    * - (4, 5) since 4 < 5 and nums[4] + nums[5] = -8 < target
+    * - (4, 6) since 4 < 6 and nums[4] + nums[6] = -4 < target
+    *
+    * Constraints:
+    *
+    *    1 <= nums.length == n <= 50
+    *    -50 <= nums[i], target <= 50
+    */
+
+  def countPairs(nums: List[Int], target: Int): Int = {
+    nums.indices
+      .flatMap: i =>
+        (0 until i).filter(j => nums(i) + nums(j) < target)
+      .size
+    // (for
+    //   i <- nums.indices
+    //   j <- 0 until i
+    //   if nums(i) + nums(j) < target
+    // yield (i, j)).size
+  }
+
+  /** 1480. Running sum of 1-d array.
+    *
+    * Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+    *
+    * Return the running sum of nums.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,3,4]
+    * Output: [1,3,6,10]
+    * Explanation: Running sum is obtained as follows: [1, 1+2, 1+2+3, 1+2+3+4].
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,1,1,1,1]
+    * Output: [1,2,3,4,5]
+    * Explanation: Running sum is obtained as follows: [1, 1+1, 1+1+1, 1+1+1+1, 1+1+1+1+1].
+    *
+    * Example 3:
+    *
+    * Input: nums = [3,1,2,10,1]
+    * Output: [3,4,6,16,17]
+    *
+    * Constraints:
+    *
+    *    1 <= nums.length <= 1000
+    *    -10^6 <= nums[i] <= 10^6
+    */
+
+  def runningSum(nums: Array[Int]): Array[Int] = {
+    for i <- 1 until nums.length
+    do nums(i) = nums(i - 1) + nums(i)
+    nums
+    // nums.scanLeft(0)(_ + _).tail
+  }
