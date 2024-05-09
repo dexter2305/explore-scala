@@ -71,7 +71,7 @@ object MatrixProblems:
     *    - 1 <= m, n <= 10
     *    - -100 <= matrix[i][j] <= 100
     */
-  def spiralOrder(matrix: Array[Array[Int]]): List[Int] =
+  def spiralOrder(matrix: Array[Array[Int]]): List[Int] = {
     def goRight(matrix: Array[Array[Int]]): List[Int] = {
       if matrix.nonEmpty && matrix(0).nonEmpty then {
         val upLine = matrix(0)
@@ -113,3 +113,55 @@ object MatrixProblems:
     }
 
     goRight(matrix = matrix)
+  }
+
+  /** 73. Set matrix zeroes.
+    *
+    * Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+    *
+    * You must do it in place.
+    *
+    * Example:1
+    *
+    * Input: matrix =
+    *  [[1,1,1],
+    *   [1,0,1],
+    *   [1,1,1]]
+    * Output:
+    *  [[1,0,1],
+    *   [0,0,0],
+    *   [1,0,1]]
+    *
+    * ### Approach
+    * - Create row and col markers as List. Pre fill them with 1.
+    * - Any element in the matrix identified as 0, mark the (r,c) with 0 in the markers.
+    * - Iterate through the matrix and multiply the value with markers.
+    */
+  def setZeroes(matrix: Array[Array[Int]]): Unit = {
+    val rowIdentifiers = Array.fill(matrix.length)(1)
+    val colIdentifiers = Array.fill(matrix(0).length)(1)
+    for
+      r <- matrix.indices
+      c <- matrix(0).indices
+    do
+      if matrix(r)(c) == 0 then
+        rowIdentifiers(r) = 0
+        colIdentifiers(c) = 0
+
+    // println(s"row = [${rowIdentifiers.mkString(",")}]")
+    // println(s"col = [${colIdentifiers.mkString(",")}]")
+
+    for
+      r <- 0 until matrix.length
+      c <- 0 until matrix(r).length
+    do matrix(r)(c) = rowIdentifiers(r) * colIdentifiers(c) * matrix(r)(c)
+
+    // val s = s"${matrix.map(_.mkString(" ")).mkString("\n")}"
+    // println(s)
+  }
+
+  @main
+  def test(): Unit = {
+    val matrix = List(List(1, 1, 1), List(1, 0, 1), List(1, 1, 1))
+    setZeroes(matrix.map(_.toArray).toArray)
+  }

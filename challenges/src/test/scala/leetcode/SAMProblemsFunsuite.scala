@@ -1295,3 +1295,82 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (ints, exp) =>
       assertResult(exp):
         SAMProblems.runningSum(ints.toArray).toList
+  test("1313. Decompress run length encoded list"):
+    val testcases = Table(
+      ("encoded list", "exp"),
+      (List(1, 2, 3, 4), List(2, 4, 4, 4)),
+      (List(1, 1, 2, 3), List(1, 3, 3))
+    )
+    forAll(testcases): (encodedlist, exp) =>
+      assertResult(exp)(SAMProblems.decompressRLElist(encodedlist.toArray).toList)
+
+  test("1389. Create target array in the given order."):
+    val testcases = Table(
+      ("ints", "index", "exp"),
+      (List(0, 1, 2, 3, 4), List(0, 1, 2, 2, 1), List(0, 4, 1, 3, 2)),
+      (List(1, 2, 3, 4, 0), List(0, 1, 2, 3, 0), List(0, 1, 2, 3, 4)),
+      (List(1), List(0), List(1))
+    )
+    forAll(testcases): (ints, indices, exp) =>
+      assertResult(exp):
+        SAMProblems.createTargetArray(ints.toArray, indices.toArray).toList
+
+  test("3075. Maximize happiness of selected children."):
+    val testcases = Table(
+      ("happiness", "k", "exp"),
+      (List(1, 2, 3), 2, 4),
+      (List(1, 1, 1, 1), 2, 1),
+      (List(2, 3, 4, 5), 1, 5),
+      (
+        List(2135218, 73431904, 92495076, 77528042, 82824634, 3036629, 28375907, 65220365, 40948869,
+          58914871, 57169530, 89783499, 19582915, 19676695, 11932465, 21770144, 49740276, 22303751,
+          80746555, 97391584, 95775653, 43396943, 47271136, 43935930, 59643137, 64183008, 8892641,
+          39587569, 85086654, 5663585, 82925096, 24868817, 95900395, 48155864, 74447380, 7618448,
+          63299623, 91141186, 33347112, 81951555, 52867615, 92184410, 7024265, 85525916, 29846922,
+          59532692, 47267934, 6514603, 1137830, 97807470),
+        41,
+        2517853814L
+      )
+    )
+    forAll(testcases): (happiness, k, exp) =>
+      assertResult(exp):
+        SAMProblems.maximumHappinessSum(happiness.toArray, k)
+
+  test("2574. Left and right sum differences."):
+    val testcases = Table(
+      ("nums", "exp"),
+      (List(10, 4, 8, 3), List(15, 1, 11, 22)),
+      (List(1), List(0))
+    )
+    forAll(testcases): (nums, exp) =>
+      assertResult(exp):
+        SAMProblems.leftRightDifference(nums.toArray).toList
+
+  test("1732. Find the highest altitude."):
+    val testcases = Table(
+      ("gains", "exp"),
+      (List(-5, 1, 5, 0, -7), 1),
+      (List(-4, -3, -2, -1, 4, 3, 2), 0)
+    )
+    forAll(testcases): (gains, exp) =>
+      assertResult(exp):
+        SAMProblems.largestAltitude(gains.toArray)
+
+  test("3065. Minimum number of operations to exceed threshold value."):
+    val testcases = Table(
+      ("nums", "k", "exp"),
+      (List(2, 11, 10, 1, 3), 10, 3)
+    )
+    forAll(testcases): (nums, k, exp) =>
+      assertResult(exp):
+        SAMProblems.minOperations(nums.toArray, k)
+
+  test("169. Majority element."):
+    val testcases = Table(
+      ("nums", "exp"),
+      (List(3, 2, 3), 3),
+      (List(2, 2, 1, 1, 1, 2, 2), 2)
+    )
+    forAll(testcases): (nums, exp) =>
+      assertResult(exp):
+        SAMProblems.majorityElement(nums.toArray)

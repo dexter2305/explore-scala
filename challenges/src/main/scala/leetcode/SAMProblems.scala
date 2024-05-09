@@ -4419,3 +4419,278 @@ object SAMProblems:
     nums
     // nums.scanLeft(0)(_ + _).tail
   }
+
+  /** Decompress run-length encoded list.
+    *
+    * We are given a list nums of integers representing a list compressed with run-length encoding.
+    *
+    * Consider each adjacent pair of elements [freq, val] = [nums[2*i], nums[2*i+1]] (with i >= 0).  For each such pair, there are freq elements with value val concatenated in a sublist. Concatenate all the sublists from left to right to generate the decompressed list.
+    *
+    * Return the decompressed list.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,3,4]
+    * Output: [2,4,4,4]
+    * Explanation: The first pair [1,2] means we have freq = 1 and val = 2 so we generate the array [2].
+    * The second pair [3,4] means we have freq = 3 and val = 4 so we generate [4,4,4].
+    * At the end the concatenation [2] + [4,4,4] is [2,4,4,4].
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,1,2,3]
+    * Output: [1,3,3]
+    *
+    * Constraints:
+    *
+    *    2 <= nums.length <= 100
+    *    nums.length % 2 == 0
+    *    1 <= nums[i] <= 100
+    */
+
+  def decompressRLElist(nums: Array[Int]): Array[Int] = {
+    nums
+      .grouped(2)
+      .map(a => a(0) -> a(1))
+      .flatMap: (f, e) =>
+        Array.fill(f)(e)
+      .toArray
+  }
+
+  /** 1389. Create target array in the given order.
+    *
+    * Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+    *
+    *    - Initially target array is empty.
+    *    - From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.
+    *    - Repeat the previous step until there are no elements to read in nums and index.
+    *    - Return the target array.
+    *
+    * It is guaranteed that the insertion operations will be valid.
+    *
+    * Example 1:
+    *
+    * Input: nums = [0,1,2,3,4], index = [0,1,2,2,1]
+    * Output: [0,4,1,3,2]
+    * Explanation:
+    * nums       index     target
+    * 0            0        [0]
+    * 1            1        [0,1]
+    * 2            2        [0,1,2]
+    * 3            2        [0,1,3,2]
+    * 4            1        [0,4,1,3,2]
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,2,3,4,0], index = [0,1,2,3,0]
+    * Output: [0,1,2,3,4]
+    * Explanation:
+    * nums       index     target
+    * 1            0        [1]
+    * 2            1        [1,2]
+    * 3            2        [1,2,3]
+    * 4            3        [1,2,3,4]
+    * 0            0        [0,1,2,3,4]
+    *
+    * Example 3:
+    *
+    * Input: nums = [1], index = [0]
+    * Output: [1]
+    *
+    * Constraints:
+    *
+    * - 1 <= nums.length, index.length <= 100
+    * - nums.length == index.length
+    * - 0 <= nums[i] <= 100
+    * - 0 <= index[i] <= i
+    */
+  def createTargetArray(nums: Array[Int], index: Array[Int]): Array[Int] = {
+    (0 until nums.length)
+      .foldLeft(Array.emptyIntArray): (acc, i) =>
+        val (left, right) = acc.splitAt(index(i))
+        left ++ Array(nums(i)) ++ right
+  }
+
+  /** 3075. Maximize happiness of selected children.
+    *
+    * You are given an array happiness of length n, and a positive integer k.
+    *
+    * There are n children standing in a queue, where the ith child has happiness value happiness[i]. You want to select k children from these n children in k turns.
+    *
+    * In each turn, when you select a child, the happiness value of all the children that have not been selected till now decreases by 1. Note that the happiness value cannot become negative and gets decremented only if it is positive.
+    *
+    * Return the maximum sum of the happiness values of the selected children you can achieve by selecting k children.
+    *
+    * Example 1:
+    *
+    * Input: happiness = [1,2,3], k = 2
+    * Output: 4
+    * Explanation: We can pick 2 children in the following way:
+    * - Pick the child with the happiness value == 3. The happiness value of the remaining children becomes [0,1].
+    * - Pick the child with the happiness value == 1. The happiness value of the remaining child becomes [0]. Note that the happiness value cannot become less than 0.
+    * The sum of the happiness values of the selected children is 3 + 1 = 4.
+    *
+    * Example 2:
+    *
+    * Input: happiness = [1,1,1,1], k = 2
+    * Output: 1
+    * Explanation: We can pick 2 children in the following way:
+    * - Pick any child with the happiness value == 1. The happiness value of the remaining children becomes [0,0,0].
+    * - Pick the child with the happiness value == 0. The happiness value of the remaining child becomes [0,0].
+    * The sum of the happiness values of the selected children is 1 + 0 = 1.
+    *
+    * Example 3:
+    *
+    * Input: happiness = [2,3,4,5], k = 1
+    * Output: 5
+    * Explanation: We can pick 1 child in the following way:
+    * - Pick the child with the happiness value == 5. The happiness value of the remaining children becomes [1,2,3].
+    * The sum of the happiness values of the selected children is 5.
+    *
+    * Constraints:
+    *
+    *    1 <= n == happiness.length <= 2 * 10^5
+    *    1 <= happiness[i] <= 10^8
+    *    1 <= k <= n
+    */
+
+  def maximumHappinessSum(happiness: Array[Int], k: Int): Long = {
+    val sorted = happiness.sorted.takeRight(k).reverse
+    var result: Long = 0L
+    var count = 0
+    for i <- 0 until k
+    do
+      result = result + 0.max(sorted(i) - count)
+      count = count + 1
+    result
+  }
+
+  /** 2574. Left and right sum differences.
+    *
+    * Given a 0-indexed integer array nums, find a 0-indexed integer array answer where:
+    *
+    *    answer.length == nums.length.
+    *    answer[i] = |leftSum[i] - rightSum[i]|.
+    *
+    * Where:
+    *
+    *    leftSum[i] is the sum of elements to the left of the index i in the array nums. If there is no such element, leftSum[i] = 0.
+    *    rightSum[i] is the sum of elements to the right of the index i in the array nums. If there is no such element, rightSum[i] = 0.
+    *
+    * Return the array answer.
+    *
+    * Example 1:
+    *
+    * Input: nums = [10,4,8,3]
+    * Output: [15,1,11,22]
+    * Explanation: The array leftSum is [0,10,14,22] and the array rightSum is [15,11,3,0].
+    * The array answer is [|0 - 15|,|10 - 11|,|14 - 3|,|22 - 0|] = [15,1,11,22].
+    *
+    * Example 2:
+    *
+    * Input: nums = [1]
+    * Output: [0]
+    * Explanation: The array leftSum is [0] and the array rightSum is [0].
+    * The array answer is [|0 - 0|] = [0].
+    *
+    * Constraints:
+    *
+    *    1 <= nums.length <= 1000
+    *    1 <= nums[i] <= 10^5
+    */
+  def leftRightDifference(nums: Array[Int]): Array[Int] = {
+    val left = nums.scanLeft(0)(_ + _).take(nums.length)
+    val right = nums.scanRight(0)(_ + _).tail
+    (for i <- nums.indices yield math.abs(left(i) - right(i))).toArray
+  }
+
+  /** 1732. Find the highest altitude
+    *
+    * There is a biker going on a road trip. The road trip consists of n + 1 points at different altitudes. The biker starts his trip on point 0 with altitude equal 0.
+    *
+    * You are given an integer array gain of length n where gain[i] is the net gain in altitude between points i​​​​​​ and i + 1 for all (0 <= i < n). Return the highest altitude of a point.
+    *
+    * Example 1:
+    *
+    * Input: gain = [-5,1,5,0,-7]
+    * Output: 1
+    * Explanation: The altitudes are [0,-5,-4,1,1,-6]. The highest is 1.
+    *
+    * Example 2:
+    *
+    * Input: gain = [-4,-3,-2,-1,4,3,2]
+    * Output: 0
+    * Explanation: The altitudes are [0,-4,-7,-9,-10,-6,-3,-1]. The highest is 0.
+    *
+    * Constraints:
+    *
+    *    n == gain.length
+    *    1 <= n <= 100
+    *    -100 <= gain[i] <= 100
+    */
+  def largestAltitude(gain: Array[Int]): Int = {
+    gain.scanLeft(0)(_ + _).max
+  }
+
+  /** 3065. Minimum number of operations to exceed the threshold value.
+    *
+    * You are given a 0-indexed integer array nums, and an integer k.
+    *
+    * In one operation, you can remove one occurrence of the smallest element of nums.
+    *
+    * Return the minimum number of operations needed so that all elements of the array are greater than or equal to k.
+    *
+    * Example 1:
+    *
+    * Input: nums = [2,11,10,1,3], k = 10
+    * Output: 3
+    * Explanation: After one operation, nums becomes equal to [2, 11, 10, 3].
+    * After two operations, nums becomes equal to [11, 10, 3].
+    * After three operations, nums becomes equal to [11, 10].
+    * At this stage, all the elements of nums are greater than or equal to 10 so we can stop.
+    * It can be shown that 3 is the minimum number of operations needed so that all elements of the array are greater than or equal to 10.
+    *
+    * Constraints:
+    *
+    *    1 <= nums.length <= 50
+    *    1 <= nums[i] <= 109
+    *    1 <= k <= 109
+    *    The input is generated such that there is at least one index i such that nums[i] >= k.
+    */
+  def minOperations(nums: Array[Int], k: Int): Int = {
+    nums.count(_ < k)
+  }
+
+  /** 169. Majority element.
+    *
+    * Given an array nums of size n, return the majority element.
+    *
+    * The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+    *
+    * Example 1:
+    *
+    * Input: nums = [3,2,3]
+    * Output: 3
+    *
+    * Example 2:
+    *
+    * Input: nums = [2,2,1,1,1,2,2]
+    * Output: 2
+    *
+    * Constraints:
+    *
+    *    n == nums.length
+    *    1 <= n <= 5 * 10^4
+    *    -109 <= nums[i] <= 10^9
+    */
+
+  def majorityElement(nums: Array[Int]): Int = {
+    nums
+      .groupBy(n => n)
+      .find:
+        case ((n, collection)) => collection.size > nums.length / 2
+    match
+      case Some((n -> _)) => n
+      case None           => -1
+
+  }
