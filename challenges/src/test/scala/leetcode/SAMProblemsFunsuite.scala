@@ -1374,3 +1374,12 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     forAll(testcases): (nums, exp) =>
       assertResult(exp):
         SAMProblems.majorityElement(nums.toArray)
+
+  test("860. Lemonade change."):
+    val testcases = Table(
+      ("bills", "exp"),
+      (List(5, 5, 5, 10, 20), true),
+      (List(5, 5, 10, 10, 20), false)
+    )
+    forAll(testcases): (bills, exp) =>
+      assert(SAMProblems.lemonadeChange(bills.toArray) === exp)
