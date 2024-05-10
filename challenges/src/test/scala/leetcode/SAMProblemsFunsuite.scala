@@ -1383,3 +1383,25 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (bills, exp) =>
       assert(SAMProblems.lemonadeChange(bills.toArray) === exp)
+
+  test("976. Largest perimeter triangle."):
+    val testcases = Table(
+      ("ints", "exp perimeter"),
+      (List(2, 1, 2), 5),
+      (List(1, 2, 1, 10), 0),
+      (List(3, 2, 3, 4), 10)
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp):
+        SAMProblems.largestPerimeter(ints.toArray)
+
+  test("1232. Check if is a straight line."):
+    val testcases = Table(
+      ("coordinates", "is straight line"),
+      (List((1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7)), true),
+      (List((1, 1), (2, 2), (3, 4), (4, 5), (5, 6), (7, 7)), false)
+    )
+    forAll(testcases): (coords, isLine) =>
+      val points = coords.map(t => Array(t._1, t._2)).toArray
+      assertResult(isLine):
+        SAMProblems.checkStraightLine(points)

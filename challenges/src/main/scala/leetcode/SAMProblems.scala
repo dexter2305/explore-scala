@@ -4741,3 +4741,88 @@ object SAMProblems:
 
     loop(i = 0, fives = 0, tens = 0, twenties = 0)
   }
+
+  /** 976. Largest perimeter triangle.
+    *
+    * Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, return 0.
+    *
+    * Example 1:
+    *
+    * Input: nums = [2,1,2]
+    * Output: 5
+    * Explanation: You can form a triangle with three side lengths: 1, 2, and 2.
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,2,1,10]
+    * Output: 0
+    * Explanation:
+    * You cannot use the side lengths 1, 1, and 2 to form a triangle.
+    * You cannot use the side lengths 1, 1, and 10 to form a triangle.
+    * You cannot use the side lengths 1, 2, and 10 to form a triangle.
+    * As we cannot use any three side lengths to form a triangle of non-zero area, we return 0.
+    *
+    * Constraints:
+    *
+    *    3 <= nums.length <= 10^4
+    *    1 <= nums[i] <= 10^6
+    *
+    * ### Approach
+    * - Triangle can be formed only when Sum of two sides should be larger than the 3rd side.
+    *   - a + b > c
+    *   - b + c > a
+    *    - c + a > b, where a,b,c > 0.
+    * - Sort reverse.
+    * - Group as 3.
+    * - Apply the condition and evaluate.
+    */
+
+  def largestPerimeter(nums: Array[Int]): Int = {
+    nums.sorted.reverse
+      .sliding(3)
+      .collectFirst:
+        case Array(x, y, z) if x < y + z => x + y + z
+      .getOrElse(0)
+  }
+
+  /** 1232. Check if it is a straight line.
+    *
+    * You are given an array coordinates, coordinates[i] = [x, y], where [x, y] represents the coordinate of a point. Check if these points make a straight line in the XY plane.
+    *
+    * Example: 1
+    *
+    * Input: coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]
+    * Output: true
+    *
+    * Example: 2
+    *
+    * * Input: coordinates = [[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]]
+    * Output: false
+    *
+    * Constraints:
+    *
+    *    2 <= coordinates.length <= 1000
+    *    coordinates[i].length == 2
+    *    -10^4 <= coordinates[i][0], coordinates[i][1] <= 10^4
+    *    coordinates contains no duplicate point.
+    *
+    * ### Approach
+    *
+    * - Every point in the line have the same slope.
+    * - y2-y1 = m * (x2 - x1), m is the slope
+    * - possible to calculate m at every point. Line will have same m.
+    * - possible to run into (x2-x1) as 0. To avoid, do not eval slope.
+    * - let (y2-y1) / (x2-x1) = m
+    * - for every point this should be true.
+    * - this means
+    *  => (y2-y1) / (x2-x1) = m = (yn-y1) / (xn-x1)
+    *  => (y2-y1)(xn-x1) == (yn-y1)(x2-x1)
+    */
+  def checkStraightLine(coordinates: Array[Array[Int]]): Boolean = {
+    val (x1, y1) = (coordinates.head(0), coordinates.head(1))
+    val (x2, y2) = (coordinates.tail.head(0), coordinates.tail.head(1))
+    val (dx, dy) = (x2 - x1, y2 - y1)
+    coordinates.forall:
+      case Array(x, y) =>
+        (x - x1) * dy == (y - y1) * dx
+  }
