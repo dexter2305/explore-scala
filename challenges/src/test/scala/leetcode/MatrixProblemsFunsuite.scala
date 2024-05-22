@@ -51,3 +51,13 @@ class MatrixProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       val matrixArray = matrix.map(_.toArray).toArray
       MatrixProblems.setZeroes(matrixArray)
       assertResult(expected)(matrixArray.map(_.toList).toList)
+
+  test("498. Diagonal matrix."):
+    val testcases = Table(
+      ("matrix", "expected traversal order"),
+      (List(List(1, 2, 3), List(4, 5, 6), List(7, 8, 9)), List(1, 2, 4, 7, 5, 3, 6, 8, 9)),
+      (List(List(1, 2), List(3, 4)), List(1, 2, 3, 4))
+    )
+    forAll(testcases): (matrix, exp) =>
+      assertResult(exp):
+        MatrixProblems.findDiagonalOrder(matrix.map(_.toArray).toArray).toList

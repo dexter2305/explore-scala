@@ -160,8 +160,50 @@ object MatrixProblems:
     // println(s)
   }
 
-  @main
-  def test(): Unit = {
-    val matrix = List(List(1, 1, 1), List(1, 0, 1), List(1, 1, 1))
-    setZeroes(matrix.map(_.toArray).toArray)
+  /** 498. Diagonal matrix.
+    *
+    * Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.
+    * Example 1:
+    *
+    * Input: mat = [[1,2,3],[4,5,6],[7,8,9]]
+    * Output: [1,2,4,7,5,3,6,8,9]
+    *
+    * Example 2:
+    *
+    * Input: mat = [[1,2],[3,4]]
+    * Output: [1,2,3,4]
+    *
+    * Constraints:
+    *
+    *    m == mat.length
+    *    n == mat[i].length
+    *    1 <= m, n <= 10^4
+    *    1 <= m * n <= 10^4
+    *    -10^5 <= mat[i][j] <= 10^5
+    *
+    * ### Approach
+    * - Collect the diagonals first.
+    * - How to collect diagonals? Sum (x, y) indices are constant for all elements in a diagonal.
+    * - In this problem, just reverse the diagonal where there index sum % 2 == 0
+    */
+
+  def findDiagonalOrder(matrix: Array[Array[Int]]): Array[Int] = {
+    val indexSumMap: Seq[(Int, Int)] =
+      for
+        r <- matrix.indices
+        c <- matrix(r).indices
+      yield (r + c -> matrix(r)(c))
+
+    val indexSumMapWithElements: Map[Int, Seq[Int]] =
+      indexSumMap
+        .groupBy:
+          case (rcSum, v) => rcSum
+        .map(t => (t._1 -> t._2.map(_._2)))
+
+    val result: Array[Int] =
+      indexSumMapWithElements
+        .flatMap:
+          case (index, elements) => if index % 2 == 0 then elements.reverse else elements
+        .toArray
+    result
   }

@@ -1405,3 +1405,80 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
       val points = coords.map(t => Array(t._1, t._2)).toArray
       assertResult(isLine):
         SAMProblems.checkStraightLine(points)
+
+  test("1588. Sum of all odd length subarrays."):
+    val testcases = Table(
+      ("ints", "expected"),
+      (List(1, 4, 2, 5, 3), 58),
+      (List(1, 2), 3),
+      (List(10, 11, 12), 66)
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp):
+        SAMProblems.sumOddLengthSubarrays(ints.toArray)
+
+  test("1534. Count good triplets."):
+    val testcases = Table(
+      ("array", "a", "b", "c", "expected"),
+      (List(3, 0, 1, 1, 9, 7), 7, 2, 3, 4)
+      // (List(1, 1, 2, 2, 3), 0, 0, 1, 0)
+    )
+
+    forAll(testcases): (ints, a, b, c, expected) =>
+      assertResult(expected)(SAMProblems.countGoodTriplets(ints.toArray, a, b, c))
+
+  test("2956. Find common elements between two arrays."):
+    val testcases = Table(
+      ("array-1", "array-2", "exp"),
+      (List(4, 3, 2, 3, 1), List(2, 2, 5, 2, 3, 6), List(3, 4)),
+      (List(3, 4, 2, 3), List(1, 5), List(0, 0))
+    )
+    forAll(testcases): (a1, a2, exp) =>
+      assertResult(exp):
+        SAMProblems.findIntersectionValues(a1.toArray, a2.toArray).toList
+
+  test("2006. Count number of pairs with absolute difference k."):
+    val testcases = Table(
+      ("ints", "k", "exp"),
+      (List(1, 2, 2, 1), 1, 4),
+      (List(1, 3), 3, 0),
+      (List(3, 2, 1, 5, 4), 2, 3)
+    )
+    forAll(testcases): (ints, k, exp) =>
+      assertResult(exp):
+        SAMProblems.countKDifference(ints.toArray, k)
+
+  test("1464. Maximum product of two elements in an array."):
+    val testcases = Table(
+      ("int", "exp"),
+      (List(3, 4, 5, 2), 12),
+      (List(1, 5, 4, 5), 20)
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp):
+        SAMProblems.maxProduct(ints.toArray)
+
+  test("1. Two Sum."):
+    val testcases = Table(
+      ("integers", "target", "expected"),
+      (List(2, 7, 11, 15), 9, List(0, 1)),
+      (List(3, 2, 4), 6, List(1, 2)),
+      (List(3, 3), 6, List(0, 1))
+    )
+    forAll(testcases): (ints, target, exp) =>
+      assert(SAMProblems.twoSum(ints.toArray, target).toList === exp)
+
+  test("15. 3Sum."):
+    val testcases = Table(
+      ("ints", "exp"),
+      (List(-1,0,1,2,-1,-4), List(List(-1, -1, 2), List(-1, 0, 1))),
+      (List(0,0,0), List(List(0,0,0))),
+      (List(0,1,1), List.empty)
+    )
+    forAll(testcases): (ints, exp) =>
+      val actuals  = SAMProblems.threeSum(ints.toArray).toList     
+      assert(
+        exp.forall(actuals.contains(_))
+      )
+
+    

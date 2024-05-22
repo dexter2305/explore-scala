@@ -4826,3 +4826,297 @@ object SAMProblems:
       case Array(x, y) =>
         (x - x1) * dy == (y - y1) * dx
   }
+
+  /** 1588.  Sum of all odd length subarrays.
+    *
+    * Given an array of positive integers arr, return the sum of all possible odd-length subarrays of arr.
+    *
+    * A subarray is a contiguous subsequence of the array.
+    *
+    * Example 1:
+    *
+    * Input: arr = [1,4,2,5,3]
+    * Output: 58
+    * Explanation: The odd-length subarrays of arr and their sums are:
+    * [1] = 1
+    * [4] = 4
+    * [2] = 2
+    * [5] = 5
+    * [3] = 3
+    * [1,4,2] = 7
+    * [4,2,5] = 11
+    * [2,5,3] = 10
+    * [1,4,2,5,3] = 15
+    * If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58
+    *
+    * Example 2:
+    *
+    * Input: arr = [1,2]
+    * Output: 3
+    * Explanation: There are only 2 subarrays of odd length, [1] and [2]. Their sum is 3.
+    *
+    * Example 3:
+    *
+    * Input: arr = [10,11,12]
+    * Output: 66
+    *
+    * Constraints:
+    *
+    *    1 <= arr.length <= 100
+    *    1 <= arr[i] <= 1000
+    */
+  def sumOddLengthSubarrays(arr: Array[Int]): Int = {
+    (1 to arr.length by 2)
+      .flatMap(arr.sliding(_, 1))
+      .flatten
+      .sum
+  }
+
+  /** 1534. Count good triplets.
+    *
+    * Given an array of integers arr, and three integers a, b and c. You need to find the number of good triplets.
+    *
+    * A triplet (arr[i], arr[j], arr[k]) is good if the following conditions are true:
+    *
+    *    0 <= i < j < k < arr.length
+    *    |arr[i] - arr[j]| <= a
+    *    |arr[j] - arr[k]| <= b
+    *    |arr[i] - arr[k]| <= c
+    *
+    * Where |x| denotes the absolute value of x.
+    *
+    * Return the number of good triplets.
+    *
+    * Example 1:
+    *
+    * Input: arr = [3,0,1,1,9,7], a = 7, b = 2, c = 3
+    * Output: 4
+    * Explanation: There are 4 good triplets: [(3,0,1), (3,0,1), (3,1,1), (0,1,1)].
+    *
+    * Example 2:
+    *
+    * Input: arr = [1,1,2,2,3], a = 0, b = 0, c = 1
+    * Output: 0
+    * Explanation: No triplet satisfies all conditions.
+    *
+    * Constraints:
+    *
+    *    3 <= arr.length <= 100
+    *    0 <= arr[i] <= 1000
+    *    0 <= a, b, c <= 1000
+    */
+  def countGoodTriplets(arr: Array[Int], a: Int, b: Int, c: Int): Int = {
+    val n = arr.length
+    (for {
+      i <- 0 until n
+      j <- i + 1 until n
+      k <- j + 1 until n
+      if math.abs(arr(i) - arr(j)) <= a &&
+        math.abs(arr(j) - arr(k)) <= b &&
+        math.abs(arr(i) - arr(k)) <= c
+    } yield 1).sum
+  }
+
+  /** 2956. Find common elements between two arrays.
+    *
+    * You are given two 0-indexed integer arrays nums1 and nums2 of sizes n and m, respectively.
+    *
+    * Consider calculating the following values:
+    *
+    *    The number of indices i such that 0 <= i < n and nums1[i] occurs at least once in nums2.
+    *    The number of indices i such that 0 <= i < m and nums2[i] occurs at least once in nums1.
+    *
+    * Return an integer array answer of size 2 containing the two values in the above order.
+    *
+    * Example 1:
+    *
+    * Input: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]
+    * Output: [3,4]
+    * Explanation: We calculate the values as follows:
+    * - The elements at indices 1, 2, and 3 in nums1 occur at least once in nums2. So the first value is 3.
+    * - The elements at indices 0, 1, 3, and 4 in nums2 occur at least once in nums1. So the second value is 4.
+    *
+    * Example 2:
+    *
+    * Input: nums1 = [3,4,2,3], nums2 = [1,5]
+    * Output: [0,0]
+    * Explanation: There are no common elements between the two arrays, so the two values will be 0.
+    *
+    * Constraints:
+    *
+    *    n == nums1.length
+    *    m == nums2.length
+    *    1 <= n, m <= 100
+    *    1 <= nums1[i], nums2[i] <= 100
+    */
+  def findIntersectionValues(nums1: Array[Int], nums2: Array[Int]): Array[Int] = {
+    Array(
+      nums1.count(nums2.contains(_)),
+      nums2.count(nums1.contains(_))
+    )
+  }
+
+  /** 2006. Count the number of pairs with absolute difference k.
+    *
+    * Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
+    *
+    * The value of |x| is defined as:
+    *
+    *    x if x >= 0.
+    *    -x if x < 0.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,2,1], k = 1
+    * Output: 4
+    * Explanation: The pairs with an absolute difference of 1 are:
+    * - [1,2,2,1]
+    * - [1,2,2,1]
+    * - [1,2,2,1]
+    * - [1,2,2,1]
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,3], k = 3
+    * Output: 0
+    * Explanation: There are no pairs with an absolute difference of 3.
+    *
+    * Example 3:
+    *
+    * Input: nums = [3,2,1,5,4], k = 2
+    * Output: 3
+    * Explanation: The pairs with an absolute difference of 2 are:
+    * - [3,2,1,5,4]
+    * - [3,2,1,5,4]
+    * - [3,2,1,5,4]
+    *
+    * Constraints:
+    *
+    *    1 <= nums.length <= 200
+    *    1 <= nums[i] <= 100
+    *    1 <= k <= 99
+    */
+  def countKDifference(nums: Array[Int], k: Int): Int = {
+    (for
+      i <- nums.indices
+      j <- 0 until i
+    yield if math.abs(nums(i) - nums(j)) == k then 1 else 0).sum
+
+  }
+
+  /** 1464. Maximum product of two elements in an array.
+    *
+    * Given the array of integers nums, you will choose two different indices i and j of that array. Return the maximum value of (nums[i]-1)*(nums[j]-1).
+    *
+    * Example 1:
+    *
+    * Input: nums = [3,4,5,2]
+    * Output: 12
+    * Explanation: If you choose the indices i=1 and j=2 (indexed from 0), you will get the maximum value, that is, (nums[1]-1)*(nums[2]-1) = (4-1)*(5-1) = 3*4 = 12.
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,5,4,5]
+    * Output: 16
+    * Explanation: Choosing the indices i=1 and j=3 (indexed from 0), you will get the maximum value of (5-1)*(5-1) = 16.
+    *
+    * Example 3:
+    *
+    * Input: nums = [3,7]
+    * Output: 12
+    *
+    * Constraints:
+    *
+    *    2 <= nums.length <= 500
+    *    1 <= nums[i] <= 10^3
+    */
+  def maxProduct(nums: Array[Int]): Int = {
+    ???
+  }
+
+  /** 1. Two sum.
+    * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+    * You may assume that each input would have exactly one solution, and you may not use the same element twice.
+    * You can return the answer in any order.
+    *
+    * Example 1:
+    *
+    * Input: nums = [2,7,11,15], target = 9
+    * Output: [0,1]
+    * Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+    *
+    * Example 2:
+    *
+    * Input: nums = [3,2,4], target = 6
+    * Output: [1,2]
+    *
+    * Example 3:
+    *
+    * Input: nums = [3,3], target = 6
+    * Output: [0,1]
+    *
+    * Constraints:
+    *
+    *    - 2 <= nums.length <= 10^4
+    *    - -109 <= nums[i] <= 10^9
+    *    - -109 <= target <= 10^9
+    *    - Only one valid answer exists.
+    */
+
+  def twoSum(nums: Array[Int], target: Int): Array[Int] = {
+
+    @scala.annotation.tailrec
+    def traverse(i: Int, state: Map[Int, Int]): Array[Int] =
+      if state.contains(target - nums(i)) then Array(state(target - nums(i)), i)
+      else traverse(i + 1, state + (nums(i) -> i))
+
+    traverse(0, Map.empty[Int, Int])
+
+  }
+
+  /** 15. 3Sum.
+    * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+    * Notice that the solution set must not contain duplicate triplets.
+    *
+    * Example 1:
+    *
+    * Input: nums = [-1,0,1,2,-1,-4]
+    * Output: [[-1,-1,2],[-1,0,1]]
+    * Explanation:
+    * nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+    * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+    * nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+    * The distinct triplets are [-1,0,1] and [-1,-1,2].
+    * Notice that the order of the output and the order of the triplets does not matter.
+    *
+    * Example 2:
+    *
+    * Input: nums = [0,1,1]
+    * Output: []
+    * Explanation: The only possible triplet does not sum up to 0.
+    *
+    * Example 3:
+    *
+    * Input: nums = [0,0,0]
+    * Output: [[0,0,0]]
+    * Explanation: The only possible triplet sums up to 0.
+    *
+    * Constraints:
+    *
+    *    - 3 <= nums.length <= 3000
+    *    - -10^5 <= nums[i] <= 10^5
+    */
+
+  def threeSum(nums: Array[Int]): List[List[Int]] = {
+    val map  = nums.zipWithIndex.toMap
+    (for
+      i <- LazyList.range(0, nums.length - 2)
+      j <- LazyList.range(i + 1, nums.length - 1)
+      iplusj = nums(i) + nums(j)
+      l = List(nums(i), nums(j), -iplusj).sorted
+      if map.contains(-iplusj) && map(-iplusj) != i && map(-iplusj) != j
+    yield l)
+    .distinct
+    .toList
+    
+  }

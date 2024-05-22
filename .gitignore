@@ -25,3 +25,6 @@
 .metals
 out
 .projectile
+
+# vscode
+.vscode
