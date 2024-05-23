@@ -1471,14 +1471,44 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
   test("15. 3Sum."):
     val testcases = Table(
       ("ints", "exp"),
-      (List(-1,0,1,2,-1,-4), List(List(-1, -1, 2), List(-1, 0, 1))),
-      (List(0,0,0), List(List(0,0,0))),
-      (List(0,1,1), List.empty)
+      (List(-1, 0, 1, 2, -1, -4), List(List(-1, -1, 2), List(-1, 0, 1))),
+      (List(0, 0, 0), List(List(0, 0, 0))),
+      (List(0, 1, 1), List.empty)
     )
     forAll(testcases): (ints, exp) =>
-      val actuals  = SAMProblems.threeSum(ints.toArray).toList     
+      val actuals = SAMProblems.threeSum(ints.toArray).toList
       assert(
         exp.forall(actuals.contains(_))
       )
 
-    
+  test("27. Remove element."):
+    val testcases = Table(
+      ("ints", "val", "expected array", "expected size"),
+      (List(3, 2, 2, 3), 3, List(2, 2), 2),
+      (List(0, 1, 2, 2, 3, 0, 4, 2), 2, List(0, 1, 4, 0, 3), 5),
+      (List(1, 2, 3), 10, List(1, 2, 3), 3)
+    )
+    forAll(testcases): (ints, value, expArray, expSize) =>
+      val actualSize = SAMProblems.removeElement(ints.toArray, value)
+      assertResult(expSize)(actualSize)
+      // assertResult(expArray)(ints.take(actualSize).toList)
+
+  test("26. Remove duplicates from sorted array."):
+    val testcases = Table(
+      ("int", "exp"),
+      (List(1, 1, 2), 2),
+      (List(0, 0, 1, 1, 1, 2, 2, 3, 3, 4), 5)
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp):
+        SAMProblems.removeDuplicates(ints.toArray)
+
+  test("136. Single number"):
+    val testcases = Table(
+      ("ints", "exp"),
+      (List(2,2,1), 1),
+      (List(4,1,2,1,2), 4),
+      (List(1), 1)
+    )
+    forAll(testcases): (ints, exp) =>
+      assertResult(exp)(SAMProblems.singleNumber(ints.toArray))
