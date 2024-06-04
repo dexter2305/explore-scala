@@ -1512,3 +1512,23 @@ class SAMProblemsFunsuite extends AnyFunSuite with ScalaCheckPropertyChecks:
     )
     forAll(testcases): (ints, exp) =>
       assertResult(exp)(SAMProblems.singleNumber(ints.toArray))
+
+  test("217. Contains duplicate."):
+    val testcases = Table(
+      ("ints", "exp"),
+      (List(1,2,3,1), true), 
+      (List(1,2,3,4), false),
+    )
+    forAll(testcases): (ints, exp) => 
+      assertResult(exp)(SAMProblems.containsDuplicate(ints.toArray))
+
+  test("409. Longest palindrome"):
+    val testcases = Table(
+      ("string", "expected"),
+      ("abccccdd", 7),
+      ("a", 1),
+      ("aabbccc", 7),
+      ("abcabd", 5)
+    )
+    forAll(testcases): (string, expected) => 
+      assertResult(expected)(SAMProblems.longestPalindrome(string))

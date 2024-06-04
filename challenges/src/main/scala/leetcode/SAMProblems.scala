@@ -5266,3 +5266,62 @@ object SAMProblems:
   def singleNumber(nums: Array[Int]): Int = {
     nums.reduce(_ ^ _)
   }
+
+  /**  217. Contains duplicate.
+    *
+    * Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+    *
+    * Example 1:
+    *
+    * Input: nums = [1,2,3,1]
+    * Output: true
+    *
+    * Example 2:
+    *
+    * Input: nums = [1,2,3,4]
+    * Output: false
+    *
+    * Example 3:
+    *
+    * Input: nums = [1,1,1,3,3,4,3,2,4,2]
+    * Output: true
+    *
+    * Constraints:
+    *
+    *    - 1 <= nums.length <= 10^5
+    *    -109 <= nums[i] <= 10^9
+    */
+
+  def containsDuplicate(nums: Array[Int]): Boolean = {
+    nums.size != nums.distinct.size
+  }
+
+  /** 409. Longest Palindrome
+    *
+    * Given a string s which consists of lowercase or uppercase letters, return the length of the longest
+    * palindrome
+    * that can be built with those letters.
+    *
+    * Letters are case sensitive, for example, "Aa" is not considered a palindrome.
+    *
+    * Example 1:
+    *
+    * Input: s = "abccccdd"
+    * Output: 7
+    * Explanation: One longest palindrome that can be built is "dccaccd", whose length is 7.
+    * Example 2:
+    *
+    * Input: s = "a"
+    * Output: 1
+    * Explanation: The longest palindrome that can be built is "a", whose length is 1.
+    *
+    * Constraints:
+    *
+    * 1 <= s.length <= 2000
+    * s consists of lowercase and/or uppercase English letters only.
+    */
+  def longestPalindrome(s: String): Int = {
+    s.groupBy(identity).view.values.map{_.size}.partition(_ % 2 == 0) match 
+        case (even,odd) if odd.isEmpty => even.sum
+        case (even,odd) => odd.sum-odd.size+1 + even.sum
+  }
