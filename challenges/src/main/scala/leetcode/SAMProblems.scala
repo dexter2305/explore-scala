@@ -5321,7 +5321,11 @@ object SAMProblems:
     * s consists of lowercase and/or uppercase English letters only.
     */
   def longestPalindrome(s: String): Int = {
-    s.groupBy(identity).view.values.map{_.size}.partition(_ % 2 == 0) match 
-        case (even,odd) if odd.isEmpty => even.sum
-        case (even,odd) => odd.sum-odd.size+1 + even.sum
+    s.groupBy(identity)
+      .view
+      .values
+      .map(_.size)
+      .partition(_ % 2 == 0) match
+      case (even, odd) if odd.isEmpty => even.sum
+      case (even, odd)                => odd.sum - odd.size + 1 + even.sum
   }
